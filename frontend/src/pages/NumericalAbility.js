@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 const NumericalAbility = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [quizStarted, setQuizStarted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(60);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (quizStarted && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (timeLeft === 0) {
+      handleNext();
+    }
+  }, [quizStarted, timeLeft]);
 
   const startQuiz = async () => {
     setLoading(true);
@@ -36,14 +50,19 @@ const NumericalAbility = ({ setScores }) => {
   };
 
   const handleNext = () => {
-    let calculatedScore = 0;
-    questions.forEach((question, index) => {
-      if (userAnswers[index] === question.correctAnswer) {
-        calculatedScore += 1;
-      }
-    });
-    setScores(prevScores => ({ ...prevScores, numerical: calculatedScore }));
-    navigate('/verbal-ability');
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setTimeLeft(60);
+    } else {
+      let calculatedScore = 0;
+      questions.forEach((question, index) => {
+        if (userAnswers[index] === question.correctAnswer) {
+          calculatedScore += 1;
+        }
+      });
+      setScores(prevScores => ({ ...prevScores, numerical: calculatedScore }));
+      navigate('/verbal-ability');
+    }
   };
 
   if (!quizStarted) {
@@ -56,7 +75,7 @@ const NumericalAbility = ({ setScores }) => {
             className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
             disabled={loading}
           >
-            {loading ? 'Loading...' : 'Start Quiz'}
+            {loading ? <ClipLoader color="#ffffff" size={24} /> : 'Start Quiz'}
           </button>
         </div>
       </div>
@@ -67,26 +86,27 @@ const NumericalAbility = ({ setScores }) => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center mb-6">Numerical Ability Test</h1>
-        {questions.map((question, index) => (
-          <div key={index} className="mb-4 p-4 bg-blue-50 rounded-lg shadow-md">
-            <p className="mb-2 font-semibold">{question.question}</p>
-            {question.options.map((option, optionIndex) => (
-              <div key={optionIndex} className="mb-1">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name={`question-${index}`}
-                    value={option}
-                    checked={userAnswers[index] === option}
-                    onChange={() => handleAnswerChange(index, option)}
-                    className="form-radio"
-                  />
-                  <span className="ml-2">{option}</span>
-                </label>
-              </div>
-            ))}
-          </div>
-        ))}
+        <div className="mb-4 p-4 bg-purple-500 text-white rounded-lg shadow-md">
+          <p className="mb-2 font-semibold">{questions[currentQuestionIndex].question}</p>
+          {questions[currentQuestionIndex].options.map((option, optionIndex) => (
+            <div key={optionIndex} className="mb-1">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name={`question-${currentQuestionIndex}`}
+                  value={option}
+                  checked={userAnswers[currentQuestionIndex] === option}
+                  onChange={() => handleAnswerChange(currentQuestionIndex, option)}
+                  className="form-radio"
+                />
+                <span className="ml-2">{option}</span>
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mb-4">
+          <p className="text-xl font-bold">Time Left: {timeLeft}s</p>
+        </div>
         <button
           onClick={handleNext}
           className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"

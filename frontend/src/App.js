@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
-import Signup from './pages/Signup';
+import Signup from './pages/SignupPage';
 import StudentDashboard from './pages/StudentDashboard';
 import Chatbot from './pages/Chatbot';
 import AptitudeLandingPage from './pages/AptitudeLanding';

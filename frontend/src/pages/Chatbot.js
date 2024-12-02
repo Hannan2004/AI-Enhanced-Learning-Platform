@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { FaEllipsisV, FaTrashAlt, FaShareAlt, FaEdit } from 'react-icons/fa';
+import AiAvatar from '../assets/images/AI-avatar.png'; // Adjust the path as necessary
+import UserAvatar from '../assets/images/USER-AVATAR.png'; // Adjust the path as necessary
 
 const ChatBot = () => {
   const [input, setInput] = useState('');
@@ -33,7 +35,7 @@ const ChatBot = () => {
     { keyword: 'blockchain', display: 'Blockchain' },
   ];
 
-  const preTypedMessages = ['Hello!', 'Can you help me with my career?', 'What is MERN stack?', 'Tell me about frontend development'];
+  const preTypedMessages = ['Hello!', 'Can you help me with my career?', 'I am a litte confused between Science or Commerce?', 'Tell me about the career opportunities in Computer Science.'];
 
   const extractTitle = (input) => {
     for (const { keyword, display } of keywordDictionary) {
@@ -220,6 +222,8 @@ const ChatBot = () => {
     },
     message: {
       marginBottom: '1rem',
+      display: 'flex',
+      alignItems: 'flex-start',
     },
     userMessage: {
       backgroundColor: 'rgba(0, 123, 255, 0.1)',
@@ -227,6 +231,10 @@ const ChatBot = () => {
       borderRadius: '10px',
       textAlign: 'right',
       color: '#007bff',
+      flex: '1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
     },
     geminiMessage: {
       backgroundColor: 'rgba(40, 167, 69, 0.1)',
@@ -234,6 +242,21 @@ const ChatBot = () => {
       borderRadius: '10px',
       textAlign: 'left',
       color: '#28a745',
+      flex: '1',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    avatar: {
+      width: '40px',
+      height: '40px',
+      borderRadius: '50%',
+      marginRight: '10px',
+    },
+    userAvatar: {
+      width: '40px',
+      height: '40px',
+      borderRadius: '50%',
+      marginLeft: '10px',
     },
     loading: {
       display: 'flex',
@@ -316,11 +339,15 @@ const ChatBot = () => {
             <div key={index} style={styles.message}>
               {msg.user ? (
                 <div style={styles.userMessage}>
-                  <strong>You:</strong> {msg.user}
+                  <div>{msg.user}</div>
+                  <img src={UserAvatar} alt="User Avatar" style={styles.userAvatar} />
                 </div>
               ) : (
                 <div style={styles.geminiMessage}>
-                  <strong>Gemini:</strong> <ReactMarkdown>{msg.gemini}</ReactMarkdown>
+                  <img src={AiAvatar} alt="AI Avatar" style={styles.avatar} />
+                  <div>
+                    <strong>Gemini:</strong> <ReactMarkdown>{msg.gemini}</ReactMarkdown>
+                  </div>
                 </div>
               )}
             </div>
