@@ -28,7 +28,7 @@ const User = mongoose.model('User', UserSchema);
  * Retrieves user's category and field from MongoDB
  * @param {string} userId - The unique identifier for the user
  * @returns {Promise<{category: string, field: string|null}>} User's category and field
- */
+
 async function retrieveUserCategoryAndField(userId) {
   try {
     // Find user by ID and select only category and field
