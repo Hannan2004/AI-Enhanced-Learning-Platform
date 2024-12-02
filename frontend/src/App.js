@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
-import Signup from './pages/Signup';
 import StudentDashboard from './pages/StudentDashboard';
 import Chatbot from './pages/Chatbot';
 import AptitudeLandingPage from './pages/AptitudeLanding';
@@ -11,6 +10,9 @@ import VerbalAbility from './pages/VerbalAbility';
 import LogicalReasoning from './pages/LogicalReasoning';
 import Results from './components/Results';
 import RoadMap from './pages/RoadMap';
+import CareerPredictionForm from './pages/Forms';
+import AfterLogin from './pages/AfterLogin';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -22,7 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="/chatbot" element={<Chatbot />} /> 
             <Route path="/student/dashboard" element={<StudentDashboard />} /> 
             <Route path="/numerical-ability" element={<NumericalAbility setScores={setScores} />} />
@@ -32,7 +34,8 @@ function App() {
             <Route path="/aptitude" element={<AptitudeLandingPage />} />          
             <Route path="/student/dashboard" element={<StudentDashboard />} />  
             <Route path="/roadmap" element={<RoadMap/>}/>   
-            <Route path="/studentorprofessional" element={<RoadMap/>}/>       
+            <Route path="/studentorprofessional" element={<AfterLogin/>}/>   
+            <Route path="/forms" element={<CareerPredictionForm/>}/>    
           </Routes>
         </main>
       </div>
