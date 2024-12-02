@@ -1,2204 +1,285 @@
 {
     "careers": [
-        {
-            "id": 1,
-            "title": "Career 1",
-            "description": "Description of Career 1. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 1A",
-                "Skill 1B",
-                "Skill 1C"
-            ],
-            "education": "Degree or certification required for Career 1."
-        },
-        {
-            "id": 2,
-            "title": "Career 2",
-            "description": "Description of Career 2. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 2A",
-                "Skill 2B",
-                "Skill 2C"
-            ],
-            "education": "Degree or certification required for Career 2."
-        },
-        {
-            "id": 3,
-            "title": "Career 3",
-            "description": "Description of Career 3. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 3A",
-                "Skill 3B",
-                "Skill 3C"
-            ],
-            "education": "Degree or certification required for Career 3."
-        },
-        {
-            "id": 4,
-            "title": "Career 4",
-            "description": "Description of Career 4. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 4A",
-                "Skill 4B",
-                "Skill 4C"
-            ],
-            "education": "Degree or certification required for Career 4."
-        },
-        {
-            "id": 5,
-            "title": "Career 5",
-            "description": "Description of Career 5. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 5A",
-                "Skill 5B",
-                "Skill 5C"
-            ],
-            "education": "Degree or certification required for Career 5."
-        },
-        {
-            "id": 6,
-            "title": "Career 6",
-            "description": "Description of Career 6. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 6A",
-                "Skill 6B",
-                "Skill 6C"
-            ],
-            "education": "Degree or certification required for Career 6."
-        },
-        {
-            "id": 7,
-            "title": "Career 7",
-            "description": "Description of Career 7. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 7A",
-                "Skill 7B",
-                "Skill 7C"
-            ],
-            "education": "Degree or certification required for Career 7."
-        },
-        {
-            "id": 8,
-            "title": "Career 8",
-            "description": "Description of Career 8. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 8A",
-                "Skill 8B",
-                "Skill 8C"
-            ],
-            "education": "Degree or certification required for Career 8."
-        },
-        {
-            "id": 9,
-            "title": "Career 9",
-            "description": "Description of Career 9. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 9A",
-                "Skill 9B",
-                "Skill 9C"
-            ],
-            "education": "Degree or certification required for Career 9."
-        },
-        {
-            "id": 10,
-            "title": "Career 10",
-            "description": "Description of Career 10. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 10A",
-                "Skill 10B",
-                "Skill 10C"
-            ],
-            "education": "Degree or certification required for Career 10."
-        },
-        {
-            "id": 11,
-            "title": "Career 11",
-            "description": "Description of Career 11. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 11A",
-                "Skill 11B",
-                "Skill 11C"
-            ],
-            "education": "Degree or certification required for Career 11."
-        },
-        {
-            "id": 12,
-            "title": "Career 12",
-            "description": "Description of Career 12. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 12A",
-                "Skill 12B",
-                "Skill 12C"
-            ],
-            "education": "Degree or certification required for Career 12."
-        },
-        {
-            "id": 13,
-            "title": "Career 13",
-            "description": "Description of Career 13. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 13A",
-                "Skill 13B",
-                "Skill 13C"
-            ],
-            "education": "Degree or certification required for Career 13."
-        },
-        {
-            "id": 14,
-            "title": "Career 14",
-            "description": "Description of Career 14. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 14A",
-                "Skill 14B",
-                "Skill 14C"
-            ],
-            "education": "Degree or certification required for Career 14."
-        },
-        {
-            "id": 15,
-            "title": "Career 15",
-            "description": "Description of Career 15. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 15A",
-                "Skill 15B",
-                "Skill 15C"
-            ],
-            "education": "Degree or certification required for Career 15."
-        },
-        {
-            "id": 16,
-            "title": "Career 16",
-            "description": "Description of Career 16. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 16A",
-                "Skill 16B",
-                "Skill 16C"
-            ],
-            "education": "Degree or certification required for Career 16."
-        },
-        {
-            "id": 17,
-            "title": "Career 17",
-            "description": "Description of Career 17. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 17A",
-                "Skill 17B",
-                "Skill 17C"
-            ],
-            "education": "Degree or certification required for Career 17."
-        },
-        {
-            "id": 18,
-            "title": "Career 18",
-            "description": "Description of Career 18. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 18A",
-                "Skill 18B",
-                "Skill 18C"
-            ],
-            "education": "Degree or certification required for Career 18."
-        },
-        {
-            "id": 19,
-            "title": "Career 19",
-            "description": "Description of Career 19. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 19A",
-                "Skill 19B",
-                "Skill 19C"
-            ],
-            "education": "Degree or certification required for Career 19."
-        },
-        {
-            "id": 20,
-            "title": "Career 20",
-            "description": "Description of Career 20. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 20A",
-                "Skill 20B",
-                "Skill 20C"
-            ],
-            "education": "Degree or certification required for Career 20."
-        },
-        {
-            "id": 21,
-            "title": "Career 21",
-            "description": "Description of Career 21. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 21A",
-                "Skill 21B",
-                "Skill 21C"
-            ],
-            "education": "Degree or certification required for Career 21."
-        },
-        {
-            "id": 22,
-            "title": "Career 22",
-            "description": "Description of Career 22. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 22A",
-                "Skill 22B",
-                "Skill 22C"
-            ],
-            "education": "Degree or certification required for Career 22."
-        },
-        {
-            "id": 23,
-            "title": "Career 23",
-            "description": "Description of Career 23. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 23A",
-                "Skill 23B",
-                "Skill 23C"
-            ],
-            "education": "Degree or certification required for Career 23."
-        },
-        {
-            "id": 24,
-            "title": "Career 24",
-            "description": "Description of Career 24. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 24A",
-                "Skill 24B",
-                "Skill 24C"
-            ],
-            "education": "Degree or certification required for Career 24."
-        },
-        {
-            "id": 25,
-            "title": "Career 25",
-            "description": "Description of Career 25. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 25A",
-                "Skill 25B",
-                "Skill 25C"
-            ],
-            "education": "Degree or certification required for Career 25."
-        },
-        {
-            "id": 26,
-            "title": "Career 26",
-            "description": "Description of Career 26. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 26A",
-                "Skill 26B",
-                "Skill 26C"
-            ],
-            "education": "Degree or certification required for Career 26."
-        },
-        {
-            "id": 27,
-            "title": "Career 27",
-            "description": "Description of Career 27. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 27A",
-                "Skill 27B",
-                "Skill 27C"
-            ],
-            "education": "Degree or certification required for Career 27."
-        },
-        {
-            "id": 28,
-            "title": "Career 28",
-            "description": "Description of Career 28. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 28A",
-                "Skill 28B",
-                "Skill 28C"
-            ],
-            "education": "Degree or certification required for Career 28."
-        },
-        {
-            "id": 29,
-            "title": "Career 29",
-            "description": "Description of Career 29. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 29A",
-                "Skill 29B",
-                "Skill 29C"
-            ],
-            "education": "Degree or certification required for Career 29."
-        },
-        {
-            "id": 30,
-            "title": "Career 30",
-            "description": "Description of Career 30. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 30A",
-                "Skill 30B",
-                "Skill 30C"
-            ],
-            "education": "Degree or certification required for Career 30."
-        },
-        {
-            "id": 31,
-            "title": "Career 31",
-            "description": "Description of Career 31. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 31A",
-                "Skill 31B",
-                "Skill 31C"
-            ],
-            "education": "Degree or certification required for Career 31."
-        },
-        {
-            "id": 32,
-            "title": "Career 32",
-            "description": "Description of Career 32. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 32A",
-                "Skill 32B",
-                "Skill 32C"
-            ],
-            "education": "Degree or certification required for Career 32."
-        },
-        {
-            "id": 33,
-            "title": "Career 33",
-            "description": "Description of Career 33. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 33A",
-                "Skill 33B",
-                "Skill 33C"
-            ],
-            "education": "Degree or certification required for Career 33."
-        },
-        {
-            "id": 34,
-            "title": "Career 34",
-            "description": "Description of Career 34. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 34A",
-                "Skill 34B",
-                "Skill 34C"
-            ],
-            "education": "Degree or certification required for Career 34."
-        },
-        {
-            "id": 35,
-            "title": "Career 35",
-            "description": "Description of Career 35. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 35A",
-                "Skill 35B",
-                "Skill 35C"
-            ],
-            "education": "Degree or certification required for Career 35."
-        },
-        {
-            "id": 36,
-            "title": "Career 36",
-            "description": "Description of Career 36. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 36A",
-                "Skill 36B",
-                "Skill 36C"
-            ],
-            "education": "Degree or certification required for Career 36."
-        },
-        {
-            "id": 37,
-            "title": "Career 37",
-            "description": "Description of Career 37. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 37A",
-                "Skill 37B",
-                "Skill 37C"
-            ],
-            "education": "Degree or certification required for Career 37."
-        },
-        {
-            "id": 38,
-            "title": "Career 38",
-            "description": "Description of Career 38. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 38A",
-                "Skill 38B",
-                "Skill 38C"
-            ],
-            "education": "Degree or certification required for Career 38."
-        },
-        {
-            "id": 39,
-            "title": "Career 39",
-            "description": "Description of Career 39. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 39A",
-                "Skill 39B",
-                "Skill 39C"
-            ],
-            "education": "Degree or certification required for Career 39."
-        },
-        {
-            "id": 40,
-            "title": "Career 40",
-            "description": "Description of Career 40. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 40A",
-                "Skill 40B",
-                "Skill 40C"
-            ],
-            "education": "Degree or certification required for Career 40."
-        },
-        {
-            "id": 41,
-            "title": "Career 41",
-            "description": "Description of Career 41. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 41A",
-                "Skill 41B",
-                "Skill 41C"
-            ],
-            "education": "Degree or certification required for Career 41."
-        },
-        {
-            "id": 42,
-            "title": "Career 42",
-            "description": "Description of Career 42. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 42A",
-                "Skill 42B",
-                "Skill 42C"
-            ],
-            "education": "Degree or certification required for Career 42."
-        },
-        {
-            "id": 43,
-            "title": "Career 43",
-            "description": "Description of Career 43. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 43A",
-                "Skill 43B",
-                "Skill 43C"
-            ],
-            "education": "Degree or certification required for Career 43."
-        },
-        {
-            "id": 44,
-            "title": "Career 44",
-            "description": "Description of Career 44. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 44A",
-                "Skill 44B",
-                "Skill 44C"
-            ],
-            "education": "Degree or certification required for Career 44."
-        },
-        {
-            "id": 45,
-            "title": "Career 45",
-            "description": "Description of Career 45. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 45A",
-                "Skill 45B",
-                "Skill 45C"
-            ],
-            "education": "Degree or certification required for Career 45."
-        },
-        {
-            "id": 46,
-            "title": "Career 46",
-            "description": "Description of Career 46. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 46A",
-                "Skill 46B",
-                "Skill 46C"
-            ],
-            "education": "Degree or certification required for Career 46."
-        },
-        {
-            "id": 47,
-            "title": "Career 47",
-            "description": "Description of Career 47. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 47A",
-                "Skill 47B",
-                "Skill 47C"
-            ],
-            "education": "Degree or certification required for Career 47."
-        },
-        {
-            "id": 48,
-            "title": "Career 48",
-            "description": "Description of Career 48. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 48A",
-                "Skill 48B",
-                "Skill 48C"
-            ],
-            "education": "Degree or certification required for Career 48."
-        },
-        {
-            "id": 49,
-            "title": "Career 49",
-            "description": "Description of Career 49. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 49A",
-                "Skill 49B",
-                "Skill 49C"
-            ],
-            "education": "Degree or certification required for Career 49."
-        },
-        {
-            "id": 50,
-            "title": "Career 50",
-            "description": "Description of Career 50. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 50A",
-                "Skill 50B",
-                "Skill 50C"
-            ],
-            "education": "Degree or certification required for Career 50."
-        },
-        {
-            "id": 51,
-            "title": "Career 51",
-            "description": "Description of Career 51. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 51A",
-                "Skill 51B",
-                "Skill 51C"
-            ],
-            "education": "Degree or certification required for Career 51."
-        },
-        {
-            "id": 52,
-            "title": "Career 52",
-            "description": "Description of Career 52. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 52A",
-                "Skill 52B",
-                "Skill 52C"
-            ],
-            "education": "Degree or certification required for Career 52."
-        },
-        {
-            "id": 53,
-            "title": "Career 53",
-            "description": "Description of Career 53. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 53A",
-                "Skill 53B",
-                "Skill 53C"
-            ],
-            "education": "Degree or certification required for Career 53."
-        },
-        {
-            "id": 54,
-            "title": "Career 54",
-            "description": "Description of Career 54. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 54A",
-                "Skill 54B",
-                "Skill 54C"
-            ],
-            "education": "Degree or certification required for Career 54."
-        },
-        {
-            "id": 55,
-            "title": "Career 55",
-            "description": "Description of Career 55. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 55A",
-                "Skill 55B",
-                "Skill 55C"
-            ],
-            "education": "Degree or certification required for Career 55."
-        },
-        {
-            "id": 56,
-            "title": "Career 56",
-            "description": "Description of Career 56. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 56A",
-                "Skill 56B",
-                "Skill 56C"
-            ],
-            "education": "Degree or certification required for Career 56."
-        },
-        {
-            "id": 57,
-            "title": "Career 57",
-            "description": "Description of Career 57. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 57A",
-                "Skill 57B",
-                "Skill 57C"
-            ],
-            "education": "Degree or certification required for Career 57."
-        },
-        {
-            "id": 58,
-            "title": "Career 58",
-            "description": "Description of Career 58. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 58A",
-                "Skill 58B",
-                "Skill 58C"
-            ],
-            "education": "Degree or certification required for Career 58."
-        },
-        {
-            "id": 59,
-            "title": "Career 59",
-            "description": "Description of Career 59. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 59A",
-                "Skill 59B",
-                "Skill 59C"
-            ],
-            "education": "Degree or certification required for Career 59."
-        },
-        {
-            "id": 60,
-            "title": "Career 60",
-            "description": "Description of Career 60. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 60A",
-                "Skill 60B",
-                "Skill 60C"
-            ],
-            "education": "Degree or certification required for Career 60."
-        },
-        {
-            "id": 61,
-            "title": "Career 61",
-            "description": "Description of Career 61. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 61A",
-                "Skill 61B",
-                "Skill 61C"
-            ],
-            "education": "Degree or certification required for Career 61."
-        },
-        {
-            "id": 62,
-            "title": "Career 62",
-            "description": "Description of Career 62. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 62A",
-                "Skill 62B",
-                "Skill 62C"
-            ],
-            "education": "Degree or certification required for Career 62."
-        },
-        {
-            "id": 63,
-            "title": "Career 63",
-            "description": "Description of Career 63. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 63A",
-                "Skill 63B",
-                "Skill 63C"
-            ],
-            "education": "Degree or certification required for Career 63."
-        },
-        {
-            "id": 64,
-            "title": "Career 64",
-            "description": "Description of Career 64. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 64A",
-                "Skill 64B",
-                "Skill 64C"
-            ],
-            "education": "Degree or certification required for Career 64."
-        },
-        {
-            "id": 65,
-            "title": "Career 65",
-            "description": "Description of Career 65. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 65A",
-                "Skill 65B",
-                "Skill 65C"
-            ],
-            "education": "Degree or certification required for Career 65."
-        },
-        {
-            "id": 66,
-            "title": "Career 66",
-            "description": "Description of Career 66. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 66A",
-                "Skill 66B",
-                "Skill 66C"
-            ],
-            "education": "Degree or certification required for Career 66."
-        },
-        {
-            "id": 67,
-            "title": "Career 67",
-            "description": "Description of Career 67. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 67A",
-                "Skill 67B",
-                "Skill 67C"
-            ],
-            "education": "Degree or certification required for Career 67."
-        },
-        {
-            "id": 68,
-            "title": "Career 68",
-            "description": "Description of Career 68. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 68A",
-                "Skill 68B",
-                "Skill 68C"
-            ],
-            "education": "Degree or certification required for Career 68."
-        },
-        {
-            "id": 69,
-            "title": "Career 69",
-            "description": "Description of Career 69. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 69A",
-                "Skill 69B",
-                "Skill 69C"
-            ],
-            "education": "Degree or certification required for Career 69."
-        },
-        {
-            "id": 70,
-            "title": "Career 70",
-            "description": "Description of Career 70. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 70A",
-                "Skill 70B",
-                "Skill 70C"
-            ],
-            "education": "Degree or certification required for Career 70."
-        },
-        {
-            "id": 71,
-            "title": "Career 71",
-            "description": "Description of Career 71. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 71A",
-                "Skill 71B",
-                "Skill 71C"
-            ],
-            "education": "Degree or certification required for Career 71."
-        },
-        {
-            "id": 72,
-            "title": "Career 72",
-            "description": "Description of Career 72. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 72A",
-                "Skill 72B",
-                "Skill 72C"
-            ],
-            "education": "Degree or certification required for Career 72."
-        },
-        {
-            "id": 73,
-            "title": "Career 73",
-            "description": "Description of Career 73. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 73A",
-                "Skill 73B",
-                "Skill 73C"
-            ],
-            "education": "Degree or certification required for Career 73."
-        },
-        {
-            "id": 74,
-            "title": "Career 74",
-            "description": "Description of Career 74. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 74A",
-                "Skill 74B",
-                "Skill 74C"
-            ],
-            "education": "Degree or certification required for Career 74."
-        },
-        {
-            "id": 75,
-            "title": "Career 75",
-            "description": "Description of Career 75. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 75A",
-                "Skill 75B",
-                "Skill 75C"
-            ],
-            "education": "Degree or certification required for Career 75."
-        },
-        {
-            "id": 76,
-            "title": "Career 76",
-            "description": "Description of Career 76. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 76A",
-                "Skill 76B",
-                "Skill 76C"
-            ],
-            "education": "Degree or certification required for Career 76."
-        },
-        {
-            "id": 77,
-            "title": "Career 77",
-            "description": "Description of Career 77. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 77A",
-                "Skill 77B",
-                "Skill 77C"
-            ],
-            "education": "Degree or certification required for Career 77."
-        },
-        {
-            "id": 78,
-            "title": "Career 78",
-            "description": "Description of Career 78. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 78A",
-                "Skill 78B",
-                "Skill 78C"
-            ],
-            "education": "Degree or certification required for Career 78."
-        },
-        {
-            "id": 79,
-            "title": "Career 79",
-            "description": "Description of Career 79. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 79A",
-                "Skill 79B",
-                "Skill 79C"
-            ],
-            "education": "Degree or certification required for Career 79."
-        },
-        {
-            "id": 80,
-            "title": "Career 80",
-            "description": "Description of Career 80. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 80A",
-                "Skill 80B",
-                "Skill 80C"
-            ],
-            "education": "Degree or certification required for Career 80."
-        },
-        {
-            "id": 81,
-            "title": "Career 81",
-            "description": "Description of Career 81. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 81A",
-                "Skill 81B",
-                "Skill 81C"
-            ],
-            "education": "Degree or certification required for Career 81."
-        },
-        {
-            "id": 82,
-            "title": "Career 82",
-            "description": "Description of Career 82. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 82A",
-                "Skill 82B",
-                "Skill 82C"
-            ],
-            "education": "Degree or certification required for Career 82."
-        },
-        {
-            "id": 83,
-            "title": "Career 83",
-            "description": "Description of Career 83. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 83A",
-                "Skill 83B",
-                "Skill 83C"
-            ],
-            "education": "Degree or certification required for Career 83."
-        },
-        {
-            "id": 84,
-            "title": "Career 84",
-            "description": "Description of Career 84. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 84A",
-                "Skill 84B",
-                "Skill 84C"
-            ],
-            "education": "Degree or certification required for Career 84."
-        },
-        {
-            "id": 85,
-            "title": "Career 85",
-            "description": "Description of Career 85. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 85A",
-                "Skill 85B",
-                "Skill 85C"
-            ],
-            "education": "Degree or certification required for Career 85."
-        },
-        {
-            "id": 86,
-            "title": "Career 86",
-            "description": "Description of Career 86. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 86A",
-                "Skill 86B",
-                "Skill 86C"
-            ],
-            "education": "Degree or certification required for Career 86."
-        },
-        {
-            "id": 87,
-            "title": "Career 87",
-            "description": "Description of Career 87. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 87A",
-                "Skill 87B",
-                "Skill 87C"
-            ],
-            "education": "Degree or certification required for Career 87."
-        },
-        {
-            "id": 88,
-            "title": "Career 88",
-            "description": "Description of Career 88. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 88A",
-                "Skill 88B",
-                "Skill 88C"
-            ],
-            "education": "Degree or certification required for Career 88."
-        },
-        {
-            "id": 89,
-            "title": "Career 89",
-            "description": "Description of Career 89. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 89A",
-                "Skill 89B",
-                "Skill 89C"
-            ],
-            "education": "Degree or certification required for Career 89."
-        },
-        {
-            "id": 90,
-            "title": "Career 90",
-            "description": "Description of Career 90. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 90A",
-                "Skill 90B",
-                "Skill 90C"
-            ],
-            "education": "Degree or certification required for Career 90."
-        },
-        {
-            "id": 91,
-            "title": "Career 91",
-            "description": "Description of Career 91. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 91A",
-                "Skill 91B",
-                "Skill 91C"
-            ],
-            "education": "Degree or certification required for Career 91."
-        },
-        {
-            "id": 92,
-            "title": "Career 92",
-            "description": "Description of Career 92. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 92A",
-                "Skill 92B",
-                "Skill 92C"
-            ],
-            "education": "Degree or certification required for Career 92."
-        },
-        {
-            "id": 93,
-            "title": "Career 93",
-            "description": "Description of Career 93. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 93A",
-                "Skill 93B",
-                "Skill 93C"
-            ],
-            "education": "Degree or certification required for Career 93."
-        },
-        {
-            "id": 94,
-            "title": "Career 94",
-            "description": "Description of Career 94. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 94A",
-                "Skill 94B",
-                "Skill 94C"
-            ],
-            "education": "Degree or certification required for Career 94."
-        },
-        {
-            "id": 95,
-            "title": "Career 95",
-            "description": "Description of Career 95. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 95A",
-                "Skill 95B",
-                "Skill 95C"
-            ],
-            "education": "Degree or certification required for Career 95."
-        },
-        {
-            "id": 96,
-            "title": "Career 96",
-            "description": "Description of Career 96. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 96A",
-                "Skill 96B",
-                "Skill 96C"
-            ],
-            "education": "Degree or certification required for Career 96."
-        },
-        {
-            "id": 97,
-            "title": "Career 97",
-            "description": "Description of Career 97. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 97A",
-                "Skill 97B",
-                "Skill 97C"
-            ],
-            "education": "Degree or certification required for Career 97."
-        },
-        {
-            "id": 98,
-            "title": "Career 98",
-            "description": "Description of Career 98. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 98A",
-                "Skill 98B",
-                "Skill 98C"
-            ],
-            "education": "Degree or certification required for Career 98."
-        },
-        {
-            "id": 99,
-            "title": "Career 99",
-            "description": "Description of Career 99. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 99A",
-                "Skill 99B",
-                "Skill 99C"
-            ],
-            "education": "Degree or certification required for Career 99."
-        },
-        {
-            "id": 100,
-            "title": "Career 100",
-            "description": "Description of Career 100. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 100A",
-                "Skill 100B",
-                "Skill 100C"
-            ],
-            "education": "Degree or certification required for Career 100."
-        },
-        {
-            "id": 101,
-            "title": "Career 101",
-            "description": "Description of Career 101. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 101A",
-                "Skill 101B",
-                "Skill 101C"
-            ],
-            "education": "Degree or certification required for Career 101."
-        },
-        {
-            "id": 102,
-            "title": "Career 102",
-            "description": "Description of Career 102. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 102A",
-                "Skill 102B",
-                "Skill 102C"
-            ],
-            "education": "Degree or certification required for Career 102."
-        },
-        {
-            "id": 103,
-            "title": "Career 103",
-            "description": "Description of Career 103. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 103A",
-                "Skill 103B",
-                "Skill 103C"
-            ],
-            "education": "Degree or certification required for Career 103."
-        },
-        {
-            "id": 104,
-            "title": "Career 104",
-            "description": "Description of Career 104. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 104A",
-                "Skill 104B",
-                "Skill 104C"
-            ],
-            "education": "Degree or certification required for Career 104."
-        },
-        {
-            "id": 105,
-            "title": "Career 105",
-            "description": "Description of Career 105. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 105A",
-                "Skill 105B",
-                "Skill 105C"
-            ],
-            "education": "Degree or certification required for Career 105."
-        },
-        {
-            "id": 106,
-            "title": "Career 106",
-            "description": "Description of Career 106. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 106A",
-                "Skill 106B",
-                "Skill 106C"
-            ],
-            "education": "Degree or certification required for Career 106."
-        },
-        {
-            "id": 107,
-            "title": "Career 107",
-            "description": "Description of Career 107. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 107A",
-                "Skill 107B",
-                "Skill 107C"
-            ],
-            "education": "Degree or certification required for Career 107."
-        },
-        {
-            "id": 108,
-            "title": "Career 108",
-            "description": "Description of Career 108. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 108A",
-                "Skill 108B",
-                "Skill 108C"
-            ],
-            "education": "Degree or certification required for Career 108."
-        },
-        {
-            "id": 109,
-            "title": "Career 109",
-            "description": "Description of Career 109. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 109A",
-                "Skill 109B",
-                "Skill 109C"
-            ],
-            "education": "Degree or certification required for Career 109."
-        },
-        {
-            "id": 110,
-            "title": "Career 110",
-            "description": "Description of Career 110. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 110A",
-                "Skill 110B",
-                "Skill 110C"
-            ],
-            "education": "Degree or certification required for Career 110."
-        },
-        {
-            "id": 111,
-            "title": "Career 111",
-            "description": "Description of Career 111. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 111A",
-                "Skill 111B",
-                "Skill 111C"
-            ],
-            "education": "Degree or certification required for Career 111."
-        },
-        {
-            "id": 112,
-            "title": "Career 112",
-            "description": "Description of Career 112. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 112A",
-                "Skill 112B",
-                "Skill 112C"
-            ],
-            "education": "Degree or certification required for Career 112."
-        },
-        {
-            "id": 113,
-            "title": "Career 113",
-            "description": "Description of Career 113. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 113A",
-                "Skill 113B",
-                "Skill 113C"
-            ],
-            "education": "Degree or certification required for Career 113."
-        },
-        {
-            "id": 114,
-            "title": "Career 114",
-            "description": "Description of Career 114. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 114A",
-                "Skill 114B",
-                "Skill 114C"
-            ],
-            "education": "Degree or certification required for Career 114."
-        },
-        {
-            "id": 115,
-            "title": "Career 115",
-            "description": "Description of Career 115. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 115A",
-                "Skill 115B",
-                "Skill 115C"
-            ],
-            "education": "Degree or certification required for Career 115."
-        },
-        {
-            "id": 116,
-            "title": "Career 116",
-            "description": "Description of Career 116. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 116A",
-                "Skill 116B",
-                "Skill 116C"
-            ],
-            "education": "Degree or certification required for Career 116."
-        },
-        {
-            "id": 117,
-            "title": "Career 117",
-            "description": "Description of Career 117. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 117A",
-                "Skill 117B",
-                "Skill 117C"
-            ],
-            "education": "Degree or certification required for Career 117."
-        },
-        {
-            "id": 118,
-            "title": "Career 118",
-            "description": "Description of Career 118. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 118A",
-                "Skill 118B",
-                "Skill 118C"
-            ],
-            "education": "Degree or certification required for Career 118."
-        },
-        {
-            "id": 119,
-            "title": "Career 119",
-            "description": "Description of Career 119. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 119A",
-                "Skill 119B",
-                "Skill 119C"
-            ],
-            "education": "Degree or certification required for Career 119."
-        },
-        {
-            "id": 120,
-            "title": "Career 120",
-            "description": "Description of Career 120. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 120A",
-                "Skill 120B",
-                "Skill 120C"
-            ],
-            "education": "Degree or certification required for Career 120."
-        },
-        {
-            "id": 121,
-            "title": "Career 121",
-            "description": "Description of Career 121. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 121A",
-                "Skill 121B",
-                "Skill 121C"
-            ],
-            "education": "Degree or certification required for Career 121."
-        },
-        {
-            "id": 122,
-            "title": "Career 122",
-            "description": "Description of Career 122. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 122A",
-                "Skill 122B",
-                "Skill 122C"
-            ],
-            "education": "Degree or certification required for Career 122."
-        },
-        {
-            "id": 123,
-            "title": "Career 123",
-            "description": "Description of Career 123. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 123A",
-                "Skill 123B",
-                "Skill 123C"
-            ],
-            "education": "Degree or certification required for Career 123."
-        },
-        {
-            "id": 124,
-            "title": "Career 124",
-            "description": "Description of Career 124. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 124A",
-                "Skill 124B",
-                "Skill 124C"
-            ],
-            "education": "Degree or certification required for Career 124."
-        },
-        {
-            "id": 125,
-            "title": "Career 125",
-            "description": "Description of Career 125. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 125A",
-                "Skill 125B",
-                "Skill 125C"
-            ],
-            "education": "Degree or certification required for Career 125."
-        },
-        {
-            "id": 126,
-            "title": "Career 126",
-            "description": "Description of Career 126. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 126A",
-                "Skill 126B",
-                "Skill 126C"
-            ],
-            "education": "Degree or certification required for Career 126."
-        },
-        {
-            "id": 127,
-            "title": "Career 127",
-            "description": "Description of Career 127. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 127A",
-                "Skill 127B",
-                "Skill 127C"
-            ],
-            "education": "Degree or certification required for Career 127."
-        },
-        {
-            "id": 128,
-            "title": "Career 128",
-            "description": "Description of Career 128. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 128A",
-                "Skill 128B",
-                "Skill 128C"
-            ],
-            "education": "Degree or certification required for Career 128."
-        },
-        {
-            "id": 129,
-            "title": "Career 129",
-            "description": "Description of Career 129. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 129A",
-                "Skill 129B",
-                "Skill 129C"
-            ],
-            "education": "Degree or certification required for Career 129."
-        },
-        {
-            "id": 130,
-            "title": "Career 130",
-            "description": "Description of Career 130. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 130A",
-                "Skill 130B",
-                "Skill 130C"
-            ],
-            "education": "Degree or certification required for Career 130."
-        },
-        {
-            "id": 131,
-            "title": "Career 131",
-            "description": "Description of Career 131. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 131A",
-                "Skill 131B",
-                "Skill 131C"
-            ],
-            "education": "Degree or certification required for Career 131."
-        },
-        {
-            "id": 132,
-            "title": "Career 132",
-            "description": "Description of Career 132. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 132A",
-                "Skill 132B",
-                "Skill 132C"
-            ],
-            "education": "Degree or certification required for Career 132."
-        },
-        {
-            "id": 133,
-            "title": "Career 133",
-            "description": "Description of Career 133. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 133A",
-                "Skill 133B",
-                "Skill 133C"
-            ],
-            "education": "Degree or certification required for Career 133."
-        },
-        {
-            "id": 134,
-            "title": "Career 134",
-            "description": "Description of Career 134. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 134A",
-                "Skill 134B",
-                "Skill 134C"
-            ],
-            "education": "Degree or certification required for Career 134."
-        },
-        {
-            "id": 135,
-            "title": "Career 135",
-            "description": "Description of Career 135. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 135A",
-                "Skill 135B",
-                "Skill 135C"
-            ],
-            "education": "Degree or certification required for Career 135."
-        },
-        {
-            "id": 136,
-            "title": "Career 136",
-            "description": "Description of Career 136. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 136A",
-                "Skill 136B",
-                "Skill 136C"
-            ],
-            "education": "Degree or certification required for Career 136."
-        },
-        {
-            "id": 137,
-            "title": "Career 137",
-            "description": "Description of Career 137. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 137A",
-                "Skill 137B",
-                "Skill 137C"
-            ],
-            "education": "Degree or certification required for Career 137."
-        },
-        {
-            "id": 138,
-            "title": "Career 138",
-            "description": "Description of Career 138. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 138A",
-                "Skill 138B",
-                "Skill 138C"
-            ],
-            "education": "Degree or certification required for Career 138."
-        },
-        {
-            "id": 139,
-            "title": "Career 139",
-            "description": "Description of Career 139. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 139A",
-                "Skill 139B",
-                "Skill 139C"
-            ],
-            "education": "Degree or certification required for Career 139."
-        },
-        {
-            "id": 140,
-            "title": "Career 140",
-            "description": "Description of Career 140. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 140A",
-                "Skill 140B",
-                "Skill 140C"
-            ],
-            "education": "Degree or certification required for Career 140."
-        },
-        {
-            "id": 141,
-            "title": "Career 141",
-            "description": "Description of Career 141. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 141A",
-                "Skill 141B",
-                "Skill 141C"
-            ],
-            "education": "Degree or certification required for Career 141."
-        },
-        {
-            "id": 142,
-            "title": "Career 142",
-            "description": "Description of Career 142. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 142A",
-                "Skill 142B",
-                "Skill 142C"
-            ],
-            "education": "Degree or certification required for Career 142."
-        },
-        {
-            "id": 143,
-            "title": "Career 143",
-            "description": "Description of Career 143. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 143A",
-                "Skill 143B",
-                "Skill 143C"
-            ],
-            "education": "Degree or certification required for Career 143."
-        },
-        {
-            "id": 144,
-            "title": "Career 144",
-            "description": "Description of Career 144. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 144A",
-                "Skill 144B",
-                "Skill 144C"
-            ],
-            "education": "Degree or certification required for Career 144."
-        },
-        {
-            "id": 145,
-            "title": "Career 145",
-            "description": "Description of Career 145. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 145A",
-                "Skill 145B",
-                "Skill 145C"
-            ],
-            "education": "Degree or certification required for Career 145."
-        },
-        {
-            "id": 146,
-            "title": "Career 146",
-            "description": "Description of Career 146. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 146A",
-                "Skill 146B",
-                "Skill 146C"
-            ],
-            "education": "Degree or certification required for Career 146."
-        },
-        {
-            "id": 147,
-            "title": "Career 147",
-            "description": "Description of Career 147. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 147A",
-                "Skill 147B",
-                "Skill 147C"
-            ],
-            "education": "Degree or certification required for Career 147."
-        },
-        {
-            "id": 148,
-            "title": "Career 148",
-            "description": "Description of Career 148. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 148A",
-                "Skill 148B",
-                "Skill 148C"
-            ],
-            "education": "Degree or certification required for Career 148."
-        },
-        {
-            "id": 149,
-            "title": "Career 149",
-            "description": "Description of Career 149. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 149A",
-                "Skill 149B",
-                "Skill 149C"
-            ],
-            "education": "Degree or certification required for Career 149."
-        },
-        {
-            "id": 150,
-            "title": "Career 150",
-            "description": "Description of Career 150. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 150A",
-                "Skill 150B",
-                "Skill 150C"
-            ],
-            "education": "Degree or certification required for Career 150."
-        },
-        {
-            "id": 151,
-            "title": "Career 151",
-            "description": "Description of Career 151. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 151A",
-                "Skill 151B",
-                "Skill 151C"
-            ],
-            "education": "Degree or certification required for Career 151."
-        },
-        {
-            "id": 152,
-            "title": "Career 152",
-            "description": "Description of Career 152. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 152A",
-                "Skill 152B",
-                "Skill 152C"
-            ],
-            "education": "Degree or certification required for Career 152."
-        },
-        {
-            "id": 153,
-            "title": "Career 153",
-            "description": "Description of Career 153. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 153A",
-                "Skill 153B",
-                "Skill 153C"
-            ],
-            "education": "Degree or certification required for Career 153."
-        },
-        {
-            "id": 154,
-            "title": "Career 154",
-            "description": "Description of Career 154. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 154A",
-                "Skill 154B",
-                "Skill 154C"
-            ],
-            "education": "Degree or certification required for Career 154."
-        },
-        {
-            "id": 155,
-            "title": "Career 155",
-            "description": "Description of Career 155. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 155A",
-                "Skill 155B",
-                "Skill 155C"
-            ],
-            "education": "Degree or certification required for Career 155."
-        },
-        {
-            "id": 156,
-            "title": "Career 156",
-            "description": "Description of Career 156. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 156A",
-                "Skill 156B",
-                "Skill 156C"
-            ],
-            "education": "Degree or certification required for Career 156."
-        },
-        {
-            "id": 157,
-            "title": "Career 157",
-            "description": "Description of Career 157. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 157A",
-                "Skill 157B",
-                "Skill 157C"
-            ],
-            "education": "Degree or certification required for Career 157."
-        },
-        {
-            "id": 158,
-            "title": "Career 158",
-            "description": "Description of Career 158. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 158A",
-                "Skill 158B",
-                "Skill 158C"
-            ],
-            "education": "Degree or certification required for Career 158."
-        },
-        {
-            "id": 159,
-            "title": "Career 159",
-            "description": "Description of Career 159. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 159A",
-                "Skill 159B",
-                "Skill 159C"
-            ],
-            "education": "Degree or certification required for Career 159."
-        },
-        {
-            "id": 160,
-            "title": "Career 160",
-            "description": "Description of Career 160. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 160A",
-                "Skill 160B",
-                "Skill 160C"
-            ],
-            "education": "Degree or certification required for Career 160."
-        },
-        {
-            "id": 161,
-            "title": "Career 161",
-            "description": "Description of Career 161. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 161A",
-                "Skill 161B",
-                "Skill 161C"
-            ],
-            "education": "Degree or certification required for Career 161."
-        },
-        {
-            "id": 162,
-            "title": "Career 162",
-            "description": "Description of Career 162. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 162A",
-                "Skill 162B",
-                "Skill 162C"
-            ],
-            "education": "Degree or certification required for Career 162."
-        },
-        {
-            "id": 163,
-            "title": "Career 163",
-            "description": "Description of Career 163. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 163A",
-                "Skill 163B",
-                "Skill 163C"
-            ],
-            "education": "Degree or certification required for Career 163."
-        },
-        {
-            "id": 164,
-            "title": "Career 164",
-            "description": "Description of Career 164. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 164A",
-                "Skill 164B",
-                "Skill 164C"
-            ],
-            "education": "Degree or certification required for Career 164."
-        },
-        {
-            "id": 165,
-            "title": "Career 165",
-            "description": "Description of Career 165. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 165A",
-                "Skill 165B",
-                "Skill 165C"
-            ],
-            "education": "Degree or certification required for Career 165."
-        },
-        {
-            "id": 166,
-            "title": "Career 166",
-            "description": "Description of Career 166. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 166A",
-                "Skill 166B",
-                "Skill 166C"
-            ],
-            "education": "Degree or certification required for Career 166."
-        },
-        {
-            "id": 167,
-            "title": "Career 167",
-            "description": "Description of Career 167. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 167A",
-                "Skill 167B",
-                "Skill 167C"
-            ],
-            "education": "Degree or certification required for Career 167."
-        },
-        {
-            "id": 168,
-            "title": "Career 168",
-            "description": "Description of Career 168. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 168A",
-                "Skill 168B",
-                "Skill 168C"
-            ],
-            "education": "Degree or certification required for Career 168."
-        },
-        {
-            "id": 169,
-            "title": "Career 169",
-            "description": "Description of Career 169. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 169A",
-                "Skill 169B",
-                "Skill 169C"
-            ],
-            "education": "Degree or certification required for Career 169."
-        },
-        {
-            "id": 170,
-            "title": "Career 170",
-            "description": "Description of Career 170. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 170A",
-                "Skill 170B",
-                "Skill 170C"
-            ],
-            "education": "Degree or certification required for Career 170."
-        },
-        {
-            "id": 171,
-            "title": "Career 171",
-            "description": "Description of Career 171. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 171A",
-                "Skill 171B",
-                "Skill 171C"
-            ],
-            "education": "Degree or certification required for Career 171."
-        },
-        {
-            "id": 172,
-            "title": "Career 172",
-            "description": "Description of Career 172. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 172A",
-                "Skill 172B",
-                "Skill 172C"
-            ],
-            "education": "Degree or certification required for Career 172."
-        },
-        {
-            "id": 173,
-            "title": "Career 173",
-            "description": "Description of Career 173. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 173A",
-                "Skill 173B",
-                "Skill 173C"
-            ],
-            "education": "Degree or certification required for Career 173."
-        },
-        {
-            "id": 174,
-            "title": "Career 174",
-            "description": "Description of Career 174. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 174A",
-                "Skill 174B",
-                "Skill 174C"
-            ],
-            "education": "Degree or certification required for Career 174."
-        },
-        {
-            "id": 175,
-            "title": "Career 175",
-            "description": "Description of Career 175. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 175A",
-                "Skill 175B",
-                "Skill 175C"
-            ],
-            "education": "Degree or certification required for Career 175."
-        },
-        {
-            "id": 176,
-            "title": "Career 176",
-            "description": "Description of Career 176. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 176A",
-                "Skill 176B",
-                "Skill 176C"
-            ],
-            "education": "Degree or certification required for Career 176."
-        },
-        {
-            "id": 177,
-            "title": "Career 177",
-            "description": "Description of Career 177. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 177A",
-                "Skill 177B",
-                "Skill 177C"
-            ],
-            "education": "Degree or certification required for Career 177."
-        },
-        {
-            "id": 178,
-            "title": "Career 178",
-            "description": "Description of Career 178. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 178A",
-                "Skill 178B",
-                "Skill 178C"
-            ],
-            "education": "Degree or certification required for Career 178."
-        },
-        {
-            "id": 179,
-            "title": "Career 179",
-            "description": "Description of Career 179. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 179A",
-                "Skill 179B",
-                "Skill 179C"
-            ],
-            "education": "Degree or certification required for Career 179."
-        },
-        {
-            "id": 180,
-            "title": "Career 180",
-            "description": "Description of Career 180. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 180A",
-                "Skill 180B",
-                "Skill 180C"
-            ],
-            "education": "Degree or certification required for Career 180."
-        },
-        {
-            "id": 181,
-            "title": "Career 181",
-            "description": "Description of Career 181. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 181A",
-                "Skill 181B",
-                "Skill 181C"
-            ],
-            "education": "Degree or certification required for Career 181."
-        },
-        {
-            "id": 182,
-            "title": "Career 182",
-            "description": "Description of Career 182. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 182A",
-                "Skill 182B",
-                "Skill 182C"
-            ],
-            "education": "Degree or certification required for Career 182."
-        },
-        {
-            "id": 183,
-            "title": "Career 183",
-            "description": "Description of Career 183. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 183A",
-                "Skill 183B",
-                "Skill 183C"
-            ],
-            "education": "Degree or certification required for Career 183."
-        },
-        {
-            "id": 184,
-            "title": "Career 184",
-            "description": "Description of Career 184. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 184A",
-                "Skill 184B",
-                "Skill 184C"
-            ],
-            "education": "Degree or certification required for Career 184."
-        },
-        {
-            "id": 185,
-            "title": "Career 185",
-            "description": "Description of Career 185. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 185A",
-                "Skill 185B",
-                "Skill 185C"
-            ],
-            "education": "Degree or certification required for Career 185."
-        },
-        {
-            "id": 186,
-            "title": "Career 186",
-            "description": "Description of Career 186. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 186A",
-                "Skill 186B",
-                "Skill 186C"
-            ],
-            "education": "Degree or certification required for Career 186."
-        },
-        {
-            "id": 187,
-            "title": "Career 187",
-            "description": "Description of Career 187. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 187A",
-                "Skill 187B",
-                "Skill 187C"
-            ],
-            "education": "Degree or certification required for Career 187."
-        },
-        {
-            "id": 188,
-            "title": "Career 188",
-            "description": "Description of Career 188. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 188A",
-                "Skill 188B",
-                "Skill 188C"
-            ],
-            "education": "Degree or certification required for Career 188."
-        },
-        {
-            "id": 189,
-            "title": "Career 189",
-            "description": "Description of Career 189. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 189A",
-                "Skill 189B",
-                "Skill 189C"
-            ],
-            "education": "Degree or certification required for Career 189."
-        },
-        {
-            "id": 190,
-            "title": "Career 190",
-            "description": "Description of Career 190. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 190A",
-                "Skill 190B",
-                "Skill 190C"
-            ],
-            "education": "Degree or certification required for Career 190."
-        },
-        {
-            "id": 191,
-            "title": "Career 191",
-            "description": "Description of Career 191. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 191A",
-                "Skill 191B",
-                "Skill 191C"
-            ],
-            "education": "Degree or certification required for Career 191."
-        },
-        {
-            "id": 192,
-            "title": "Career 192",
-            "description": "Description of Career 192. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 192A",
-                "Skill 192B",
-                "Skill 192C"
-            ],
-            "education": "Degree or certification required for Career 192."
-        },
-        {
-            "id": 193,
-            "title": "Career 193",
-            "description": "Description of Career 193. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 193A",
-                "Skill 193B",
-                "Skill 193C"
-            ],
-            "education": "Degree or certification required for Career 193."
-        },
-        {
-            "id": 194,
-            "title": "Career 194",
-            "description": "Description of Career 194. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 194A",
-                "Skill 194B",
-                "Skill 194C"
-            ],
-            "education": "Degree or certification required for Career 194."
-        },
-        {
-            "id": 195,
-            "title": "Career 195",
-            "description": "Description of Career 195. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 195A",
-                "Skill 195B",
-                "Skill 195C"
-            ],
-            "education": "Degree or certification required for Career 195."
-        },
-        {
-            "id": 196,
-            "title": "Career 196",
-            "description": "Description of Career 196. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 196A",
-                "Skill 196B",
-                "Skill 196C"
-            ],
-            "education": "Degree or certification required for Career 196."
-        },
-        {
-            "id": 197,
-            "title": "Career 197",
-            "description": "Description of Career 197. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 197A",
-                "Skill 197B",
-                "Skill 197C"
-            ],
-            "education": "Degree or certification required for Career 197."
-        },
-        {
-            "id": 198,
-            "title": "Career 198",
-            "description": "Description of Career 198. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 198A",
-                "Skill 198B",
-                "Skill 198C"
-            ],
-            "education": "Degree or certification required for Career 198."
-        },
-        {
-            "id": 199,
-            "title": "Career 199",
-            "description": "Description of Career 199. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 199A",
-                "Skill 199B",
-                "Skill 199C"
-            ],
-            "education": "Degree or certification required for Career 199."
-        },
-        {
-            "id": 200,
-            "title": "Career 200",
-            "description": "Description of Career 200. This profession focuses on unique responsibilities in its field.",
-            "key_skills": [
-                "Skill 200A",
-                "Skill 200B",
-                "Skill 200C"
-            ],
-            "education": "Degree or certification required for Career 200."
-        }
+      {
+        "id": 1,
+        "title": "Doctor",
+        "description": "A medical professional who diagnoses and treats illnesses, injuries, and other health-related issues.",
+        "key_skills": ["Critical thinking", "Communication", "Attention to detail"],
+        "education": "MBBS or equivalent degree followed by specialization."
+      },
+      {
+        "id": 2,
+        "title": "Engineer",
+        "description": "A professional who applies scientific and mathematical principles to develop solutions to technical problems.",
+        "key_skills": ["Analytical thinking", "Problem-solving", "Team collaboration"],
+        "education": "Bachelor's degree in Engineering (various specializations available)."
+      },
+      {
+        "id": 3,
+        "title": "Teacher",
+        "description": "An educator who imparts knowledge and skills to students in a school, college, or university.",
+        "key_skills": ["Communication", "Empathy", "Adaptability"],
+        "education": "Bachelor's degree in Education or a subject-specific degree with teaching certification."
+      },
+      {
+        "id": 4,
+        "title": "Data Scientist",
+        "description": "A specialist who analyzes complex data to help organizations make informed decisions.",
+        "key_skills": ["Statistics", "Programming", "Data visualization"],
+        "education": "Degree in Computer Science, Data Science, or related fields."
+      },
+      {
+        "id": 5,
+        "title": "Software Developer",
+        "description": "A professional who designs, develops, and maintains software applications.",
+        "key_skills": ["Coding", "Debugging", "Logical thinking"],
+        "education": "Degree in Computer Science or Software Engineering."
+      },
+      {
+        "id": 6,
+        "title": "Architect",
+        "description": "A professional who designs buildings and oversees construction projects.",
+        "key_skills": ["Designing", "Project management", "Creative thinking"],
+        "education": "Bachelor's or Master's degree in Architecture."
+      },
+      {
+        "id": 7,
+        "title": "Graphic Designer",
+        "description": "A creative professional who designs visual content for various media.",
+        "key_skills": ["Creativity", "Attention to detail", "Technical skills"],
+        "education": "Degree or diploma in Graphic Design."
+      },
+      {
+        "id": 8,
+        "title": "Cybersecurity Specialist",
+        "description": "An IT expert responsible for protecting systems and networks from cyber threats.",
+        "key_skills": ["Problem-solving", "Networking", "Programming"],
+        "education": "Degree in Cybersecurity, Information Technology, or related fields."
+      },
+      {
+        "id": 9,
+        "title": "Digital Marketer",
+        "description": "A specialist who promotes brands using digital platforms and tools.",
+        "key_skills": ["SEO", "Content marketing", "Analytics"],
+        "education": "Degree in Marketing, Business Administration, or related fields."
+      },
+      {
+        "id": 10,
+        "title": "Veterinarian",
+        "description": "A medical professional who provides healthcare to animals.",
+        "key_skills": ["Animal care", "Attention to detail", "Communication"],
+        "education": "Degree in Veterinary Medicine (DVM)."
+      },
+      {
+        "id": 11,
+        "title": "Pilot",
+        "description": "A trained professional who operates and controls aircraft.",
+        "key_skills": ["Focus", "Communication", "Technical knowledge"],
+        "education": "Commercial Pilot License (CPL) and specialized training."
+      },
+      {
+        "id": 12,
+        "title": "Journalist",
+        "description": "A professional who investigates and reports on news and current events.",
+        "key_skills": ["Writing", "Research", "Communication"],
+        "education": "Degree in Journalism, Mass Communication, or related fields."
+      },
+      {
+        "id": 13,
+        "title": "Chartered Accountant",
+        "description": "A financial professional specializing in accounting, auditing, and taxation.",
+        "key_skills": ["Analytical thinking", "Attention to detail", "Problem-solving"],
+        "education": "CA certification and bachelor's degree in Commerce or related fields."
+      },
+      {
+        "id": 14,
+        "title": "Psychologist",
+        "description": "A mental health professional who studies human behavior and provides therapy.",
+        "key_skills": ["Empathy", "Observation", "Communication"],
+        "education": "Master's or Doctoral degree in Psychology."
+      },
+      {
+        "id": 15,
+        "title": "Actuary",
+        "description": "A professional who uses mathematics, statistics, and financial theory to analyze risk.",
+        "key_skills": ["Mathematics", "Analytical thinking", "Problem-solving"],
+        "education": "Degree in Actuarial Science, Mathematics, or related fields."
+      },
+      {
+        "id": 16,
+        "title": "Environmental Scientist",
+        "description": "A scientist who studies and works to improve the environment.",
+        "key_skills": ["Analytical skills", "Problem-solving", "Technical expertise"],
+        "education": "Degree in Environmental Science or related fields."
+      },
+      {
+        "id": 17,
+        "title": "Event Planner",
+        "description": "A professional who organizes and manages events like weddings, conferences, and parties.",
+        "key_skills": ["Organization", "Communication", "Creativity"],
+        "education": "Degree or diploma in Event Management."
+      },
+      {
+        "id": 18,
+        "title": "Chef",
+        "description": "A culinary professional who prepares and presents food.",
+        "key_skills": ["Creativity", "Time management", "Attention to detail"],
+        "education": "Diploma or degree in Culinary Arts."
+      },
+      {
+        "id": 19,
+        "title": "Game Developer",
+        "description": "A professional who designs and develops video games.",
+        "key_skills": ["Programming", "Problem-solving", "Creativity"],
+        "education": "Degree in Game Design, Computer Science, or related fields."
+      },
+      {
+        "id": 20,
+        "title": "Pharmacist",
+        "description": "A healthcare professional who prepares and dispenses medication.",
+        "key_skills": ["Attention to detail", "Pharmaceutical knowledge", "Communication"],
+        "education": "Bachelor's or Doctorate degree in Pharmacy."
+      },
+      {
+        "id": 21,
+        "title": "Physiotherapist",
+        "description": "A healthcare professional who helps patients regain mobility and manage pain through physical therapy.",
+        "key_skills": ["Empathy", "Physical stamina", "Problem-solving"],
+        "education": "Degree in Physiotherapy (BPT or MPT)."
+      },
+      {
+        "id": 22,
+        "title": "Social Worker",
+        "description": "A professional who supports individuals and communities to overcome challenges and improve well-being.",
+        "key_skills": ["Empathy", "Communication", "Problem-solving"],
+        "education": "Degree in Social Work or related fields."
+      },
+      {
+        "id": 23,
+        "title": "Robotics Engineer",
+        "description": "A professional who designs, builds, and tests robots and robotic systems.",
+        "key_skills": ["Programming", "Mechanical knowledge", "Problem-solving"],
+        "education": "Degree in Robotics Engineering or related fields."
+      },
+      {
+        "id": 24,
+        "title": "Fashion Stylist",
+        "description": "A professional who curates clothing and accessories to create specific looks for clients.",
+        "key_skills": ["Creativity", "Trend analysis", "Communication"],
+        "education": "Diploma or degree in Fashion Styling or related fields."
+      },
+      {
+        "id": 25,
+        "title": "Fitness Trainer",
+        "description": "A specialist who guides individuals in achieving physical fitness and health goals.",
+        "key_skills": ["Physical fitness", "Communication", "Motivation"],
+        "education": "Certification in Fitness Training or related fields."
+      },
+      {
+        "id": 26,
+        "title": "Biomedical Engineer",
+        "description": "An engineer who develops medical devices and equipment to improve healthcare.",
+        "key_skills": ["Technical skills", "Problem-solving", "Innovation"],
+        "education": "Degree in Biomedical Engineering."
+      },
+      {
+        "id": 27,
+        "title": "AI Specialist",
+        "description": "A professional who develops artificial intelligence systems and applications.",
+        "key_skills": ["Machine learning", "Programming", "Data analysis"],
+        "education": "Degree in Computer Science or Artificial Intelligence."
+      },
+      {
+        "id": 28,
+        "title": "Actress/Actor",
+        "description": "A performer who portrays characters in film, television, theater, or other media.",
+        "key_skills": ["Memorization", "Emotional range", "Creativity"],
+        "education": "Diploma or degree in Performing Arts."
+      },
+      {
+        "id": 29,
+        "title": "UX/UI Designer",
+        "description": "A designer who enhances user experiences by optimizing interfaces of digital products.",
+        "key_skills": ["Design skills", "Empathy", "Technical knowledge"],
+        "education": "Degree in Design, Computer Science, or related fields."
+      },
+      {
+        "id": 30,
+        "title": "Astronomer",
+        "description": "A scientist who studies celestial objects, space, and the universe.",
+        "key_skills": ["Observation", "Mathematics", "Research"],
+        "education": "Degree in Astronomy, Astrophysics, or Physics."
+      },
+      {
+        "id": 31,
+        "title": "Chef",
+        "description": "A culinary expert responsible for preparing meals and managing kitchen operations.",
+        "key_skills": ["Cooking", "Creativity", "Time management"],
+        "education": "Diploma or degree in Culinary Arts."
+      },
+      {
+        "id": 32,
+        "title": "HR Manager",
+        "description": "A professional managing hiring, employee relations, and organizational development.",
+        "key_skills": ["Communication", "Leadership", "Decision-making"],
+        "education": "Degree in Human Resource Management."
+      },
+      {
+        "id": 33,
+        "title": "Marine Biologist",
+        "description": "A scientist studying marine life and ecosystems.",
+        "key_skills": ["Research", "Observation", "Analytical skills"],
+        "education": "Degree in Marine Biology or related fields."
+      },
+      {
+        "id": 34,
+        "title": "Animator",
+        "description": "A professional who creates animations for movies, games, or other media.",
+        "key_skills": ["Creativity", "Attention to detail", "Technical skills"],
+        "education": "Degree or diploma in Animation."
+      },
+      {
+        "id": 35,
+        "title": "Environmental Lawyer",
+        "description": "A legal professional advocating for environmental protection and sustainable practices.",
+        "key_skills": ["Legal expertise", "Advocacy", "Research"],
+        "education": "Law degree with specialization in Environmental Law."
+      },
+      {
+        "id": 36,
+        "title": "Economist",
+        "description": "A professional analyzing economic trends and advising on financial policies.",
+        "key_skills": ["Data analysis", "Critical thinking", "Mathematics"],
+        "education": "Degree in Economics or related fields."
+      },
+      {
+        "id": 37,
+        "title": "Geologist",
+        "description": "A scientist studying Earth's physical structure and substances.",
+        "key_skills": ["Fieldwork", "Analysis", "Research"],
+        "education": "Degree in Geology or Earth Sciences."
+      },
+      {
+        "id": 38,
+        "title": "Sound Engineer",
+        "description": "A technician managing audio quality for various media productions.",
+        "key_skills": ["Audio mixing", "Technical skills", "Attention to detail"],
+        "education": "Degree or diploma in Sound Engineering."
+      },
+      {
+        "id": 39,
+        "title": "Travel Blogger",
+        "description": "A content creator who shares travel experiences and tips.",
+        "key_skills": ["Writing", "Photography", "Social media"],
+        "education": "No formal education required; writing or media skills recommended."
+      },
+      {
+        "id": 40,
+        "title": "Public Relations Specialist",
+        "description": "A professional managing a company's image and communication with the public.",
+        "key_skills": ["Communication", "Writing", "Networking"],
+        "education": "Degree in Public Relations, Communications, or Marketing."
+      }
     ]
-}
+  }
+  

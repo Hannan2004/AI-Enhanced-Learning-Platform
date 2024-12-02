@@ -137,9 +137,9 @@ const ChatBot = () => {
   }, [messages]);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-1/4 bg-white shadow-lg p-4 rounded-r-lg flex-shrink-0 overflow-y-auto" style={{ height: '100vh' }}>
+      <div className="w-1/4 bg-white bg-opacity-30 backdrop-blur-lg shadow-lg p-4 rounded-r-lg flex-shrink-0 overflow-y-auto" style={{ height: '100vh' }}>
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Chat History</h2>
         <div className="space-y-2 mb-4">
           {titles.map((title, index) => (
@@ -158,7 +158,7 @@ const ChatBot = () => {
                   <FaEllipsisV />
                 </button>
                 {menuOpen === index && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-10">
+                  <div className="absolute right-0 mt-2 w-40 bg-white bg-opacity-90 backdrop-blur-lg shadow-lg rounded-md overflow-hidden z-10">
                     <button
                       onClick={() => handleEdit(index)}
                       className="flex items-center w-full p-2 hover:bg-yellow-100 text-yellow-700 transition duration-300 ease-in-out"
@@ -192,19 +192,19 @@ const ChatBot = () => {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex flex-col flex-grow bg-white shadow-lg rounded-l-lg">
+      <div className="flex flex-col flex-grow bg-white bg-opacity-30 backdrop-blur-lg shadow-lg rounded-l-lg">
         <div className="bg-blue-500 text-white p-5 rounded-t-lg">
           <h2 className="text-2xl font-bold">Career Guidance Chatbot</h2>
         </div>
-        <div className="flex-grow overflow-y-auto p-6 bg-gray-50" style={{ maxHeight: 'calc(100vh - 112px)' }}>
+        <div className="flex-grow overflow-y-auto p-6 bg-gray-50 bg-opacity-30 backdrop-blur-lg" style={{ maxHeight: 'calc(100vh - 112px)' }}>
           {messages.map((msg, index) => (
             <div key={index} className={`message mb-4 ${msg.user ? 'text-right' : 'text-left'}`}>
               {msg.user ? (
-                <div className="inline-block bg-blue-100 text-blue-900 p-4 rounded-lg shadow-md">
+                <div className="inline-block bg-blue-100 bg-opacity-50 text-blue-900 p-4 rounded-lg shadow-md">
                   <strong>You:</strong> {msg.user}
                 </div>
               ) : (
-                <div className="inline-block bg-green-100 text-green-900 p-4 rounded-lg shadow-md">
+                <div className="inline-block bg-green-100 bg-opacity-50 text-green-900 p-4 rounded-lg shadow-md">
                   <strong>Gemini:</strong> <ReactMarkdown>{msg.gemini}</ReactMarkdown>
                 </div>
               )}
@@ -212,7 +212,7 @@ const ChatBot = () => {
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <div className="flex p-5 bg-gray-200 rounded-b-lg">
+        <div className="flex p-5 bg-gray-200 bg-opacity-30 backdrop-blur-lg rounded-b-lg">
           <input
             type="text"
             value={input}
