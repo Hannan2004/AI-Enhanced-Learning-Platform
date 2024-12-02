@@ -1,0 +1,95 @@
+/* CareerPredictionForm.css */
+
+body {
+    background: linear-gradient(to right, #ebf8ff, #c3dafe);
+    color: #2d3748;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-section {
+    text-align: center;
+    padding: 5rem 0;
+    background: linear-gradient(to bottom, #c3dafe, #ebf8ff);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .form-box {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-right: 2rem;
+  }
+  
+  .form-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-weight: bold;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cbd5e0;
+  }
+  
+  .form-textarea {
+    resize: vertical;
+  }
+  
+  .form-radio-group {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .form-radio-label {
+    color: #4a5568;
+    font-weight: bold;
+  }
+  
+  .form-radio-input {
+    margin-right: 0.5rem;
+  }
+  
+  .form-button {
+    background-color: #4c51bf;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+  }

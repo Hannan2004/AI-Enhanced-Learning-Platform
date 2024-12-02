@@ -9,7 +9,7 @@ export default function Login () {
     const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const handleLoginClick = () => {
+  const handleSignup = () => {
     navigate("/studentorprofessional"); // Redirect to the login route
   };
 
@@ -37,7 +37,7 @@ export default function Login () {
             </div>
             <div>
               <form onSubmit={handleLogin}>
-                <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}onClick={handleLoginClick}>Login</h2>
+                <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Login</h2>
                 <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
                   <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Email</label>
                   <input
