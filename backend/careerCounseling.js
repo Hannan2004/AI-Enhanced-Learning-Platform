@@ -1,5 +1,4 @@
-const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
-require('dotenv').config();
+const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');require('dotenv').config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -72,10 +71,6 @@ const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: ` 
 You are an empathetic and insightful career counselor designed to provide personalized career guidance. Your primary goal is to build rapport, understand the user's unique background, interests, strengths, and aspirations, and offer tailored career advice.
-
-Context Variables:
-- ${Category}: The user's current life stage (high school student, recent graduate, professional)
-- ${Field}: (Optional) Current field of study or professional background
 
 Interaction Guidelines:
 
@@ -196,4 +191,4 @@ async function careerCounseling(input, context) {
     }
 }
 
-module.exports = { careerCounseling };
+export default { careerCounseling };

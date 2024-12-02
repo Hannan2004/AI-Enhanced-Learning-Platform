@@ -4,11 +4,11 @@ const multer = require('multer');
 const cors = require('cors');
 require('dotenv').config();
 
-const { careerCounseling } = require('./careerCounseling');
+const { careerCounseling } = require('./careerCounseling').default;
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
-const { generateSpatialQuestions } = require('./generateSpatial');
+//const { generateSpatialQuestions } = require('./generateSpatial');
 
 const app = express();
 const port = 3001;
@@ -69,6 +69,7 @@ app.post('/generateLogical', async (req, res) => {
     }    
 })
 
+/*
 app.post('/generateSpatial', async (req, res) => {
     const { type } = req.body;
 
@@ -81,6 +82,10 @@ app.post('/generateSpatial', async (req, res) => {
         res.status(500).send(error.message);
     }    
 })
+
+*/
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
