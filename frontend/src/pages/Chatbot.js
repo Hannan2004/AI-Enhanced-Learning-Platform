@@ -12,6 +12,8 @@ const ChatBot = () => {
   const [currentChatIndex, setCurrentChatIndex] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showPreTypedMessages, setShowPreTypedMessages] = useState(true);
   const messagesEndRef = useRef(null);
 
   const keywordDictionary = [
@@ -30,6 +32,8 @@ const ChatBot = () => {
     { keyword: 'ai', display: 'AI' },
     { keyword: 'blockchain', display: 'Blockchain' },
   ];
+
+  const preTypedMessages = ['Hello!', 'Can you help me with my career?', 'What is MERN stack?', 'Tell me about frontend development'];
 
   const extractTitle = (input) => {
     for (const { keyword, display } of keywordDictionary) {
@@ -54,6 +58,7 @@ const ChatBot = () => {
     }
     setMessages(updatedMessages);
     setInput('');
+    setShowPreTypedMessages(false);
 
     if (messages.length === 0 || editMode) {
       const title = extractTitle(input);
@@ -68,12 +73,15 @@ const ChatBot = () => {
       });
     }
 
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:3001/counseling', { input, context: updatedMessages });
       const geminiMessage = { gemini: response.data.response };
       setMessages(prevMessages => [...prevMessages, geminiMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,6 +100,7 @@ const ChatBot = () => {
     setCurrentChatIndex(null);
     setEditMode(false);
     setEditIndex(null);
+    setShowPreTypedMessages(true);
   };
 
   const loadChat = (index) => {
@@ -99,6 +108,7 @@ const ChatBot = () => {
     if (chat) {
       setMessages(chat.messages);
       setCurrentChatIndex(index);
+      setShowPreTypedMessages(false);
     }
   };
 
@@ -107,6 +117,7 @@ const ChatBot = () => {
     setTitles(prev => prev.filter((_, i) => i !== index));
     setMessages([]);
     setCurrentChatIndex(null);
+    setShowPreTypedMessages(true);
   };
 
   const shareChat = (index) => {
@@ -128,6 +139,11 @@ const ChatBot = () => {
     setInput(messages[index].user);
   };
 
+  const handlePreTypedMessageClick = (message) => {
+    setInput(message);
+    setShowPreTypedMessages(false);
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
   };
@@ -136,55 +152,145 @@ const ChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
+  const styles = {
+    container: {
+      display: 'flex',
+      minHeight: '100vh',
+      backgroundColor: '#ffffff', // Complete white background color
+    },
+    sidebar: {
+      width: '250px',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      padding: '1rem',
+      borderRadius: '10px',
+      margin: '2rem',
+      overflowY: 'auto',
+      flexShrink: 0,
+    },
+    content: {
+      flexGrow: 1,
+      padding: '2rem',
+      background: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      borderRadius: '10px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      margin: '2rem',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    chatHeader: {
+      backgroundColor: 'rgba(0, 123, 255, 0.1)',
+      padding: '1rem',
+      borderRadius: '10px',
+      marginBottom: '1rem',
+      color: '#007bff',
+    },
+    chatArea: {
+      flexGrow: 1,
+      overflowY: 'auto',
+      padding: '1rem',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      borderRadius: '10px',
+      marginBottom: '1rem',
+    },
+    inputArea: {
+      display: 'flex',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      borderRadius: '10px',
+      padding: '1rem',
+    },
+    input: {
+      flexGrow: 1,
+      padding: '0.75rem',
+      borderRadius: '10px 0 0 10px',
+      border: 'none',
+      outline: 'none',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      color: '#000',
+    },
+    sendButton: {
+      padding: '0.75rem 1.5rem',
+      borderRadius: '0 10px 10px 0',
+      border: 'none',
+      backgroundColor: '#007bff',
+      color: '#fff',
+      cursor: 'pointer',
+    },
+    message: {
+      marginBottom: '1rem',
+    },
+    userMessage: {
+      backgroundColor: 'rgba(0, 123, 255, 0.1)',
+      padding: '1rem',
+      borderRadius: '10px',
+      textAlign: 'right',
+      color: '#007bff',
+    },
+    geminiMessage: {
+      backgroundColor: 'rgba(40, 167, 69, 0.1)',
+      padding: '1rem',
+      borderRadius: '10px',
+      textAlign: 'left',
+      color: '#28a745',
+    },
+    loading: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: '1rem',
+    },
+    loader: {
+      border: '4px solid rgba(0, 0, 0, 0.1)',
+      borderLeftColor: '#007bff',
+      borderRadius: '50%',
+      width: '36px',
+      height: '36px',
+      animation: 'spin 1s linear infinite',
+    },
+    preTypedMessages: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: '1rem',
+    },
+    preTypedMessage: {
+      backgroundColor: '#007bff',
+      color: '#fff',
+      padding: '0.5rem 1rem',
+      borderRadius: '10px',
+      margin: '0 0.5rem',
+      cursor: 'pointer',
+    },
+  };
+
   return (
-    <div className="flex min-h-screen">
+    <div style={styles.container}>
       {/* Sidebar */}
-      <div className="w-1/4 bg-white shadow-lg p-4 rounded-r-lg flex-shrink-0 overflow-y-auto" style={{ height: '100vh' }}>
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Chat History</h2>
-        <div className="space-y-2 mb-4">
+      <div style={styles.sidebar}>
+        <h2 style={{ marginBottom: '1rem', color: '#007bff' }}>Chat History</h2>
+        <div>
           {titles.map((title, index) => (
-            <div key={index} className="flex justify-between items-center relative group">
-              <button
-                onClick={() => loadChat(index)}
-                className="block w-full text-left p-3 rounded-lg hover:bg-gray-200 transition duration-300 ease-in-out"
-              >
-                {title}
-              </button>
-              <div className="relative">
-                <button
-                  onClick={() => toggleMenu(index)}
-                  className="text-gray-500 hover:text-gray-700 transition duration-300 ease-in-out"
-                >
-                  <FaEllipsisV />
-                </button>
-                {menuOpen === index && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-10">
-                    <button
-                      onClick={() => handleEdit(index)}
-                      className="flex items-center w-full p-2 hover:bg-yellow-100 text-yellow-700 transition duration-300 ease-in-out"
-                    >
-                      <FaEdit className="mr-2" /> Edit Prompt
-                    </button>
-                    <button
-                      onClick={() => deleteChat(index)}
-                      className="flex items-center w-full p-2 hover:bg-red-100 text-red-700 transition duration-300 ease-in-out"
-                    >
-                      <FaTrashAlt className="mr-2" /> Delete
-                    </button>
-                    <button
-                      onClick={() => shareChat(index)}
-                      className="flex items-center w-full p-2 hover:bg-blue-100 text-blue-700 transition duration-300 ease-in-out"
-                    >
-                      <FaShareAlt className="mr-2" /> Share
-                    </button>
-                  </div>
-                )}
+            <div key={index} style={{ marginBottom: '1rem', cursor: 'pointer', backgroundColor: 'rgba(255, 255, 255, 0.1)', padding: '1rem', borderRadius: '10px', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)' }}>
+              <div onClick={() => loadChat(index)}>{title}</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                <FaEdit onClick={() => handleEdit(index)} style={{ cursor: 'pointer' }} />
+                <FaTrashAlt onClick={() => deleteChat(index)} style={{ cursor: 'pointer' }} />
+                <FaShareAlt onClick={() => shareChat(index)} style={{ cursor: 'pointer' }} />
               </div>
             </div>
           ))}
           <button
             onClick={startNewChat}
-            className="block w-full text-left p-3 bg-blue-500 text-white rounded-lg hover:bg-purple-600 transition duration-300 ease-in-out"
+            style={{
+              width: '100%',
+              padding: '1rem',
+              borderRadius: '10px',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              border: 'none',
+              cursor: 'pointer',
+            }}
           >
             + New Chat
           </button>
@@ -192,39 +298,50 @@ const ChatBot = () => {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex flex-col flex-grow bg-white shadow-lg rounded-l-lg">
-        <div className="bg-blue-500 text-white p-5 rounded-t-lg">
-          <h2 className="text-2xl font-bold">Career Guidance Chatbot</h2>
+      <div style={styles.content}>
+        <div style={styles.chatHeader}>
+          <h2>Career Guidance Chatbot</h2>
         </div>
-        <div className="flex-grow overflow-y-auto p-6 bg-gray-50" style={{ maxHeight: 'calc(100vh - 112px)' }}>
+        {showPreTypedMessages && (
+          <div style={styles.preTypedMessages}>
+            {preTypedMessages.map((message, index) => (
+              <div key={index} style={styles.preTypedMessage} onClick={() => handlePreTypedMessageClick(message)}>
+                {message}
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={styles.chatArea}>
           {messages.map((msg, index) => (
-            <div key={index} className={`message mb-4 ${msg.user ? 'text-right' : 'text-left'}`}>
+            <div key={index} style={styles.message}>
               {msg.user ? (
-                <div className="inline-block bg-blue-100 text-blue-900 p-4 rounded-lg shadow-md">
+                <div style={styles.userMessage}>
                   <strong>You:</strong> {msg.user}
                 </div>
               ) : (
-                <div className="inline-block bg-green-100 text-green-900 p-4 rounded-lg shadow-md">
+                <div style={styles.geminiMessage}>
                   <strong>Gemini:</strong> <ReactMarkdown>{msg.gemini}</ReactMarkdown>
                 </div>
               )}
             </div>
           ))}
+          {loading && (
+            <div style={styles.loading}>
+              <div style={styles.loader}></div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
-        <div className="flex p-5 bg-gray-200 rounded-b-lg">
+        <div style={styles.inputArea}>
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-            className="border p-3 flex-grow rounded-l-lg focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out"
+            style={styles.input}
             placeholder="Hint: Start by saying Hello!!!"
           />
-          <button
-            onClick={sendMessage}
-            className="bg-blue-500 text-white p-3 rounded-r-lg hover:bg-blue-600 transition duration-300 ease-in-out focus:outline-none"
-          >
+          <button onClick={sendMessage} style={styles.sendButton}>
             Send
           </button>
         </div>
