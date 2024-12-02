@@ -18,28 +18,14 @@ const Dashboard = () => {
     container: {
       display: 'flex',
     },
-    sidebar: {
-      position: 'fixed',
-      height: '100vh',
-      width: '250px',
-      backgroundColor: '#4c51bf',
-      color: '#ffffff',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '1rem',
-      boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-      zIndex: 1000,
-    },
     content: {
-      marginLeft: '250px', // Adjust to the width of the sidebar
+      flexGrow: 1,
       padding: '2rem',
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       margin: '2rem',
-      flexGrow: 1,
     },
     card: {
       background: 'rgba(255, 255, 255, 0.1)',
@@ -53,13 +39,20 @@ const Dashboard = () => {
       height: '10px',
       borderRadius: '5px',
     },
+    cardHeader: {
+      backgroundColor: '#4c51bf',
+      color: '#ffffff',
+      padding: '0.5rem',
+      borderRadius: '10px 10px 0 0',
+    },
+    cardContent: {
+      padding: '1rem',
+    },
   };
 
   return (
     <div style={styles.container}>
-      <div style={styles.sidebar}>
-        <Sidebar userName="Aryan Sikariya" />
-      </div>
+      <Sidebar userName="Aryan Sikariya" />
       <div style={styles.content}>
         <Typography variant="h4" gutterBottom>
           Dashboard
@@ -67,8 +60,10 @@ const Dashboard = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Card style={styles.card}>
-              <CardContent>
+              <div style={styles.cardHeader}>
                 <Typography variant="h6">Progress</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
                 <Box mt={2}>
                   <Typography variant="body2">Course Completion</Typography>
                   <LinearProgress variant="determinate" value={70} style={styles.progress} />
@@ -82,8 +77,10 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Card style={styles.card}>
-              <CardContent>
+              <div style={styles.cardHeader}>
                 <Typography variant="h6">Suitable Job Predictions</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
                 <Box mt={2}>
                   <Typography variant="body2">Software Engineer</Typography>
                   <Typography variant="body2" color="textSecondary">70% match</Typography>
@@ -101,13 +98,15 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12}>
             <Card style={styles.card}>
-              <CardContent>
+              <div style={styles.cardHeader}>
                 <Typography variant="h6">Website Features</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
                     <Card style={styles.card}>
                       <CardContent>
-                        <Typography variant="body2">Aptitude Assesment</Typography>
+                        <Typography variant="body2">Aptitude Assessment</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -131,8 +130,10 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12}>
             <Card style={styles.card}>
-              <CardContent>
+              <div style={styles.cardHeader}>
                 <Typography variant="h6">Performance Overview</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -144,6 +145,26 @@ const Dashboard = () => {
                     <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                   </LineChart>
                 </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card style={{ ...styles.card, backgroundColor: '#ff6f61' }}>
+              <div style={styles.cardHeader}>
+                <Typography variant="h6">New Feature</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
+                <Typography variant="body2">Description of the new feature.</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card style={{ ...styles.card, backgroundColor: '#6b5b95' }}>
+              <div style={styles.cardHeader}>
+                <Typography variant="h6">Upcoming Events</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
+                <Typography variant="body2">Details about upcoming events.</Typography>
               </CardContent>
             </Card>
           </Grid>

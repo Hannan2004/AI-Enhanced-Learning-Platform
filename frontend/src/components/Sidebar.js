@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AvatarImage from '../assets/images/Avatar.png'; // Correct the image path
 import LoadingAnimation from './LoadingAnimation.js'; // Adjust the path to your LoadingAnimation component
+import { FaBars } from 'react-icons/fa'; // Import an icon for the toggle button
 
 const Sidebar = ({ userName }) => {
   const [loading, setLoading] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -15,11 +17,16 @@ const Sidebar = ({ userName }) => {
     }, 2000); // Adjust the timeout duration as needed
   };
 
+  const toggleSidebar = () => {
+    setCollapsed(!collapsed);
+  };
+
   const styles = {
     sidebar: {
       height: '100vh',
-      width: '250px',
-      backgroundColor: '#4c51bf',
+      width: collapsed ? '80px' : '250px',
+      backgroundColor: 'rgba(0, 51, 102, 0.9)', // Bold blue background color with transparency
+      backdropFilter: 'blur(10px)',
       color: '#ffffff',
       display: 'flex',
       flexDirection: 'column',
@@ -28,6 +35,14 @@ const Sidebar = ({ userName }) => {
       boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
       justifyContent: 'space-between', // Ensure the contact details are at the bottom
       transition: 'width 0.3s ease', // Smooth transition for width change
+      borderRadius: '10px',
+      margin: '2rem',
+    },
+    toggleButton: {
+      alignSelf: 'flex-end',
+      marginBottom: '1rem',
+      cursor: 'pointer',
+      color: '#ffffff',
     },
     avatar: {
       width: '100px',
@@ -52,9 +67,17 @@ const Sidebar = ({ userName }) => {
       cursor: 'pointer',
       textAlign: 'center', // Center the link text
       width: '100%',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+    linkText: {
+      marginLeft: '10px',
     },
     linkHover: {
-      backgroundColor: '#2d3748',
+      backgroundColor: '#FF7F7F',
     },
     contactDetails: {
       textAlign: 'center',
@@ -86,79 +109,84 @@ const Sidebar = ({ userName }) => {
         <LoadingAnimation />
       ) : (
         <>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
-            <div style={styles.welcome}>Welcome, {userName}!</div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/profile')}
-            >
-              View Profile
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/')}
-            >
-              RoadMap
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/dashboard')}
-            >
-              Dashboard
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/overview')}
-            >
-              Overview
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/chatbot')}
-            >
-              Chatbot
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/notifications')}
-            >
-              Notifications
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/tasks')}
-            >
-              Tasks
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/explore')}
-            >
-              Explore All Career Options
-            </div>
-          </div>
-          <div style={styles.contactDetails}>
-            <p>Email: contact@example.com</p>
-            <p>Phone: +123 456 7890</p>
-            <p>Address: 123 Main St, Anytown, USA</p>
-          </div>
+          <FaBars style={styles.toggleButton} onClick={toggleSidebar} />
+          {!collapsed && (
+            <>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
+                <div style={styles.welcome}>Welcome, {userName}!</div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/profile')}
+                >
+                  <span style={styles.linkText}>View Profile</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/roadmap')}
+                >
+                  <span style={styles.linkText}>RoadMap</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/dashboard')}
+                >
+                  <span style={styles.linkText}>Dashboard</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/overview')}
+                >
+                  <span style={styles.linkText}>Overview</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/chatbot')}
+                >
+                  <span style={styles.linkText}>Chatbot</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/notifications')}
+                >
+                  <span style={styles.linkText}>Notifications</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/tasks')}
+                >
+                  <span style={styles.linkText}>Tasks</span>
+                </div>
+                <div
+                  style={styles.link}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  onClick={() => handleNavigation('/ExploreCareerOptions')}
+                >
+                  <span style={styles.linkText}>Explore </span>
+                </div>
+              </div>
+              <div style={styles.contactDetails}>
+                <p>Email: contact@example.com</p>
+                <p>Phone: +123 456 7890</p>
+                <p>Address: 123 Main St, Anytown, USA</p>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>

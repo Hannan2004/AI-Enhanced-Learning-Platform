@@ -14,6 +14,7 @@ import CareerPredictionForm from './pages/Forms';
 import AfterLogin from './pages/AfterLogin';
 import SignupPage from './pages/SignupPage';
 import Dashboard from './pages/Dashboard';
+import ExploreCareerOptions from './pages/ExploreCareerOptions';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -38,6 +39,7 @@ function App() {
             <Route path="/studentorprofessional" element={<AfterLogin/>}/>   
             <Route path="/forms" element={<CareerPredictionForm/>}/>  
             <Route path="/Dashboard" element={<Dashboard/>} />  
+            <Route path="/ExploreCareerOptions" element={ <ExploreCareerOptions/>} />
           </Routes>
         </main>
       </div>

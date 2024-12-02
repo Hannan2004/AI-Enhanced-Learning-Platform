@@ -1,285 +1,561 @@
-{
-    "careers": [
-      {
-        "id": 1,
-        "title": "Doctor",
-        "description": "A medical professional who diagnoses and treats illnesses, injuries, and other health-related issues.",
-        "key_skills": ["Critical thinking", "Communication", "Attention to detail"],
-        "education": "MBBS or equivalent degree followed by specialization."
-      },
-      {
-        "id": 2,
-        "title": "Engineer",
-        "description": "A professional who applies scientific and mathematical principles to develop solutions to technical problems.",
-        "key_skills": ["Analytical thinking", "Problem-solving", "Team collaboration"],
-        "education": "Bachelor's degree in Engineering (various specializations available)."
-      },
-      {
-        "id": 3,
-        "title": "Teacher",
-        "description": "An educator who imparts knowledge and skills to students in a school, college, or university.",
-        "key_skills": ["Communication", "Empathy", "Adaptability"],
-        "education": "Bachelor's degree in Education or a subject-specific degree with teaching certification."
-      },
-      {
-        "id": 4,
-        "title": "Data Scientist",
-        "description": "A specialist who analyzes complex data to help organizations make informed decisions.",
-        "key_skills": ["Statistics", "Programming", "Data visualization"],
-        "education": "Degree in Computer Science, Data Science, or related fields."
-      },
-      {
-        "id": 5,
-        "title": "Software Developer",
-        "description": "A professional who designs, develops, and maintains software applications.",
-        "key_skills": ["Coding", "Debugging", "Logical thinking"],
-        "education": "Degree in Computer Science or Software Engineering."
-      },
-      {
-        "id": 6,
-        "title": "Architect",
-        "description": "A professional who designs buildings and oversees construction projects.",
-        "key_skills": ["Designing", "Project management", "Creative thinking"],
-        "education": "Bachelor's or Master's degree in Architecture."
-      },
-      {
-        "id": 7,
-        "title": "Graphic Designer",
-        "description": "A creative professional who designs visual content for various media.",
-        "key_skills": ["Creativity", "Attention to detail", "Technical skills"],
-        "education": "Degree or diploma in Graphic Design."
-      },
-      {
-        "id": 8,
-        "title": "Cybersecurity Specialist",
-        "description": "An IT expert responsible for protecting systems and networks from cyber threats.",
-        "key_skills": ["Problem-solving", "Networking", "Programming"],
-        "education": "Degree in Cybersecurity, Information Technology, or related fields."
-      },
-      {
-        "id": 9,
-        "title": "Digital Marketer",
-        "description": "A specialist who promotes brands using digital platforms and tools.",
-        "key_skills": ["SEO", "Content marketing", "Analytics"],
-        "education": "Degree in Marketing, Business Administration, or related fields."
-      },
-      {
-        "id": 10,
-        "title": "Veterinarian",
-        "description": "A medical professional who provides healthcare to animals.",
-        "key_skills": ["Animal care", "Attention to detail", "Communication"],
-        "education": "Degree in Veterinary Medicine (DVM)."
-      },
-      {
-        "id": 11,
-        "title": "Pilot",
-        "description": "A trained professional who operates and controls aircraft.",
-        "key_skills": ["Focus", "Communication", "Technical knowledge"],
-        "education": "Commercial Pilot License (CPL) and specialized training."
-      },
-      {
-        "id": 12,
-        "title": "Journalist",
-        "description": "A professional who investigates and reports on news and current events.",
-        "key_skills": ["Writing", "Research", "Communication"],
-        "education": "Degree in Journalism, Mass Communication, or related fields."
-      },
-      {
-        "id": 13,
-        "title": "Chartered Accountant",
-        "description": "A financial professional specializing in accounting, auditing, and taxation.",
-        "key_skills": ["Analytical thinking", "Attention to detail", "Problem-solving"],
-        "education": "CA certification and bachelor's degree in Commerce or related fields."
-      },
-      {
-        "id": 14,
-        "title": "Psychologist",
-        "description": "A mental health professional who studies human behavior and provides therapy.",
-        "key_skills": ["Empathy", "Observation", "Communication"],
-        "education": "Master's or Doctoral degree in Psychology."
-      },
-      {
-        "id": 15,
-        "title": "Actuary",
-        "description": "A professional who uses mathematics, statistics, and financial theory to analyze risk.",
-        "key_skills": ["Mathematics", "Analytical thinking", "Problem-solving"],
-        "education": "Degree in Actuarial Science, Mathematics, or related fields."
-      },
-      {
-        "id": 16,
-        "title": "Environmental Scientist",
-        "description": "A scientist who studies and works to improve the environment.",
-        "key_skills": ["Analytical skills", "Problem-solving", "Technical expertise"],
-        "education": "Degree in Environmental Science or related fields."
-      },
-      {
-        "id": 17,
-        "title": "Event Planner",
-        "description": "A professional who organizes and manages events like weddings, conferences, and parties.",
-        "key_skills": ["Organization", "Communication", "Creativity"],
-        "education": "Degree or diploma in Event Management."
-      },
-      {
-        "id": 18,
-        "title": "Chef",
-        "description": "A culinary professional who prepares and presents food.",
-        "key_skills": ["Creativity", "Time management", "Attention to detail"],
-        "education": "Diploma or degree in Culinary Arts."
-      },
-      {
-        "id": 19,
-        "title": "Game Developer",
-        "description": "A professional who designs and develops video games.",
-        "key_skills": ["Programming", "Problem-solving", "Creativity"],
-        "education": "Degree in Game Design, Computer Science, or related fields."
-      },
-      {
-        "id": 20,
-        "title": "Pharmacist",
-        "description": "A healthcare professional who prepares and dispenses medication.",
-        "key_skills": ["Attention to detail", "Pharmaceutical knowledge", "Communication"],
-        "education": "Bachelor's or Doctorate degree in Pharmacy."
-      },
-      {
-        "id": 21,
-        "title": "Physiotherapist",
-        "description": "A healthcare professional who helps patients regain mobility and manage pain through physical therapy.",
-        "key_skills": ["Empathy", "Physical stamina", "Problem-solving"],
-        "education": "Degree in Physiotherapy (BPT or MPT)."
-      },
-      {
-        "id": 22,
-        "title": "Social Worker",
-        "description": "A professional who supports individuals and communities to overcome challenges and improve well-being.",
-        "key_skills": ["Empathy", "Communication", "Problem-solving"],
-        "education": "Degree in Social Work or related fields."
-      },
-      {
-        "id": 23,
-        "title": "Robotics Engineer",
-        "description": "A professional who designs, builds, and tests robots and robotic systems.",
-        "key_skills": ["Programming", "Mechanical knowledge", "Problem-solving"],
-        "education": "Degree in Robotics Engineering or related fields."
-      },
-      {
-        "id": 24,
-        "title": "Fashion Stylist",
-        "description": "A professional who curates clothing and accessories to create specific looks for clients.",
-        "key_skills": ["Creativity", "Trend analysis", "Communication"],
-        "education": "Diploma or degree in Fashion Styling or related fields."
-      },
-      {
-        "id": 25,
-        "title": "Fitness Trainer",
-        "description": "A specialist who guides individuals in achieving physical fitness and health goals.",
-        "key_skills": ["Physical fitness", "Communication", "Motivation"],
-        "education": "Certification in Fitness Training or related fields."
-      },
-      {
-        "id": 26,
-        "title": "Biomedical Engineer",
-        "description": "An engineer who develops medical devices and equipment to improve healthcare.",
-        "key_skills": ["Technical skills", "Problem-solving", "Innovation"],
-        "education": "Degree in Biomedical Engineering."
-      },
-      {
-        "id": 27,
-        "title": "AI Specialist",
-        "description": "A professional who develops artificial intelligence systems and applications.",
-        "key_skills": ["Machine learning", "Programming", "Data analysis"],
-        "education": "Degree in Computer Science or Artificial Intelligence."
-      },
-      {
-        "id": 28,
-        "title": "Actress/Actor",
-        "description": "A performer who portrays characters in film, television, theater, or other media.",
-        "key_skills": ["Memorization", "Emotional range", "Creativity"],
-        "education": "Diploma or degree in Performing Arts."
-      },
-      {
-        "id": 29,
-        "title": "UX/UI Designer",
-        "description": "A designer who enhances user experiences by optimizing interfaces of digital products.",
-        "key_skills": ["Design skills", "Empathy", "Technical knowledge"],
-        "education": "Degree in Design, Computer Science, or related fields."
-      },
-      {
-        "id": 30,
-        "title": "Astronomer",
-        "description": "A scientist who studies celestial objects, space, and the universe.",
-        "key_skills": ["Observation", "Mathematics", "Research"],
-        "education": "Degree in Astronomy, Astrophysics, or Physics."
-      },
-      {
-        "id": 31,
-        "title": "Chef",
-        "description": "A culinary expert responsible for preparing meals and managing kitchen operations.",
-        "key_skills": ["Cooking", "Creativity", "Time management"],
-        "education": "Diploma or degree in Culinary Arts."
-      },
-      {
-        "id": 32,
-        "title": "HR Manager",
-        "description": "A professional managing hiring, employee relations, and organizational development.",
-        "key_skills": ["Communication", "Leadership", "Decision-making"],
-        "education": "Degree in Human Resource Management."
-      },
-      {
-        "id": 33,
-        "title": "Marine Biologist",
-        "description": "A scientist studying marine life and ecosystems.",
-        "key_skills": ["Research", "Observation", "Analytical skills"],
-        "education": "Degree in Marine Biology or related fields."
-      },
-      {
-        "id": 34,
-        "title": "Animator",
-        "description": "A professional who creates animations for movies, games, or other media.",
-        "key_skills": ["Creativity", "Attention to detail", "Technical skills"],
-        "education": "Degree or diploma in Animation."
-      },
-      {
-        "id": 35,
-        "title": "Environmental Lawyer",
-        "description": "A legal professional advocating for environmental protection and sustainable practices.",
-        "key_skills": ["Legal expertise", "Advocacy", "Research"],
-        "education": "Law degree with specialization in Environmental Law."
-      },
-      {
-        "id": 36,
-        "title": "Economist",
-        "description": "A professional analyzing economic trends and advising on financial policies.",
-        "key_skills": ["Data analysis", "Critical thinking", "Mathematics"],
-        "education": "Degree in Economics or related fields."
-      },
-      {
-        "id": 37,
-        "title": "Geologist",
-        "description": "A scientist studying Earth's physical structure and substances.",
-        "key_skills": ["Fieldwork", "Analysis", "Research"],
-        "education": "Degree in Geology or Earth Sciences."
-      },
-      {
-        "id": 38,
-        "title": "Sound Engineer",
-        "description": "A technician managing audio quality for various media productions.",
-        "key_skills": ["Audio mixing", "Technical skills", "Attention to detail"],
-        "education": "Degree or diploma in Sound Engineering."
-      },
-      {
-        "id": 39,
-        "title": "Travel Blogger",
-        "description": "A content creator who shares travel experiences and tips.",
-        "key_skills": ["Writing", "Photography", "Social media"],
-        "education": "No formal education required; writing or media skills recommended."
-      },
-      {
-        "id": 40,
-        "title": "Public Relations Specialist",
-        "description": "A professional managing a company's image and communication with the public.",
-        "key_skills": ["Communication", "Writing", "Networking"],
-        "education": "Degree in Public Relations, Communications, or Marketing."
-      }
-    ]
+[
+  {
+    "id": 1,
+    "name": "Data Scientist",
+    "scope": "High demand in industries like finance, healthcare, and e-commerce.",
+    "skills_required": ["Python", "Machine Learning", "Statistics", "Data Visualization"]
+  },
+  {
+    "id": 2,
+    "name": "Software Engineer",
+    "scope": "Opportunities in tech companies, startups, and enterprises.",
+    "skills_required": ["Java", "C++", "Problem Solving", "System Design"]
+  },
+  {
+    "id": 3,
+    "name": "Digital Marketer",
+    "scope": "Growing need in online businesses and advertising agencies.",
+    "skills_required": ["SEO", "Content Creation", "Social Media Marketing", "Analytics"]
+  },
+  {
+    "id": 4,
+    "name": "Graphic Designer",
+    "scope": "High demand in branding, advertising, and media industries.",
+    "skills_required": ["Adobe Photoshop", "Illustrator", "Creativity", "UI/UX Design"]
+  },
+  {
+    "id": 5,
+    "name": "Civil Engineer",
+    "scope": "Vital for infrastructure development and construction projects.",
+    "skills_required": ["Structural Analysis", "Project Management", "AutoCAD", "Construction Materials"]
+  },
+  {
+    "id": 6,
+    "name": "Medical Practitioner",
+    "scope": "Critical for healthcare services and hospitals.",
+    "skills_required": ["Anatomy", "Clinical Diagnosis", "Patient Care", "Medical Ethics"]
+  },
+  {
+    "id": 7,
+    "name": "Artificial Intelligence Engineer",
+    "scope": "Rising opportunities in automation, robotics, and AI applications.",
+    "skills_required": ["Python", "Deep Learning", "NLP", "Problem Solving"]
+  },
+  {
+    "id": 8,
+    "name": "Content Writer",
+    "scope": "Key for digital platforms, blogs, and copywriting.",
+    "skills_required": ["Writing", "Research", "SEO", "Creativity"]
+  },
+  {
+    "id": 9,
+    "name": "Entrepreneur",
+    "scope": "Unlimited potential in various industries through innovation.",
+    "skills_required": ["Leadership", "Marketing", "Financial Management", "Problem Solving"]
+  },
+  {
+    "id": 10,
+    "name": "Mechanical Engineer",
+    "scope": "Core industries like manufacturing, automotive, and aerospace.",
+    "skills_required": ["Thermodynamics", "CAD", "Problem Solving", "Mathematics"]
+  },
+  {
+    "id": 11,
+    "name": "Teacher",
+    "scope": "Foundational role in shaping future generations.",
+    "skills_required": ["Communication", "Subject Expertise", "Empathy", "Classroom Management"]
+  },
+  {
+    "id": 12,
+    "name": "Lawyer",
+    "scope": "Critical for legal representation and justice delivery.",
+    "skills_required": ["Legal Research", "Critical Thinking", "Public Speaking", "Negotiation"]
+  },
+  {
+    "id": 13,
+    "name": "Architect",
+    "scope": "Designing sustainable and aesthetic buildings.",
+    "skills_required": ["Design Software", "Creativity", "Structural Knowledge", "Problem Solving"]
+  },
+  {
+    "id": 14,
+    "name": "Pharmacist",
+    "scope": "Vital in healthcare for medication dispensing and advice.",
+    "skills_required": ["Pharmacology", "Patient Counseling", "Attention to Detail", "Regulatory Knowledge"]
+  },
+  {
+    "id": 15,
+    "name": "Pilot",
+    "scope": "Essential for global transportation and logistics.",
+    "skills_required": ["Navigation", "Communication", "Quick Decision Making", "Technical Proficiency"]
+  },
+  {
+    "id": 16,
+    "name": "Chef",
+    "scope": "Opportunities in restaurants, catering, and food innovation.",
+    "skills_required": ["Culinary Skills", "Creativity", "Time Management", "Food Safety Knowledge"]
+  },
+  {
+    "id": 17,
+    "name": "Environmental Scientist",
+    "scope": "Addressing global environmental challenges.",
+    "skills_required": ["Research", "Data Analysis", "Policy Knowledge", "Problem Solving"]
+  },
+  {
+    "id": 18,
+    "name": "Psychologist",
+    "scope": "Crucial for mental health and counseling services.",
+    "skills_required": ["Empathy", "Listening", "Research", "Counseling Techniques"]
+  },
+  {
+    "id": 19,
+    "name": "Veterinarian",
+    "scope": "Essential for animal healthcare and welfare.",
+    "skills_required": ["Animal Anatomy", "Surgical Skills", "Compassion", "Problem Solving"]
+  },
+  {
+    "id": 20,
+    "name": "Event Planner",
+    "scope": "Opportunities in corporate and personal event management.",
+    "skills_required": ["Organization", "Creativity", "Budgeting", "Problem Solving"]
+  },
+  {
+    "id": 21,
+    "name": "Actuary",
+    "scope": "Demand in insurance, finance, and risk management.",
+    "skills_required": ["Mathematics", "Statistics", "Problem Solving", "Analytical Thinking"]
+  },
+  {
+    "id": 22,
+    "name": "Cybersecurity Analyst",
+    "scope": "Critical for protecting digital assets and data.",
+    "skills_required": ["Networking", "Cryptography", "Threat Analysis", "Ethical Hacking"]
+  },
+  {
+    "id": 23,
+    "name": "Video Game Designer",
+    "scope": "Opportunities in entertainment and tech industries.",
+    "skills_required": ["Game Engines", "Creativity", "3D Modeling", "Problem Solving"]
+  },
+  {
+    "id": 24,
+    "name": "Sports Coach",
+    "scope": "Key for talent development and team management.",
+    "skills_required": ["Leadership", "Communication", "Strategy", "Physical Training"]
+  },
+  {
+    "id": 25,
+    "name": "Journalist",
+    "scope": "Critical for reporting and analyzing current events.",
+    "skills_required": ["Writing", "Research", "Communication", "Investigative Skills"]
+  },
+  {
+    "id": 26,
+    "name": "Physiotherapist",
+    "scope": "Essential for rehabilitation and improving physical health.",
+    "skills_required": ["Anatomy", "Therapeutic Techniques", "Empathy", "Communication"]
+  },
+  {
+    "id": 27,
+    "name": "Blockchain Developer",
+    "scope": "High demand in fintech, supply chain, and cybersecurity.",
+    "skills_required": ["Smart Contracts", "Cryptography", "Programming", "Problem Solving"]
+  },
+  {
+    "id": 28,
+    "name": "Biotechnologist",
+    "scope": "Opportunities in pharmaceuticals, agriculture, and research.",
+    "skills_required": ["Molecular Biology", "Lab Techniques", "Research", "Analytical Thinking"]
+  },
+  {
+    "id": 29,
+    "name": "Interior Designer",
+    "scope": "Key for creating functional and aesthetic living spaces.",
+    "skills_required": ["Design Principles", "Creativity", "Space Planning", "Budget Management"]
+  },
+  {
+    "id": 30,
+    "name": "Astronomer",
+    "scope": "Opportunities in space research and astrophysics.",
+    "skills_required": ["Mathematics", "Physics", "Observational Skills", "Research"]
+  },
+  {
+    "id": 31,
+    "name": "Economist",
+    "scope": "Critical for understanding and forecasting economic trends.",
+    "skills_required": ["Data Analysis", "Research", "Statistical Techniques", "Critical Thinking"]
+  },
+  {
+    "id": 32,
+    "name": "Fitness Trainer",
+    "scope": "Rising need in personal health and wellness sectors.",
+    "skills_required": ["Fitness Planning", "Communication", "Anatomy", "Motivational Skills"]
+  },
+  {
+    "id": 33,
+    "name": "Social Worker",
+    "scope": "Essential for community development and welfare services.",
+    "skills_required": ["Empathy", "Communication", "Counseling", "Problem Solving"]
+  },
+  {
+    "id": 34,
+    "name": "Artificial Intelligence Researcher",
+    "scope": "High demand in advancing AI technologies.",
+    "skills_required": ["Machine Learning", "Programming", "Problem Solving", "Research"]
+  },
+  {
+    "id": 35,
+    "name": "Marine Biologist",
+    "scope": "Key for understanding and preserving marine ecosystems.",
+    "skills_required": ["Ecology", "Research", "Diving Skills", "Data Analysis"]
+  },
+  {
+    "id": 36,
+    "name": "Public Relations Specialist",
+    "scope": "Vital for brand image and corporate communication.",
+    "skills_required": ["Communication", "Writing", "Crisis Management", "Networking"]
+  },
+  {
+    "id": 37,
+    "name": "UI/UX Designer",
+    "scope": "High demand in tech for creating user-friendly designs.",
+    "skills_required": ["Wireframing", "Prototyping", "User Research", "Creativity"]
+  },
+  {
+    "id": 38,
+    "name": "Financial Analyst",
+    "scope": "Key role in investment and risk management industries.",
+    "skills_required": ["Excel", "Data Analysis", "Financial Modeling", "Problem Solving"]
+  },
+  {
+    "id": 39,
+    "name": "Artificial Reality (AR) Developer",
+    "scope": "Emerging field in gaming, retail, and training.",
+    "skills_required": ["Unity", "3D Modeling", "Programming", "Creativity"]
+  },
+  {
+    "id": 40,
+    "name": "Tour Guide",
+    "scope": "Opportunities in the travel and tourism industry.",
+    "skills_required": ["Communication", "Historical Knowledge", "Organization", "Public Speaking"]
+  },
+  {
+    "id": 41,
+    "name": "Forensic Scientist",
+    "scope": "Critical for criminal investigations and justice.",
+    "skills_required": ["Analytical Thinking", "Attention to Detail", "Chemistry", "Lab Techniques"]
+  },
+  {
+    "id": 42,
+    "name": "Human Resource Manager",
+    "scope": "Essential for recruitment and workplace management.",
+    "skills_required": ["Communication", "Leadership", "Conflict Resolution", "Organization"]
+  },
+  {
+    "id": 43,
+    "name": "Animator",
+    "scope": "Key for entertainment, advertising, and education.",
+    "skills_required": ["Creativity", "3D Animation", "Storyboarding", "Attention to Detail"]
+  },
+  {
+    "id": 44,
+    "name": "Artificial Intelligence Product Manager",
+    "scope": "High demand for managing AI product development.",
+    "skills_required": ["Leadership", "AI Knowledge", "Communication", "Project Management"]
+  },
+  {
+    "id": 45,
+    "name": "Clinical Psychologist",
+    "scope": "Essential for diagnosing and treating mental health disorders.",
+    "skills_required": ["Empathy", "Research", "Therapeutic Techniques", "Communication"]
+  },
+  {
+    "id": 46,
+    "name": "Robotics Engineer",
+    "scope": "Growing demand in automation and manufacturing industries.",
+    "skills_required": ["Robotics Design", "Programming", "Mathematics", "Problem Solving"]
+  },
+  {
+    "id": 47,
+    "name": "Fashion Designer",
+    "scope": "Opportunities in clothing, accessories, and lifestyle industries.",
+    "skills_required": ["Creativity", "Pattern Making", "Trend Analysis", "Sewing Skills"]
+  },
+  {
+    "id": 48,
+    "name": "Epidemiologist",
+    "scope": "Key role in disease prevention and public health policies.",
+    "skills_required": ["Research", "Data Analysis", "Statistics", "Communication"]
+  },
+  {
+    "id": 49,
+    "name": "Film Director",
+    "scope": "Opportunities in movies, documentaries, and commercials.",
+    "skills_required": ["Storytelling", "Leadership", "Creativity", "Team Management"]
+  },
+  {
+    "id": 50,
+    "name": "Digital Forensics Specialist",
+    "scope": "Critical for cybersecurity and criminal investigations.",
+    "skills_required": ["Networking", "Data Recovery", "Analytical Thinking", "Cybersecurity Knowledge"]
+  },
+  {
+    "id": 51,
+    "name": "Agricultural Scientist",
+    "scope": "Key for improving food production and sustainability.",
+    "skills_required": ["Soil Science", "Research", "Data Analysis", "Problem Solving"]
+  },
+  {
+    "id": 52,
+    "name": "Chef Pastry Specialist",
+    "scope": "High demand in fine dining, bakeries, and catering.",
+    "skills_required": ["Baking Skills", "Creativity", "Time Management", "Attention to Detail"]
+  },
+  {
+    "id": 53,
+    "name": "Marine Engineer",
+    "scope": "Vital for designing and maintaining ships and submarines.",
+    "skills_required": ["Mechanical Engineering", "Naval Architecture", "Problem Solving", "Mathematics"]
+  },
+  {
+    "id": 54,
+    "name": "Speech Therapist",
+    "scope": "Critical for improving communication and speech disorders.",
+    "skills_required": ["Speech Pathology", "Empathy", "Listening", "Therapeutic Techniques"]
+  },
+  {
+    "id": 55,
+    "name": "Game Developer",
+    "scope": "Growing field in entertainment and virtual reality.",
+    "skills_required": ["Game Engines", "Programming", "3D Modeling", "Creativity"]
+  },
+  {
+    "id": 56,
+    "name": "Nutritionist",
+    "scope": "Key for advising on health and diet plans.",
+    "skills_required": ["Diet Planning", "Communication", "Biology", "Empathy"]
+  },
+  {
+    "id": 57,
+    "name": "Renewable Energy Specialist",
+    "scope": "Critical for sustainable energy development.",
+    "skills_required": ["Energy Systems", "Research", "Project Management", "Problem Solving"]
+  },
+  {
+    "id": 58,
+    "name": "Historian",
+    "scope": "Essential for preserving and interpreting historical data.",
+    "skills_required": ["Research", "Writing", "Analytical Thinking", "Communication"]
+  },
+  {
+    "id": 59,
+    "name": "Zoologist",
+    "scope": "Opportunities in wildlife conservation and research.",
+    "skills_required": ["Animal Behavior", "Field Research", "Ecology", "Data Analysis"]
+  },
+  {
+    "id": 60,
+    "name": "Cloud Solutions Architect",
+    "scope": "High demand in IT for cloud-based infrastructure solutions.",
+    "skills_required": ["Cloud Platforms", "Networking", "Programming", "Problem Solving"]
+  },
+  {
+    "id": 61,
+    "name": "Scriptwriter",
+    "scope": "Opportunities in entertainment, advertising, and media.",
+    "skills_required": ["Writing", "Storytelling", "Creativity", "Research"]
+  },
+  {
+    "id": 62,
+    "name": "AI Ethicist",
+    "scope": "Emerging field focusing on ethical AI development.",
+    "skills_required": ["Philosophy", "AI Knowledge", "Critical Thinking", "Problem Solving"]
+  },
+  {
+    "id": 63,
+    "name": "Tourism Manager",
+    "scope": "Growing field in global travel and hospitality.",
+    "skills_required": ["Organization", "Marketing", "Budgeting", "Communication"]
+  },
+  {
+    "id": 64,
+    "name": "Bioinformatics Specialist",
+    "scope": "Key for advancing genomics and biotechnology.",
+    "skills_required": ["Python", "Data Analysis", "Biology", "Problem Solving"]
+  },
+  {
+    "id": 65,
+    "name": "Fashion Stylist",
+    "scope": "Opportunities in fashion shows, magazines, and personal styling.",
+    "skills_required": ["Fashion Trends", "Creativity", "Communication", "Networking"]
+  },
+  {
+    "id": 66,
+    "name": "Geologist",
+    "scope": "Critical for natural resource exploration and environmental studies.",
+    "skills_required": ["Fieldwork", "Data Analysis", "Geological Mapping", "Problem Solving"]
+  },
+  {
+    "id": 67,
+    "name": "Music Producer",
+    "scope": "Opportunities in music production, recording, and events.",
+    "skills_required": ["Music Software", "Creativity", "Sound Engineering", "Networking"]
+  },
+  {
+    "id": 68,
+    "name": "Data Analyst",
+    "scope": "High demand in various industries for data-driven insights.",
+    "skills_required": ["SQL", "Data Visualization", "Statistics", "Problem Solving"]
+  },
+  {
+    "id": 69,
+    "name": "Sustainability Specialist",
+    "scope": "Critical for environmental conservation and sustainable practices.",
+    "skills_required": ["Environmental Science", "Policy Knowledge", "Research", "Problem Solving"]
+  },
+  {
+    "id": 70,
+    "name": "Fashion Photographer",
+    "scope": "Opportunities in fashion shows, magazines, and advertising.",
+    "skills_required": ["Photography", "Creativity", "Networking", "Attention to Detail"]
+  },
+  {
+    "id": 71,
+    "name": "Meteorologist",
+    "scope": "Essential for weather forecasting and climate studies.",
+    "skills_required": ["Meteorology", "Data Analysis", "Communication", "Problem Solving"]
+  },
+  {
+    "id": 72,
+    "name": "UX Researcher",
+    "scope": "High demand in tech for user experience insights.",
+    "skills_required": ["User Testing", "Data Analysis", "Research", "Problem Solving"]
+  },
+  {
+    "id": 73,
+    "name": "Biomedical Engineer",
+    "scope": "Key for medical device innovation and healthcare technology.",
+    "skills_required": ["Biology", "Engineering", "Problem Solving", "Research"]
+  },
+  {
+    "id": 74,
+    "name": "Architect",
+    "scope": "Designing and planning buildings and urban spaces.",
+    "skills_required": ["Design Software", "Creativity", "Technical Drawing", "Project Management"]
+  },
+  {
+    "id": 75,
+    "name": "Cybersecurity Analyst",
+    "scope": "Protecting systems and networks from cyber threats.",
+    "skills_required": ["Network Security", "Risk Assessment", "Incident Response", "Problem Solving"]
+  },
+  {
+    "id": 76,
+    "name": "Event Planner",
+    "scope": "Coordinating and managing events for various occasions.",
+    "skills_required": ["Organization", "Budgeting", "Communication", "Creativity"]
+  },
+  {
+    "id": 77,
+    "name": "Audiologist",
+    "scope": "Diagnosing and treating hearing disorders.",
+    "skills_required": ["Hearing Assessment", "Empathy", "Communication", "Technical Skills"]
+  },
+  {
+    "id": 78,
+    "name": "Meteorologist",
+    "scope": "Forecasting weather and studying atmospheric phenomena.",
+    "skills_required": ["Data Analysis", "Climate Science", "Math Skills", "Observation"]
+  },
+  {
+    "id": 79,
+    "name": "Data Scientist",
+    "scope": "Analyzing and interpreting complex datasets.",
+    "skills_required": ["Python", "Machine Learning", "Statistics", "Critical Thinking"]
+  },
+  {
+    "id": 80,
+    "name": "Veterinarian",
+    "scope": "Providing medical care to animals.",
+    "skills_required": ["Animal Care", "Surgery", "Compassion", "Diagnostic Skills"]
+  },
+  {
+    "id": 81,
+    "name": "Actuary",
+    "scope": "Analyzing financial risks using mathematics and statistics.",
+    "skills_required": ["Risk Analysis", "Statistics", "Excel", "Problem Solving"]
+  },
+  {
+    "id": 82,
+    "name": "Ethical Hacker",
+    "scope": "Securing systems by identifying vulnerabilities.",
+    "skills_required": ["Penetration Testing", "Programming", "Networking", "Problem Solving"]
+  },
+  {
+    "id": 83,
+    "name": "Music Producer",
+    "scope": "Overseeing the production of music recordings.",
+    "skills_required": ["Sound Engineering", "Creativity", "Collaboration", "Technical Skills"]
+  },
+  {
+    "id": 84,
+    "name": "Environmental Scientist",
+    "scope": "Studying and addressing environmental issues.",
+    "skills_required": ["Research", "Data Analysis", "Ecology", "Problem Solving"]
+  },
+  {
+    "id": 85,
+    "name": "Pilates Instructor",
+    "scope": "Teaching physical fitness and wellness through Pilates.",
+    "skills_required": ["Fitness Knowledge", "Communication", "Empathy", "Motivational Skills"]
+  },
+  {
+    "id": 86,
+    "name": "Content Strategist",
+    "scope": "Planning and managing digital content for brands.",
+    "skills_required": ["SEO", "Writing", "Analytics", "Creativity"]
+  },
+  {
+    "id": 87,
+    "name": "Wildlife Photographer",
+    "scope": "Capturing images of wildlife and nature.",
+    "skills_required": ["Photography", "Patience", "Travel Skills", "Observation"]
+  },
+  {
+    "id": 88,
+    "name": "Pharmacologist",
+    "scope": "Researching drug effects and development.",
+    "skills_required": ["Chemistry", "Pharmacology", "Research", "Lab Techniques"]
+  },
+  {
+    "id": 89,
+    "name": "Supply Chain Manager",
+    "scope": "Managing logistics and supply chain operations.",
+    "skills_required": ["Logistics", "Communication", "Data Analysis", "Leadership"]
+  },
+  {
+    "id": 90,
+    "name": "Drone Operator",
+    "scope": "Capturing aerial footage and performing inspections.",
+    "skills_required": ["Drone Technology", "Navigation", "Observation", "Photography"]
+  },
+  {
+    "id": 91,
+    "name": "Dietitian",
+    "scope": "Advising on diet and nutrition for better health.",
+    "skills_required": ["Nutrition Science", "Communication", "Empathy", "Diet Planning"]
+  },
+  {
+    "id": 92,
+    "name": "Legal Consultant",
+    "scope": "Providing expert advice on legal matters.",
+    "skills_required": ["Law Knowledge", "Communication", "Research", "Problem Solving"]
+  },
+  {
+    "id": 93,
+    "name": "Product Designer",
+    "scope": "Creating innovative designs for consumer products.",
+    "skills_required": ["Creativity", "CAD Software", "User Research", "Prototyping"]
   }
-  
+
+]
