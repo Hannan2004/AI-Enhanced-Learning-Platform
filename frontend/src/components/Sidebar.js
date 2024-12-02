@@ -119,7 +119,7 @@ const Sidebar = ({ userName }) => {
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/profile')}
+                  onClick={() => handleNavigation('/ProfilesPage')}
                 >
                   <span style={styles.linkText}>View Profile</span>
                 </div>
@@ -143,9 +143,9 @@ const Sidebar = ({ userName }) => {
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/overview')}
+                  onClick={() => handleNavigation('/ResultsPage')}
                 >
-                  <span style={styles.linkText}>Overview</span>
+                  <span style={styles.linkText}>Results</span>
                 </div>
                 <div
                   style={styles.link}
@@ -159,7 +159,7 @@ const Sidebar = ({ userName }) => {
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/notifications')}
+                  onClick={() => handleNavigation('/Notifications')}
                 >
                   <span style={styles.linkText}>Notifications</span>
                 </div>
@@ -169,7 +169,7 @@ const Sidebar = ({ userName }) => {
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   onClick={() => handleNavigation('/tasks')}
                 >
-                  <span style={styles.linkText}>Tasks</span>
+                  <span style={styles.linkText}>Skill Gap</span>
                 </div>
                 <div
                   style={styles.link}
