@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Navbar.js'; // Correct the Header component path
 import Footer from '../components/Footer.js'; // Correct the Footer component path
+import './CareerPredictionForm.css'; // Import the CSS file
 
 const CareerPredictionForm = () => {
   const [name, setName] = useState('');
@@ -10,8 +11,16 @@ const CareerPredictionForm = () => {
   const [currentGrade, setCurrentGrade] = useState('');
   const [marks10, setMarks10] = useState('');
   const [marks12, setMarks12] = useState('');
-  const [hobbiesSkills, setHobbiesSkills] = useState('');
+  const [degreeStatus, setDegreeStatus] = useState('');
+  const [yearOfDegree, setYearOfDegree] = useState('');
+  const [specialization, setSpecialization] = useState('');
+  const [skills, setSkills] = useState('');
   const [achievements, setAchievements] = useState('');
+  const [resume, setResume] = useState(null);
+  const [experience, setExperience] = useState('');
+  const [hobbiesSkills, setHobbiesSkills] = useState(''); // Add these state variables
+  const [experienceYears, setExperienceYears] = useState('');
+  const [experienceDescription, setExperienceDescription] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,84 +32,92 @@ const CareerPredictionForm = () => {
     console.log('Current Grade:', currentGrade);
     console.log('10th Marks:', marks10);
     console.log('12th Marks:', marks12);
-    console.log('Hobbies & Skills:', hobbiesSkills);
+    console.log('Degree Status:', degreeStatus);
+    console.log('Year of Degree:', yearOfDegree);
+    console.log('Specialization:', specialization);
+    console.log('Skills:', skills);
     console.log('Achievements:', achievements);
+    console.log('Resume:', resume);
+    console.log('Experience:', experience);
+    console.log('Hobbies & Skills:', hobbiesSkills); // Add this line
+    console.log('Experience Years:', experienceYears);
+    console.log('Experience Description:', experienceDescription);
   };
 
   return (
-    <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>
+    <div className="body">
       <Header /> {/* Use the Header component */}
 
       {/* Form Section */}
-      <section style={{ textAlign: 'center', padding: '5rem 0', background: 'linear-gradient(to bottom, #c3dafe, #ebf8ff)', flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', padding: '2rem', marginRight: '2rem' }}>
+      <section className="form-section">
+        <div className="form-container">
+          <div className="form-box">
             <div>
               <form onSubmit={handleSubmit}>
-                <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Career Prediction Form</h2>
-                <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Name</label>
+                <h2 className="form-title">Career Prediction Form</h2>
+                <div className="form-group">
+                  <label className="form-label">Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name here"
-                    style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                    className="form-input"
                     required
                   />
                 </div>
-                <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Email</label>
+                <div className="form-group">
+                  <label className="form-label">Email</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email here"
-                    style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                    className="form-input"
                     required
                   />
                 </div>
-                <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Date of Birth</label>
+                <div className="form-group">
+                  <label className="form-label">Date of Birth</label>
                   <input
                     type="date"
                     value={dob}
                     onChange={(e) => setDob(e.target.value)}
                     placeholder="Enter your date of birth here"
-                    style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                    className="form-input"
                     required
                   />
                 </div>
-                <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Highest Educational Qualification</label>
-                  <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                    <label style={{ color: '#4a5568', fontWeight: 'bold' }}>
+                <div className="form-group">
+                  <label className="form-label">Highest Educational Qualification</label>
+                  <div className="form-radio-group">
+                    <label className="form-radio-label">
                       <input
                         type="radio"
                         value="Schooling"
                         checked={educationLevel === 'Schooling'}
                         onChange={(e) => setEducationLevel(e.target.value)}
-                        style={{ marginRight: '0.5rem' }}
+                        className="form-radio-input"
                       />
                       Schooling
                     </label>
-                    <label style={{ color: '#4a5568', fontWeight: 'bold' }}>
+                    <label className="form-radio-label">
                       <input
                         type="radio"
                         value="Undergraduate"
                         checked={educationLevel === 'Undergraduate'}
                         onChange={(e) => setEducationLevel(e.target.value)}
-                        style={{ marginRight: '0.5rem' }}
+                        className="form-radio-input"
                       />
                       Undergraduate
                     </label>
-                    <label style={{ color: '#4a5568', fontWeight: 'bold' }}>
+                    <label className="form-radio-label">
                       <input
                         type="radio"
                         value="Working Professional"
                         checked={educationLevel === 'Working Professional'}
                         onChange={(e) => setEducationLevel(e.target.value)}
-                        style={{ marginRight: '0.5rem' }}
+                        className="form-radio-input"
                       />
                       Working Professional
                     </label>
@@ -108,12 +125,12 @@ const CareerPredictionForm = () => {
                 </div>
                 {educationLevel === 'Schooling' && (
                   <>
-                    <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                      <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Current Grade</label>
+                    <div className="form-group">
+                      <label className="form-label">Current Grade</label>
                       <select
                         value={currentGrade}
                         onChange={(e) => setCurrentGrade(e.target.value)}
-                        style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                        className="form-select"
                         required
                       >
                         <option value="">Select your current grade</option>
@@ -125,56 +142,272 @@ const CareerPredictionForm = () => {
                       </select>
                     </div>
                     {(currentGrade === '10' || currentGrade === '11' || currentGrade === '12') && (
-                      <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>10th Marks</label>
+                      <div className="form-group">
+                        <label className="form-label">10th Marks</label>
                         <input
                           type="number"
                           value={marks10}
                           onChange={(e) => setMarks10(e.target.value)}
                           placeholder="Enter your 10th marks here"
-                          style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                          className="form-input"
                           required
                         />
                       </div>
                     )}
                     {currentGrade === '12' && (
-                      <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>12th Marks</label>
+                      <div className="form-group">
+                        <label className="form-label">12th Marks</label>
                         <input
                           type="number"
                           value={marks12}
                           onChange={(e) => setMarks12(e.target.value)}
                           placeholder="Enter your 12th marks here"
-                          style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }}
+                          className="form-input"
                           required
                         />
                       </div>
                     )}
-                    <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                      <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Hobbies & Skills</label>
+                    <div className="form-group">
+                      <label className="form-label">Hobbies & Skills</label>
                       <textarea
                         value={hobbiesSkills}
                         onChange={(e) => setHobbiesSkills(e.target.value)}
                         placeholder="Enter your hobbies and skills here"
-                        style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0', resize: 'vertical' }}
+                        className="form-textarea"
                         rows="3"
                         required
                       ></textarea>
                     </div>
-                    <div style={{ marginBottom: '1.5rem', border: '1px solid #cbd5e0', borderRadius: '0.5rem', padding: '0.5rem' }}>
-                      <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568', fontWeight: 'bold' }}>Achievements</label>
+                    <div className="form-group">
+                      <label className="form-label">Achievements</label>
                       <textarea
                         value={achievements}
                         onChange={(e) => setAchievements(e.target.value)}
                         placeholder="Enter your achievements here"
-                        style={{ width: 'calc(100% - 1rem)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0', resize: 'vertical' }}
+                        className="form-textarea"
                         rows="3"
                         required
                       ></textarea>
                     </div>
                   </>
                 )}
-                <button type="submit" style={{ backgroundColor: '#4c51bf', color: '#ffffff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', width: '100%' }}>
+                {educationLevel === 'Undergraduate' && (
+                  <>
+                    <div className="form-group">
+                      <label className="form-label">10th Marks</label>
+                      <input
+                        type="number"
+                        value={marks10}
+                        onChange={(e) => setMarks10(e.target.value)}
+                        placeholder="Enter your 10th marks here"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">12th Marks</label>
+                      <input
+                        type="number"
+                        value={marks12}
+                        onChange={(e) => setMarks12(e.target.value)}
+                        placeholder="Enter your 12th marks here"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Degree Status</label>
+                      <select
+                        value={degreeStatus}
+                        onChange={(e) => setDegreeStatus(e.target.value)}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Select degree status</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Year of Degree</label>
+                      <input
+                        type="number"
+                        value={yearOfDegree}
+                        onChange={(e) => setYearOfDegree(e.target.value)}
+                        placeholder="Enter the year of your degree"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Specialization</label>
+                      <input
+                        type="text"
+                        value={specialization}
+                        onChange={(e) => setSpecialization(e.target.value)}
+                        placeholder="Enter your specialization"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Skills</label>
+                      <textarea
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
+                        placeholder="Enter your skills here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Achievements</label>
+                      <textarea
+                        value={achievements}
+                        onChange={(e) => setAchievements(e.target.value)}
+                        placeholder="Enter your achievements here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Resume</label>
+                      <input
+                        type="file"
+                        onChange={(e) => setResume(e.target.files[0])}
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Experience (Optional)</label>
+                      <textarea
+                        value={experience}
+                        onChange={(e) => setExperience(e.target.value)}
+                        placeholder="Enter your experience here"
+                        className="form-textarea"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </>
+                )}
+                {educationLevel === 'Working Professional' && (
+                  <>
+                    <div className="form-group">
+                      <label className="form-label">10th Marks</label>
+                      <input
+                        type="number"
+                        value={marks10}
+                        onChange={(e) => setMarks10(e.target.value)}
+                        placeholder="Enter your 10th marks here"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">12th Marks</label>
+                      <input
+                        type="number"
+                        value={marks12}
+                        onChange={(e) => setMarks12(e.target.value)}
+                        placeholder="Enter your 12th marks here"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Degree Status</label>
+                      <select
+                        value={degreeStatus}
+                        onChange={(e) => setDegreeStatus(e.target.value)}
+                        className="form-select"
+                        required
+                      >
+                        <option value="">Select degree status</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Year of Degree</label>
+                      <input
+                        type="number"
+                        value={yearOfDegree}
+                        onChange={(e) => setYearOfDegree(e.target.value)}
+                        placeholder="Enter the year of your degree"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Specialization</label>
+                      <input
+                        type="text"
+                        value={specialization}
+                        onChange={(e) => setSpecialization(e.target.value)}
+                        placeholder="Enter your specialization"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Skills</label>
+                      <textarea
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
+                        placeholder="Enter your skills here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Achievements</label>
+                      <textarea
+                        value={achievements}
+                        onChange={(e) => setAchievements(e.target.value)}
+                        placeholder="Enter your achievements here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Resume</label>
+                      <input
+                        type="file"
+                        onChange={(e) => setResume(e.target.files[0])}
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Experience in Years</label>
+                      <input
+                        type="number"
+                        value={experienceYears}
+                        onChange={(e) => setExperienceYears(e.target.value)}
+                        placeholder="Enter your experience in years"
+                        className="form-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Description of Experience</label>
+                      <textarea
+                        value={experienceDescription}
+                        onChange={(e) => setExperienceDescription(e.target.value)}
+                        placeholder="Enter your experience description (may include company name, job role)"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                  </>
+                )}
+                <button type="submit" className="form-button">
                   Submit
                 </button>
               </form>

@@ -4,14 +4,17 @@ import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import { useNavigate } from "react-router-dom";
 
-
-
 const LandingPage = () => {
-    const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate(); // React Router hook for navigation
 
   const handleLoginClick = () => {
     navigate("/login"); // Redirect to the login route
   };
+
+  const handleFeatureClick = (feature) => {
+    navigate(`/features/${feature}`); // Navigate to the feature page
+  };
+
   return (
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <Navbar /> {/* Use the Header component */}
@@ -23,10 +26,10 @@ const LandingPage = () => {
           Make smart decisions with our revolutionary AI enabled career guidance tools and expert career counsellors.
         </p>
         <div>
-          <button style={{ backgroundColor: '#4c51bf', color: '#ffffff', padding: '0.75rem 2rem', borderRadius: '0.5rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', cursor: 'pointer', marginRight: '1rem', fontSize: '1rem' }}>
+          <button style={buttonStyle}>
             Get Started
           </button>
-          <button style={{ backgroundColor: '#4c51bf', color: '#ffffff', padding: '0.75rem 2rem', borderRadius: '0.5rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', cursor: 'pointer', fontSize: '1rem' }} onClick={handleLoginClick}>
+          <button style={buttonStyle} onClick={handleLoginClick}>
             Login
           </button>
         </div>
@@ -37,7 +40,7 @@ const LandingPage = () => {
 
       {/* Image Section */}
       <section style={{ textAlign: 'center', padding: '2rem 0', background: 'none' }}>
-        <img src={LandingImage} alt="Landing" style={{ maxWidth: '50%', height: 'auto' }} />
+        <img src={LandingImage} alt="Landing" style={{ maxWidth: '50%', height: 'auto', display: 'block', margin: '0 auto' }} />
       </section>
 
       {/* Features Section */}
@@ -48,26 +51,32 @@ const LandingPage = () => {
             <FeatureCard
               title="Aptitude Assessment"
               description="Evaluate strengths, inclinations, and cognitive abilities with AI."
+              onClick={() => handleFeatureClick('aptitude-assessment')}
             />
             <FeatureCard
               title="Career Recommendations"
               description="Tailored recommendations based on aspirations and interests."
+              onClick={() => handleFeatureClick('career-recommendations')}
             />
             <FeatureCard
               title="Skill Gap Analysis"
               description="Identify skill gaps and recommend learning resources."
+              onClick={() => handleFeatureClick('skill-gap-analysis')}
             />
             <FeatureCard
               title="Future Planning"
               description="Predict industry trends and provide progression opportunities."
+              onClick={() => handleFeatureClick('future-planning')}
             />
             <FeatureCard
               title="Personalised Results"
               description="Track progress and career insights in real-time."
+              onClick={() => handleFeatureClick('personalised-results')}
             />
             <FeatureCard
               title="Interactive Chatbot"
               description="Conversational interface to guide and assist users."
+              onClick={() => handleFeatureClick('interactive-chatbot')}
             />
           </div>
         </div>
@@ -145,9 +154,9 @@ const LandingPage = () => {
 };
 
 // Reusable FeatureCard Component
-const FeatureCard = ({ title, description }) => {
+const FeatureCard = ({ title, description, onClick }) => {
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', padding: '1.5rem', textAlign: 'center' }}>
+    <div onClick={onClick} style={cardStyle}>
       <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
       <p style={{ color: '#718096' }}>{description}</p>
     </div>
@@ -157,7 +166,7 @@ const FeatureCard = ({ title, description }) => {
 // Reusable SuccessStory Component
 const SuccessStory = ({ name, story }) => {
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', padding: '1.5rem', textAlign: 'center' }}>
+    <div style={cardStyle}>
       <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{name}</h4>
       <p style={{ color: '#718096' }}>{story}</p>
     </div>
@@ -167,11 +176,40 @@ const SuccessStory = ({ name, story }) => {
 // Reusable InsightCard Component
 const InsightCard = ({ title, description }) => {
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', padding: '1.5rem', textAlign: 'center' }}>
+    <div style={cardStyle}>
       <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
       <p style={{ color: '#718096' }}>{description}</p>
     </div>
   );
+};
+
+const buttonStyle = {
+  backgroundColor: '#4c51bf',
+  color: '#ffffff',
+  padding: '0.75rem 2rem',
+  borderRadius: '0.5rem',
+  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  cursor: 'pointer',
+  marginRight: '1rem',
+  fontSize: '1rem',
+  transition: 'transform 0.2s',
+  ':hover': {
+    transform: 'scale(1.05)'
+  }
+};
+
+const cardStyle = {
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  backdropFilter: 'blur(10px)',
+  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  borderRadius: '0.5rem',
+  padding: '1.5rem',
+  textAlign: 'center',
+  cursor: 'pointer',
+  transition: 'transform 0.2s',
+  ':hover': {
+    transform: 'scale(1.05)'
+  }
 };
 
 export default LandingPage;
