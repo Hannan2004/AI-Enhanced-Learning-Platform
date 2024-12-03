@@ -159,9 +159,6 @@ const Sidebar = ({ userName }) => {
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-<<<<<<< HEAD
-                  onClick={() => handleNavigation('/Notifications')}
-=======
                   onClick={() => handleNavigation('/aptitude')}
                 >
                   <span style={styles.linkText}>Aptitude Test</span>
@@ -171,7 +168,6 @@ const Sidebar = ({ userName }) => {
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   onClick={() => handleNavigation('/notifications')}
->>>>>>> f56d67966edf2764c653983f5c6acc5f4fe4e4e4
                 >
                   <span style={styles.linkText}>Notifications</span>
                 </div>
