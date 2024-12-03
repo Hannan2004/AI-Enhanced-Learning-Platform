@@ -175,7 +175,7 @@ const Sidebar = ({ userName }) => {
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/tasks')}
+                  onClick={() => handleNavigation('/SkillGap')}
                 >
                   <span style={styles.linkText}>Skill Gap</span>
                 </div>
