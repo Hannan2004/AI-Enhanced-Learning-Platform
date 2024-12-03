@@ -18,6 +18,7 @@ import ExploreCareerOptions from './pages/ExploreCareerOptions';
 import ProfilePage from './pages/ProfilePage';
 import ResultsPage from './pages/ResultsPage';
 import Notifications from './pages/Notifications';
+import CareerOptions from './pages/CareerOptions';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -46,6 +47,7 @@ function App() {
             <Route path="/ProfilesPage" element={<ProfilePage/>} />
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
+            <Route path="/CareerOptions" element={<CareerOptions />} />
           </Routes>
         </main>
       </div>
