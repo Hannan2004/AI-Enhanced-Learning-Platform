@@ -19,6 +19,7 @@ import ProfilePage from './pages/ProfilePage';
 import ResultsPage from './pages/ResultsPage';
 import Notifications from './pages/Notifications';
 import CareerOptions from './pages/CareerOptions';
+import SkillGap from './pages/SkillGap';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -48,6 +49,7 @@ function App() {
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
+            <Route path="/SkillGap" element={<SkillGap />} />
           </Routes>
         </main>
       </div>
