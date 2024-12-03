@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const NumericalAbility = ({ setScores }) => {
+const VerbalAbility = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [quizStarted, setQuizStarted] = useState(false);
@@ -29,7 +29,7 @@ const NumericalAbility = ({ setScores }) => {
   const startQuiz = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3001/generateNumerical', { type: 'numerical-ability' });
+      const response = await axios.post('http://localhost:3001/generateVerbal', { type: 'verbal-ability' });
       console.log('API Response:', response.data); // Debugging log
       const parsedResponse = JSON.parse(response.data.response);
       if (Array.isArray(parsedResponse)) {
@@ -63,8 +63,8 @@ const NumericalAbility = ({ setScores }) => {
           calculatedScore += 1;
         }
       });
-      setScores(prevScores => ({ ...prevScores, numerical: calculatedScore }));
-      navigate('/verbal-ability');
+      setScores(prevScores => ({ ...prevScores, verbal: calculatedScore }));
+      navigate('/logical-reasoning');
     }
   };
 
@@ -80,7 +80,7 @@ const NumericalAbility = ({ setScores }) => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-100 to-blue-300 p-4">
         <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center">
-          <h1 className="text-2xl font-bold mb-6">Numerical Ability Test</h1>
+          <h1 className="text-2xl font-bold mb-6">Verbal Ability Test</h1>
           <button
             onClick={startQuiz}
             className="py-2 px-4 bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition duration-300"
@@ -141,7 +141,7 @@ const NumericalAbility = ({ setScores }) => {
                 variants={itemVariants}
                 className="text-2xl font-bold text-center text-indigo-800 mb-4"
               >
-                Numerical Ability Test
+                Verbal Ability Test
               </motion.h2>
 
               <motion.div 
@@ -212,4 +212,4 @@ const NumericalAbility = ({ setScores }) => {
   );
 };
 
-export default NumericalAbility;
+export default VerbalAbility;

@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    systemInstruction: "Generate 10 Questions for conducting aptitude assesment \nCategory : Numerical Ability\n``` JSON\n            [ \n                \"question\": <question>,\n                \"options\": [\n                    \"A) <option A>\",\n                    \"B) <option B>\",\n                    \"C) <option C>\",\n                    \"D) <option D>\"\n                ],\n                \"correctAnswer\": <correct answer>\n            ]\n````\nRemember the questions should be in increasing level of difficulty",
+    systemInstruction: "Generate 10 Questions for conducting aptitude assessment \nCategory : Numerical Ability\n``` JSON\n            [ \n                \"question\": <question>,\n                \"options\": [\n                    \"A) <option A>\",\n                    \"B) <option B>\",\n                    \"C) <option C>\",\n                    \"D) <option D>\"\n                ],\n                \"correctAnswer\": <correct answer>\n            ]\n````\nRemember the questions should be in increasing level of difficulty",
 });
 
 const generationConfig = {
