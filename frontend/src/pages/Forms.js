@@ -14,6 +14,7 @@ const CareerPredictionForm = () => {
   const [degreeStatus, setDegreeStatus] = useState('');
   const [yearOfDegree, setYearOfDegree] = useState('');
   const [specialization, setSpecialization] = useState('');
+  const [skills, setSkills] = useState('');
   const [achievements, setAchievements] = useState('');
   const [resume, setResume] = useState(null);
   const [experience, setExperience] = useState('');
@@ -34,6 +35,7 @@ const CareerPredictionForm = () => {
     console.log('Degree Status:', degreeStatus);
     console.log('Year of Degree:', yearOfDegree);
     console.log('Specialization:', specialization);
+    console.log('Skills:', skills);
     console.log('Achievements:', achievements);
     console.log('Resume:', resume);
     console.log('Experience:', experience);
@@ -249,6 +251,17 @@ const CareerPredictionForm = () => {
                       />
                     </div>
                     <div className="form-group">
+                      <label className="form-label">Skills</label>
+                      <textarea
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
+                        placeholder="Enter your skills here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
                       <label className="form-label">Achievements</label>
                       <textarea
                         value={achievements}
@@ -338,6 +351,17 @@ const CareerPredictionForm = () => {
                         className="form-input"
                         required
                       />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Skills</label>
+                      <textarea
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
+                        placeholder="Enter your skills here"
+                        className="form-textarea"
+                        rows="3"
+                        required
+                      ></textarea>
                     </div>
                     <div className="form-group">
                       <label className="form-label">Achievements</label>
