@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
+let one = 1;
 
 const LogicalReasoning = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
