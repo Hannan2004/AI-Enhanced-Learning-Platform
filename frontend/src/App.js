@@ -15,6 +15,7 @@ import AfterLogin from './pages/AfterLogin';
 import SignupPage from './pages/SignupPage';
 import Dashboard from './pages/Dashboard';
 import ExploreCareerOptions from './pages/ExploreCareerOptions';
+import ReportUpload from './pages/ReportUpload';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -25,6 +26,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/recommendations" element={<ReportUpload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/chatbot" element={<Chatbot />} /> 

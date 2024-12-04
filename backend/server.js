@@ -4,13 +4,19 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 require('dotenv').config();
 
 const { Signup } = require('./models/signupModel');
 const { Login } = require('./models/loginModel');
-
+const { generateRecommendations } = require('./generateRecommendations');
+const { generateNumericalQuestions } = require('./generateNumerical');
+const { generateLogicalQuestions } = require('./generateLogical');  
+const { generateVerbalQuestions } = require('./generateVerbal');
 const app = express();
 const port = 3001;
+
+const upload = multer({ dest: 'uploads/' });
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -117,6 +123,20 @@ app.post('/generateLogical', async (req, res) => {
         console.error('Error in /generateLogical:', error.message);
         res.status(500).send(error.message);
     }    
+});
+
+app.post('/generateRecommendations', upload.single('report'), async (req, res) => {
+    try {
+        console.log('Received /generateRecommendations request:', req.file);
+        const filePath = req.file.path;
+        const mimeType = req.file.mimetype;
+        const recommendations = await generateRecommendations(filePath, mimeType);
+        console.log('Career recommendations:', recommendations);
+        res.status(200).json(recommendations);
+    } catch (error) {
+        console.error('Error generating recommendations:', error);
+        res.status(500).send({ error: 'An error occurred while generating recommendations.' });
+    }
 });
 
 /* app.post('/generateSpatial', async (req, res) => {
