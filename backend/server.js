@@ -13,6 +13,8 @@ const { generateRecommendations } = require('./generateRecommendations');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
+const { generateSkillGap } = require('./skillGap');
+
 const app = express();
 const port = 3001;
 
@@ -139,18 +141,21 @@ app.post('/generateRecommendations', upload.single('report'), async (req, res) =
     }
 });
 
-/* app.post('/generateSpatial', async (req, res) => {
-    const { type } = req.body;
-
+app.post('/generateSkillGap', async (req, res) => {
     try {
-        console.log('Received /generateSpatial request:', req.body);
-        const result = await generateSpatialQuestions(type);
-        res.json(result);
+      const { userInput } = req.body;
+  
+      if (!userInput) {
+        return res.status(400).json({ error: "userInput is required" });
+      }
+  
+      const skillGapAnalysis = await generateSkillGap(userInput);
+      res.status(200).json({ skillGapAnalysis });
     } catch (error) {
-        console.error('Error in /generateSpatial:', error.message);
-        res.status(500).send(error.message);
-    }    
-});*/
+      console.error("Error in generateSkillGap:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

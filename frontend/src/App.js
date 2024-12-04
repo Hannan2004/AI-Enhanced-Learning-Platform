@@ -22,6 +22,7 @@ import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
+import SkillGapForm from './pages/SkillGapForm';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -52,8 +53,9 @@ function App() {
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
-            <Route path="/SkillGap" element={<SkillGap />} />
+            {/* <Route path="/SkillGap" element={<SkillGap />} /> */}
             <Route path="/Test" element={<Test />} />
+            <Route path="/skill-gap" element={<SkillGapForm />} />
           </Routes>
         </main>
       </div>
