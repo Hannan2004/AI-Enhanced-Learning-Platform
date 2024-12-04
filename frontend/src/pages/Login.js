@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../components/Navbar.js';
 import Footer from '../components/Footer.js';
-import LoginImage from '../assets/images/3.svg';
+import Spline from '@splinetool/react-spline';
 import axios from 'axios';
 
 export default function Login() {
@@ -61,12 +61,11 @@ export default function Login() {
           backgroundColor: 'rgba(255, 255, 255, 0.8)', 
           borderRadius: '0.5rem', 
           padding: '2rem',
-          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+          alignItems: 'center',
+          marginRight: '2rem'
         }}>
-          <div style={{ marginRight: '2rem' }}>
-            <img src={LoginImage} alt="Login" style={{ width: '400px', height: 'auto' }} />
-          </div>
-          <form onSubmit={handleLogin} style={{ width: '300px' }}>
+          <form onSubmit={handleLogin} style={{ width: '300px', marginRight: '2rem' }}>
             <h2 style={{ 
               fontSize: '2.25rem', 
               fontWeight: 'bold', 
@@ -166,6 +165,9 @@ export default function Login() {
               </button>
             </div>
           </form>
+        </div>
+        <div style={{ width: '900px', height: '100%' }}>
+          <Spline scene="https://prod.spline.design/AsKX0-IKsVF9tEe0/scene.splinecode" />
         </div>
       </section>
       <Footer />

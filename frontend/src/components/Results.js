@@ -1,34 +1,46 @@
 import React, { useRef, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import { motion } from 'framer-motion';
 
+// Register the necessary Chart.js components
+Chart.register(...registerables);
+
 const Results = ({ userName, scores }) => {
   const chartRef = useRef(null);
+  const chartInstance = useRef(null);
 
   useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
-        datasets: [{
-          label: 'Scores',
-          data: [scores.numerical, scores.verbal, scores.logical],
-          backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
-        }],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
+    if (chartRef.current) {
+      // Destroy the previous chart instance if it exists
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+
+      // Create a new chart instance
+      const ctx = chartRef.current.getContext('2d');
+      chartInstance.current = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
+          datasets: [{
+            label: 'Scores',
+            data: [scores.numerical, scores.verbal, scores.logical],
+            backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
+          }],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
           },
         },
-      },
-    });
+      });
+    }
   }, [scores]);
 
   const downloadPDF = () => {
