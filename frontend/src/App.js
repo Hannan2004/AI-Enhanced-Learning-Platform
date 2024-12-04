@@ -22,6 +22,7 @@ import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
+import SpatialReasoning from './pages/SpatialReasoning';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -55,6 +56,7 @@ function App() {
             <Route path="/SkillGap" element={<SkillGap />} />
             <Route path="/Test" element={<Test />} />
             <Route path="/report" element={<ReportUpload />} />
+            <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} />
           </Routes>
         </main>
       </div>
