@@ -7,9 +7,12 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 require('dotenv').config();
 
+
+
 const { Signup } = require('./models/signupModel');
 const { Login } = require('./models/loginModel');
 const { generateRecommendations } = require('./generateRecommendations');
+const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
@@ -72,6 +75,23 @@ app.post('/api/auth/login', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+// Mock Interview Route 
+app.post('/start-interview', async (req, res) => {
+    const { userInput } = req.body;  // Expect user input from request body
+
+    try {
+        console.log('Received /start-interview request:', req.body);
+        const interviewResponse = await startInterview(userInput);  // Change made here: Called startInterview function
+        res.json({ interviewResponse });
+    } catch (error) {
+        console.error('Error in /start-interview:', error.message);
+        res.status(500).json({ error: 'Error starting the interview' });
+    }
+});
+
+
 
 // Other routes and logic
 app.post('/counseling', async (req, res) => {

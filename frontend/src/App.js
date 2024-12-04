@@ -22,7 +22,12 @@ import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
+<<<<<<< HEAD
 import SkillGapForm from './pages/SkillGapForm';
+=======
+import SpatialReasoning from './pages/SpatialReasoning';
+import MockInterview from './pages/MockInterview';
+>>>>>>> 55491258e3a19a7abdff97eeea0863b7d7253e3d
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -55,7 +60,13 @@ function App() {
             <Route path="/CareerOptions" element={<CareerOptions />} />
             {/* <Route path="/SkillGap" element={<SkillGap />} /> */}
             <Route path="/Test" element={<Test />} />
+<<<<<<< HEAD
             <Route path="/skill-gap" element={<SkillGapForm />} />
+=======
+            <Route path="/report" element={<ReportUpload />} />
+            <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} />
+            <Route path="/mock-interview" element={<MockInterview />} />
+>>>>>>> 55491258e3a19a7abdff97eeea0863b7d7253e3d
           </Routes>
         </main>
       </div>
