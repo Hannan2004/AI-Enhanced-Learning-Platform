@@ -34,7 +34,6 @@ export default function SignupPage() {
         username,
         email,
         password,
-        confirmPassword
       });
       
       // Successful signup
@@ -93,23 +92,6 @@ export default function SignupPage() {
                 {error}
               </div>
             )}
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Choose a username"
-                required
-                minLength={3}
-                style={{ 
-                  width: '100%', 
-                  padding: '0.5rem', 
-                  borderRadius: '0.25rem', 
-                  border: '1px solid #cbd5e0' 
-                }}
-              />
-            </div>
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', marginBottom: '0.5rem' }}>Email</label>
               <input
