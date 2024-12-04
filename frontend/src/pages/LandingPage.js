@@ -1,209 +1,192 @@
 import React from 'react';
-import Navbar from '../components/Navbar.js';
-import Footer from '../components/Footer.js';
-import LandingImage from '../assets/images/Landingmain.svg';
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
+// Styled components for the UI
+const Button = styled.button`
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  margin: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(255, 126, 95, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-const buttonStyle = {
-  backgroundColor: '#4c51bf',
-  color: '#ffffff',
-  padding: '0.75rem 2rem',
-  borderRadius: '0.5rem',
-  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-  cursor: 'pointer',
-  marginRight: '1rem',
-  fontSize: '1rem',
-  transition: 'transform 0.2s',
-};
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(255, 126, 95, 0.4);
+  }
+`;
 
-const cardStyle = {
-  backgroundColor: 'rgba(255, 255, 255, 0.8)',
-  backdropFilter: 'blur(10px)',
-  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-  borderRadius: '0.5rem',
-  padding: '1.5rem',
-  textAlign: 'center',
-  cursor: 'pointer',
-  transition: 'transform 0.2s',
-};
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  background: ${({ bg }) => bg || 'white'};
+  color: ${({ color }) => color || '#333'};
+  text-align: center;
+  min-height: 100vh;
+`;
+
+const Headline = styled(animated.h1)`
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const Tagline = styled(animated.p)`
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #4a5568;
+  margin-bottom: 2rem;
+`;
+
+const StoryCard = styled.div`
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const StoryImagePlaceholder = styled.div`
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #dfe9f3, #ffffff);
+  border-radius: 15px;
+  margin-bottom: 1rem;
+`;
+
+const Divider = styled.div`
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  margin: 2rem auto;
+`;
+
+const FloatingButton = styled.div`
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  box-shadow: 0 5px 15px rgba(255, 126, 95, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 126, 95, 0.6);
+  }
+`;
 
 const LandingPage = () => {
-  const navigate = useNavigate(); // React Router hook for navigation
-
-  const handleLoginClick = () => {
-    navigate("/login"); // Redirect to the login route
-  };
-
-  const handleFeatureClick = (feature) => {
-    navigate(`/features/${feature}`); // Navigate to the feature page
-  };
+  const navigate = useNavigate();
+  const headlineProps = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const taglineProps = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 400 });
 
   return (
-    <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
-      <Navbar /> {/* Use the Header component */}
+    <div style={{ overflowX: 'hidden' }}>
+      <Navbar />
+      <Parallax pages={4}>
+        {/* Introduction Section */}
+        <ParallaxLayer offset={0} speed={0.5}>
+          <Section bg="linear-gradient(to right, #6a11cb, #2575fc)" color="white">
+            <Headline style={headlineProps}>Your Future, Reimagined</Headline>
+            <Tagline style={taglineProps}>
+              Embark on a journey to uncover your true potential and craft the career of your dreams.
+            </Tagline>
+            <Button onClick={() => navigate('/get-started')}>Start Your Journey</Button>
+            <Button onClick={() => navigate('/learn-more')}>Learn More</Button>
+          </Section>
+        </ParallaxLayer>
 
+        {/* Storytelling Section */}
+        <ParallaxLayer offset={1} speed={0.5}>
+          <Section>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '2rem' }}>Every Step Tells a Story</h2>
+            <StoryCard>
+              <StoryImagePlaceholder />
+              <h3 style={{ marginBottom: '1rem' }}>The Moment of Discovery</h3>
+              <p>
+                It begins with a spark—a realization that there's more to life than what meets the eye. Our platform
+                introduces you to your hidden talents and passions.
+              </p>
+            </StoryCard>
+            <Divider />
+            <StoryCard>
+              <StoryImagePlaceholder />
+              <h3 style={{ marginBottom: '1rem' }}>Empowerment Through Insights</h3>
+              <p>
+                By analyzing your strengths and preferences, we guide you to make informed choices that align with your
+                goals and aspirations.
+              </p>
+            </StoryCard>
+          </Section>
+        </ParallaxLayer>
 
-      {/* Hero Section */}
-      <section style={{ textAlign: 'center', padding: '5rem 0', background: 'linear-gradient(to bottom, #c3dafe, #ebf8ff)' }}>
-        <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Discover Your Perfect Career</h2>
-        <p style={{ fontSize: '1.125rem', color: '#4a5568', marginBottom: '1.5rem' }}>
-          Make smart decisions with our revolutionary AI enabled career guidance tools and expert career counsellors.
-        </p>
-        <div>
-          <button style={buttonStyle}>
-            Get Started
-          </button>
-          <button style={buttonStyle} onClick={handleLoginClick}>
-            Login
-          </button>
-        </div>
-        <p style={{ fontSize: '1rem', color: '#4a5568', marginTop: '1.5rem' }}>
-          Career Assessment | Personalised Guidance | Profile Building
-        </p>
-      </section>
+        {/* Testimonials Section */}
+        <ParallaxLayer offset={2} speed={0.5}>
+          <Section bg="linear-gradient(to right, #ebf8ff, #c3dafe)" color="#333">
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '2rem' }}>Voices of Success</h2>
+            <StoryCard>
+              <StoryImagePlaceholder />
+              <h3 style={{ marginBottom: '1rem' }}>John Doe</h3>
+              <p>
+                "This platform changed my life! It helped me uncover my true calling and take the first step toward a
+                fulfilling career."
+              </p>
+            </StoryCard>
+            <Divider />
+            <StoryCard>
+              <StoryImagePlaceholder />
+              <h3 style={{ marginBottom: '1rem' }}>Jane Smith</h3>
+              <p>
+                "Thanks to the personalized insights, I was able to bridge skill gaps and achieve my career goals."
+              </p>
+            </StoryCard>
+          </Section>
+        </ParallaxLayer>
 
-      {/* Image Section */}
-      <section style={{ textAlign: 'center', padding: '2rem 0', background: 'none' }}>
-        <img src={LandingImage} alt="Landing" style={{ maxWidth: '50%', height: 'auto', display: 'block', margin: '0 auto' }} />
-      </section>
-
-      {/* Features Section */}
-      <section id="features" style={{ padding: '5rem 0', backgroundColor: '#ffffff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
-          <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Key Features</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
-            <FeatureCard
-              title="Aptitude Assessment"
-              description="Evaluate strengths, inclinations, and cognitive abilities with AI."
-              onClick={() => handleFeatureClick('aptitude-assessment')}
-            />
-            <FeatureCard
-              title="Career Recommendations"
-              description="Tailored recommendations based on aspirations and interests."
-              onClick={() => handleFeatureClick('career-recommendations')}
-            />
-            <FeatureCard
-              title="Skill Gap Analysis"
-              description="Identify skill gaps and recommend learning resources."
-              onClick={() => handleFeatureClick('skill-gap-analysis')}
-            />
-            <FeatureCard
-              title="Future Planning"
-              description="Predict industry trends and provide progression opportunities."
-              onClick={() => handleFeatureClick('future-planning')}
-            />
-            <FeatureCard
-              title="Personalised Results"
-              description="Track progress and career insights in real-time."
-              onClick={() => handleFeatureClick('personalised-results')}
-            />
-            <FeatureCard
-              title="Interactive Chatbot"
-              description="Conversational interface to guide and assist users."
-              onClick={() => handleFeatureClick('interactive-chatbot')}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Insights Section */}
-      <section id="insights" style={{ padding: '5rem 0', backgroundColor: '#f7fafc' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
-          <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Who Can Use This Site?</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
-            <InsightCard
-              title="High School Students"
-              description="Explore career options and get guidance on choosing the right path for your future."
-            />
-            <InsightCard
-              title="Undergrad Students"
-              description="Identify your strengths and get personalized recommendations to enhance your career prospects."
-            />
-            <InsightCard
-              title="Working Professionals"
-              description="Analyze your skills, identify gaps, and get insights on how to advance your career."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Success Stories Section */}
-      <section id="success-stories" style={{ padding: '5rem 0', backgroundColor: '#ffffff' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
-          <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Success Stories</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
-            <SuccessStory
-              name="John Doe"
-              story="Career Pathfinder AI helped me identify my strengths and choose a career path that I am passionate about. The personalized recommendations were spot on!"
-            />
-            <SuccessStory
-              name="Jane Smith"
-              story="The skill gap analysis feature was a game-changer for me. It highlighted the areas I needed to improve and provided resources to help me get there."
-            />
-            <SuccessStory
-              name="Michael Johnson"
-              story="The future planning feature gave me insights into industry trends and helped me plan my career progression effectively. Highly recommend!"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Enquiry Form Section */}
-      <section id="enquiry" style={{ padding: '5rem 0', backgroundColor: '#f7fafc' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 1.5rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)' }}>
-          <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Enquiry Form</h3>
-          <form>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Name</label>
-              <input type="text" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }} />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Email</label>
-              <input type="email" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }} />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Message</label>
-              <textarea style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0', resize: 'vertical' }} rows="4"></textarea>
-            </div>
-            <button type="submit" style={{ backgroundColor: '#4c51bf', color: '#ffffff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', width: '100%' }}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <Footer /> {/* Use the Footer component */}
-    </div>
-  );
-};
-
-// Reusable FeatureCard Component
-const FeatureCard = ({ title, description, onClick }) => {
-  return (
-    <div onClick={onClick} style={cardStyle}>
-      <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-      <p style={{ color: '#718096' }}>{description}</p>
-    </div>
-  );
-};
-
-// Reusable SuccessStory Component
-const SuccessStory = ({ name, story }) => {
-  return (
-    <div style={cardStyle}>
-      <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{name}</h4>
-      <p style={{ color: '#718096' }}>{story}</p>
-    </div>
-  );
-};
-
-// Reusable InsightCard Component
-const InsightCard = ({ title, description }) => {
-  return (
-    <div style={cardStyle}>
-      <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-      <p style={{ color: '#718096' }}>{description}</p>
+        {/* Call to Action */}
+        <ParallaxLayer offset={3} speed={0.5}>
+          <Section bg="linear-gradient(to right, #ff7e5f, #feb47b)" color="white">
+            <h2 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '2rem' }}>Join the Revolution</h2>
+            <p style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>
+              Your future is waiting. Take the leap and start shaping it today.
+            </p>
+            <Button onClick={() => navigate('/sign-up')}>Sign Up Now</Button>
+          </Section>
+        </ParallaxLayer>
+      </Parallax>
+      <Footer />
+      <FloatingButton onClick={() => navigate('/contact')}>?</FloatingButton>
     </div>
   );
 };
