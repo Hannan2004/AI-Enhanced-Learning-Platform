@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,14 +18,20 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
 
-    // Basic password validation
+    // Basic validations
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
+    if (username.length < 3) {
+      setError('Username must be at least 3 characters long');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:3001/api/auth/signup', {
+        username,
         email,
         password,
         confirmPassword
@@ -86,6 +93,23 @@ export default function SignupPage() {
                 {error}
               </div>
             )}
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Choose a username"
+                required
+                minLength={3}
+                style={{ 
+                  width: '100%', 
+                  padding: '0.5rem', 
+                  borderRadius: '0.25rem', 
+                  border: '1px solid #cbd5e0' 
+                }}
+              />
+            </div>
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', marginBottom: '0.5rem' }}>Email</label>
               <input

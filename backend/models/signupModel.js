@@ -1,41 +1,51 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const express = require('express');
+const router = express.Router();
+const { Signup } = require('../models/signupModel'); // Adjust path as needed
+const bcrypt = require('bcrypt');
 
-const signupSchema = new mongoose.Schema({
-  email : {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-    match: [
-      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-      "Please provide a valid email address",      
-    ],
-  },
-  password: {
-    type: String,
-    required: [true, "Password is required"],
-    minLength: [6, "Password must be at least 6 characters long"],
-  },
-  confirmPassword: {
-    type: String,
-    required: [true, "Confirm Password is required"],
-    validate: {
-      validator: function (value) {
-        return value === this.password;
-      },
-      message: "Passwords do not match",
-    },
-  },
-});
+router.post('/signup', async (req, res) => {
+  try {
+    const { username, email, password, confirmPassword } = req.body;
 
-signupSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    this.confirmPassword = undefined;
+    // Check if user already exists
+    const existingUsername = await Signup.findOne({ username });
+    const existingEmail = await Signup.findOne({ email });
+
+    if (existingUsername) {
+      return res.status(400).json({ error: 'Username is already taken' });
+    }
+
+    if (existingEmail) {
+      return res.status(400).json({ error: 'Email is already registered' });
+    }
+
+    // Create new user
+    const newUser = new Signup({
+      username,
+      email,
+      password,
+      confirmPassword
+    });
+
+    // Save user to database
+    await newUser.save();
+
+    res.status(201).json({ 
+      message: 'User registered successfully',
+      user: { username, email }
+    });
+
+  } catch (error) {
+    console.error('Signup error:', error);
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ error: errors[0] });
+    }
+
+    res.status(500).json({ error: 'Server error during signup' });
   }
-  next();
 });
 
-const Signup = mongoose.model("Signup", signupSchema);
-module.exports = { Signup };
+module.exports = router;

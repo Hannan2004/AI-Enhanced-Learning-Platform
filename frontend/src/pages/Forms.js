@@ -1,398 +1,223 @@
-import React, { useState } from 'react';
-import Header from '../components/Navbar.js'; // Correct the Header component path
-import Footer from '../components/Footer.js'; // Correct the Footer component path
-import './CareerPredictionForm.css'; // Import the CSS file
+import React, { useState } from "react";
+import axios from "axios";
+import Header from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
+import "./CareerPredictionForm.css";
 
 const CareerPredictionForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [dob, setDob] = useState('');
-  const [educationLevel, setEducationLevel] = useState('');
-  const [currentGrade, setCurrentGrade] = useState('');
-  const [marks10, setMarks10] = useState('');
-  const [marks12, setMarks12] = useState('');
-  const [degreeStatus, setDegreeStatus] = useState('');
-  const [yearOfDegree, setYearOfDegree] = useState('');
-  const [specialization, setSpecialization] = useState('');
-  const [achievements, setAchievements] = useState('');
-  const [resume, setResume] = useState(null);
-  const [experience, setExperience] = useState('');
-  const [hobbiesSkills, setHobbiesSkills] = useState(''); // Add these state variables
-  const [experienceYears, setExperienceYears] = useState('');
-  const [experienceDescription, setExperienceDescription] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [educationLevel, setEducationLevel] = useState("Schooling");
+  const [formFields, setFormFields] = useState({});
 
-  const handleSubmit = (e) => {
+  // Handle education level change
+  const handleEducationLevelChange = (e) => {
+    setEducationLevel(e.target.value);
+    setFormFields({}); // Reset dynamic fields for the new level
+  };
+
+  // Handle input change for dynamic fields
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Submit form
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Date of Birth:', dob);
-    console.log('Education Level:', educationLevel);
-    console.log('Current Grade:', currentGrade);
-    console.log('10th Marks:', marks10);
-    console.log('12th Marks:', marks12);
-    console.log('Degree Status:', degreeStatus);
-    console.log('Year of Degree:', yearOfDegree);
-    console.log('Specialization:', specialization);
-    console.log('Achievements:', achievements);
-    console.log('Resume:', resume);
-    console.log('Experience:', experience);
-    console.log('Hobbies & Skills:', hobbiesSkills); // Add this line
-    console.log('Experience Years:', experienceYears);
-    console.log('Experience Description:', experienceDescription);
+
+    const formData = {
+      name,
+      email,
+      dob,
+      educationLevel,
+      ...(educationLevel === "Schooling" ? { schooling: formFields } : {}),
+      ...(educationLevel === "Undergraduate" ? { undergraduate: formFields } : {}),
+      ...(educationLevel === "Working Professional" ? { workingProfessional: formFields } : {}),
+    };
+
+    try {
+      const response = await axios.post("http://localhost:3001/api/career-prediction", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      alert("Form submitted successfully!");
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Check console for details.");
+    }
   };
 
   return (
     <div className="body">
-      <Header /> {/* Use the Header component */}
-
-      {/* Form Section */}
+      <Header />
       <section className="form-section">
         <div className="form-container">
           <div className="form-box">
-            <div>
-              <form onSubmit={handleSubmit}>
-                <h2 className="form-title">Career Prediction Form</h2>
-                <div className="form-group">
-                  <label className="form-label">Name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name here"
-                    className="form-input"
-                    required
-                  />
+            <form onSubmit={handleSubmit}>
+              <h2 className="form-title">Career Prediction Form</h2>
+
+              <div className="form-group">
+                <label className="form-label">Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name here"
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email here"
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Date of Birth</label>
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Highest Educational Qualification</label>
+                <div className="form-radio-group">
+                  <label className="form-radio-label">
+                    <input
+                      type="radio"
+                      value="Schooling"
+                      checked={educationLevel === "Schooling"}
+                      onChange={handleEducationLevelChange}
+                      className="form-radio-input"
+                    />
+                    Schooling
+                  </label>
+                  <label className="form-radio-label">
+                    <input
+                      type="radio"
+                      value="Undergraduate"
+                      checked={educationLevel === "Undergraduate"}
+                      onChange={handleEducationLevelChange}
+                      className="form-radio-input"
+                    />
+                    Undergraduate
+                  </label>
+                  <label className="form-radio-label">
+                    <input
+                      type="radio"
+                      value="Working Professional"
+                      checked={educationLevel === "Working Professional"}
+                      onChange={handleEducationLevelChange}
+                      className="form-radio-input"
+                    />
+                    Working Professional
+                  </label>
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email here"
-                    className="form-input"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Date of Birth</label>
-                  <input
-                    type="date"
-                    value={dob}
-                    onChange={(e) => setDob(e.target.value)}
-                    placeholder="Enter your date of birth here"
-                    className="form-input"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Highest Educational Qualification</label>
-                  <div className="form-radio-group">
-                    <label className="form-radio-label">
-                      <input
-                        type="radio"
-                        value="Schooling"
-                        checked={educationLevel === 'Schooling'}
-                        onChange={(e) => setEducationLevel(e.target.value)}
-                        className="form-radio-input"
-                      />
-                      Schooling
-                    </label>
-                    <label className="form-radio-label">
-                      <input
-                        type="radio"
-                        value="Undergraduate"
-                        checked={educationLevel === 'Undergraduate'}
-                        onChange={(e) => setEducationLevel(e.target.value)}
-                        className="form-radio-input"
-                      />
-                      Undergraduate
-                    </label>
-                    <label className="form-radio-label">
-                      <input
-                        type="radio"
-                        value="Working Professional"
-                        checked={educationLevel === 'Working Professional'}
-                        onChange={(e) => setEducationLevel(e.target.value)}
-                        className="form-radio-input"
-                      />
-                      Working Professional
-                    </label>
+              </div>
+
+              {/* Conditional Fields */}
+              {educationLevel === "Schooling" && (
+                <>
+                  <div className="form-group">
+                    <label className="form-label">Current Grade</label>
+                    <input
+                      type="text"
+                      name="currentGrade"
+                      value={formFields.currentGrade || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Enter your current grade"
+                      className="form-input"
+                    />
                   </div>
-                </div>
-                {educationLevel === 'Schooling' && (
-                  <>
-                    <div className="form-group">
-                      <label className="form-label">Current Grade</label>
-                      <select
-                        value={currentGrade}
-                        onChange={(e) => setCurrentGrade(e.target.value)}
-                        className="form-select"
-                        required
-                      >
-                        <option value="">Select your current grade</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                    </div>
-                    {(currentGrade === '10' || currentGrade === '11' || currentGrade === '12') && (
-                      <div className="form-group">
-                        <label className="form-label">10th Marks</label>
-                        <input
-                          type="number"
-                          value={marks10}
-                          onChange={(e) => setMarks10(e.target.value)}
-                          placeholder="Enter your 10th marks here"
-                          className="form-input"
-                          required
-                        />
-                      </div>
-                    )}
-                    {currentGrade === '12' && (
-                      <div className="form-group">
-                        <label className="form-label">12th Marks</label>
-                        <input
-                          type="number"
-                          value={marks12}
-                          onChange={(e) => setMarks12(e.target.value)}
-                          placeholder="Enter your 12th marks here"
-                          className="form-input"
-                          required
-                        />
-                      </div>
-                    )}
-                    <div className="form-group">
-                      <label className="form-label">Hobbies & Skills</label>
-                      <textarea
-                        value={hobbiesSkills}
-                        onChange={(e) => setHobbiesSkills(e.target.value)}
-                        placeholder="Enter your hobbies and skills here"
-                        className="form-textarea"
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Achievements</label>
-                      <textarea
-                        value={achievements}
-                        onChange={(e) => setAchievements(e.target.value)}
-                        placeholder="Enter your achievements here"
-                        className="form-textarea"
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-                  </>
-                )}
-                {educationLevel === 'Undergraduate' && (
-                  <>
-                    <div className="form-group">
-                      <label className="form-label">10th Marks</label>
-                      <input
-                        type="number"
-                        value={marks10}
-                        onChange={(e) => setMarks10(e.target.value)}
-                        placeholder="Enter your 10th marks here"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">12th Marks</label>
-                      <input
-                        type="number"
-                        value={marks12}
-                        onChange={(e) => setMarks12(e.target.value)}
-                        placeholder="Enter your 12th marks here"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Degree Status</label>
-                      <select
-                        value={degreeStatus}
-                        onChange={(e) => setDegreeStatus(e.target.value)}
-                        className="form-select"
-                        required
-                      >
-                        <option value="">Select degree status</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Completed">Completed</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Year of Degree</label>
-                      <input
-                        type="number"
-                        value={yearOfDegree}
-                        onChange={(e) => setYearOfDegree(e.target.value)}
-                        placeholder="Enter the year of your degree"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Specialization</label>
-                      <input
-                        type="text"
-                        value={specialization}
-                        onChange={(e) => setSpecialization(e.target.value)}
-                        placeholder="Enter your specialization"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Achievements</label>
-                      <textarea
-                        value={achievements}
-                        onChange={(e) => setAchievements(e.target.value)}
-                        placeholder="Enter your achievements here"
-                        className="form-textarea"
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Resume</label>
-                      <input
-                        type="file"
-                        onChange={(e) => setResume(e.target.files[0])}
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Experience (Optional)</label>
-                      <textarea
-                        value={experience}
-                        onChange={(e) => setExperience(e.target.value)}
-                        placeholder="Enter your experience here"
-                        className="form-textarea"
-                        rows="3"
-                      ></textarea>
-                    </div>
-                  </>
-                )}
-                {educationLevel === 'Working Professional' && (
-                  <>
-                    <div className="form-group">
-                      <label className="form-label">10th Marks</label>
-                      <input
-                        type="number"
-                        value={marks10}
-                        onChange={(e) => setMarks10(e.target.value)}
-                        placeholder="Enter your 10th marks here"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">12th Marks</label>
-                      <input
-                        type="number"
-                        value={marks12}
-                        onChange={(e) => setMarks12(e.target.value)}
-                        placeholder="Enter your 12th marks here"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Degree Status</label>
-                      <select
-                        value={degreeStatus}
-                        onChange={(e) => setDegreeStatus(e.target.value)}
-                        className="form-select"
-                        required
-                      >
-                        <option value="">Select degree status</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Completed">Completed</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Year of Degree</label>
-                      <input
-                        type="number"
-                        value={yearOfDegree}
-                        onChange={(e) => setYearOfDegree(e.target.value)}
-                        placeholder="Enter the year of your degree"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Specialization</label>
-                      <input
-                        type="text"
-                        value={specialization}
-                        onChange={(e) => setSpecialization(e.target.value)}
-                        placeholder="Enter your specialization"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Achievements</label>
-                      <textarea
-                        value={achievements}
-                        onChange={(e) => setAchievements(e.target.value)}
-                        placeholder="Enter your achievements here"
-                        className="form-textarea"
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Resume</label>
-                      <input
-                        type="file"
-                        onChange={(e) => setResume(e.target.files[0])}
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Experience in Years</label>
-                      <input
-                        type="number"
-                        value={experienceYears}
-                        onChange={(e) => setExperienceYears(e.target.value)}
-                        placeholder="Enter your experience in years"
-                        className="form-input"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Description of Experience</label>
-                      <textarea
-                        value={experienceDescription}
-                        onChange={(e) => setExperienceDescription(e.target.value)}
-                        placeholder="Enter your experience description (may include company name, job role)"
-                        className="form-textarea"
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-                  </>
-                )}
-                <button type="submit" className="form-button">
-                  Submit
-                </button>
-              </form>
-            </div>
+                  <div className="form-group">
+                    <label className="form-label">Marks in 10th</label>
+                    <input
+                      type="number"
+                      name="marks10"
+                      value={formFields.marks10 || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Enter your marks in 10th"
+                      className="form-input"
+                    />
+                  </div>
+                </>
+              )}
+
+              {educationLevel === "Undergraduate" && (
+                <>
+                  <div className="form-group">
+                    <label className="form-label">Degree Status</label>
+                    <input
+                      type="text"
+                      name="degreeStatus"
+                      value={formFields.degreeStatus || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Enter your degree status"
+                      className="form-input"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Specialization</label>
+                    <input
+                      type="text"
+                      name="specialization"
+                      value={formFields.specialization || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Enter your specialization"
+                      className="form-input"
+                    />
+                  </div>
+                </>
+              )}
+
+              {educationLevel === "Working Professional" && (
+                <>
+                  <div className="form-group">
+                    <label className="form-label">Years of Experience</label>
+                    <input
+                      type="number"
+                      name="experienceYears"
+                      value={formFields.experienceYears || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Enter your years of experience"
+                      className="form-input"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Experience Description</label>
+                    <textarea
+                      name="experienceDescription"
+                      value={formFields.experienceDescription || ""}
+                      onChange={handleFieldChange}
+                      placeholder="Describe your experience"
+                      className="form-textarea"
+                    ></textarea>
+                  </div>
+                </>
+              )}
+
+              <button type="submit" className="form-submit-button">
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       </section>
-
-      <Footer /> {/* Use the Footer component */}
+      <Footer />
     </div>
   );
 };
