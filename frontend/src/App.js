@@ -5,8 +5,6 @@ import LandingPage from './pages/LandingPage';
 import StudentDashboard from './pages/StudentDashboard';
 import Chatbot from './pages/Chatbot';
 import AptitudeLandingPage from './pages/AptitudeLanding';
-//import NumericalAbility from './pages/NumericalAbility';
-//import VerbalAbility from './pages/VerbalAbility';
 import LogicalReasoning from './pages/LogicalReasoning';
 import Results from './components/Results';
 import RoadMap from './pages/RoadMap';
