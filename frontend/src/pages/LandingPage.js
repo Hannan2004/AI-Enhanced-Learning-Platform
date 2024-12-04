@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar.js';
 import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import { useNavigate } from "react-router-dom";
-import Spline from '@splinetool/react-spline';
+
 
 const buttonStyle = {
   backgroundColor: '#4c51bf',
@@ -43,10 +43,6 @@ const LandingPage = () => {
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <Navbar /> {/* Use the Header component */}
 
-      {/* Spline Section */}
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-blue-300">
-        <Spline scene="https://prod.spline.design/8c-TkE4OOKRUMooo/scene.splinecode" />
-      </div>
 
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '5rem 0', background: 'linear-gradient(to bottom, #c3dafe, #ebf8ff)' }}>
