@@ -1,27 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import Chart from 'chart.js/auto';
+import { Chart } from 'chart.js';
+import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
+import { motion } from 'framer-motion';
 
-const Results = ({ scores }) => {
+const Results = ({ userName, scores }) => {
   const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
 
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
-
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
-
-    chartInstanceRef.current = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
         datasets: [{
           label: 'Scores',
           data: [scores.numerical, scores.verbal, scores.logical],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
         }],
       },
       options: {
@@ -33,21 +29,11 @@ const Results = ({ scores }) => {
         },
       },
     });
-
-    return () => {
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy();
-      }
-    };
   }, [scores]);
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    const date = new Date().toLocaleString();
-    const userName = 'John Doe'; // Dummy user name
 
-    doc.text('Test Results', 20, 10);
-    doc.text(`Date: ${date}`, 20, 20);
     doc.text(`Name: ${userName}`, 20, 30);
 
     doc.autoTable({
@@ -75,19 +61,29 @@ const Results = ({ scores }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center">
-        <h1 className="text-2xl font-bold mb-6">Test Results</h1>
-        <p className="text-xl mb-4">Numerical Ability: {scores.numerical}</p>
-        <p className="text-xl mb-4">Verbal Ability: {scores.verbal}</p>
-        <p className="text-xl mb-4">Logical Reasoning: {scores.logical}</p>
-        <canvas ref={chartRef} width="400" height="200" className="mb-4"></canvas>
-        <button
-          onClick={downloadPDF}
-          className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+    <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
+      <Sidebar userName={userName} />
+      <div className="flex-grow flex flex-col items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center"
         >
-          Download PDF
-        </button>
+          <h1 className="text-3xl font-bold mb-6 text-indigo-800">Test Results</h1>
+          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {scores.numerical}</p>
+          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {scores.verbal}</p>
+          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {scores.logical}</p>
+          <canvas ref={chartRef} width="400" height="200" className="mb-4"></canvas>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={downloadPDF}
+            className="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+          >
+            Download PDF
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   );
