@@ -54,6 +54,7 @@ function App() {
             <Route path="/CareerOptions" element={<CareerOptions />} />
             <Route path="/SkillGap" element={<SkillGap />} />
             <Route path="/Test" element={<Test />} />
+            <Route path="/report" element={<ReportUpload />} />
           </Routes>
         </main>
       </div>
