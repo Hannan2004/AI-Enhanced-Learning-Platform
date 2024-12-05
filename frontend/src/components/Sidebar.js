@@ -123,14 +123,7 @@ const Sidebar = ({ userName }) => {
                 >
                   <span style={styles.linkText}>View Profile</span>
                 </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/roadmap')}
-                >
-                  <span style={styles.linkText}>RoadMap</span>
-                </div>
+                
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
@@ -139,30 +132,9 @@ const Sidebar = ({ userName }) => {
                 >
                   <span style={styles.linkText}>Dashboard</span>
                 </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/ResultsPage')}
-                >
-                  <span style={styles.linkText}>Results</span>
-                </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/chatbot')}
-                >
-                  <span style={styles.linkText}>Chatbot</span>
-                </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/aptitude')}
-                >
-                  <span style={styles.linkText}>Aptitude Test</span>
-                </div>
+                
+                
+                
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}

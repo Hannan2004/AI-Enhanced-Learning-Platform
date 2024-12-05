@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Header from '../components/Navbar.js'; // Correct the Header component path
 import Footer from '../components/Footer.js'; // Correct the Footer component path
 import StudentImage from '../assets/images/stu.png'; // Correct the image path
 import UndergradImage from '../assets/images/underg.png'; // Correct the image path
 import ProfessionalImage from '../assets/images/workingp.png'; // Correct the image path
 
-const PostLoginLanding = () => {
+const PreAptitude = () => {
   const styles = {
     container: {
       background: 'linear-gradient(to right, #ebf8ff, #c3dafe)',
@@ -40,7 +41,7 @@ const PostLoginLanding = () => {
       textAlign: 'center',
       flex: '1 1 30%',
       transition: 'transform 0.3s ease',
-      height: '500px', // Adjust height for deeper rectangular shape
+      height: '550px', // Increased height for deeper rectangular shape
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -94,11 +95,13 @@ const PostLoginLanding = () => {
           >
             <div style={styles.cardContent}>
               <img src={StudentImage} alt="Student" style={styles.image} />
-              <h3 style={styles.cardTitle}>Student</h3>
+              <h3 style={styles.cardTitle}> Highly Suggested for Students</h3>
               <p style={styles.cardDescription}>
-                Explore career options and get guidance on choosing the right path for your future.
+                Psychometric tests for 10th-passed students help identify their strengths, interests, and aptitudes, guiding them in selecting the right academic stream based on their abilities
               </p>
-              <button style={styles.button}>Fill Form</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
           <div
@@ -108,11 +111,13 @@ const PostLoginLanding = () => {
           >
             <div style={styles.cardContent}>
               <img src={UndergradImage} alt="Undergraduate" style={styles.image} />
-              <h3 style={styles.cardTitle}>Undergraduate</h3>
+              <h3 style={styles.cardTitle}>Highly Suggested for Undergraduate</h3>
               <p style={styles.cardDescription}>
-                Identify your strengths and get personalized recommendations to enhance your career prospects.
+                Career fit assessments for graduates match their skills and interests with suitable job roles or internships, helping them find the best career opportunities
               </p>
-              <button style={styles.button}>Fill Form</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
           <div
@@ -122,11 +127,13 @@ const PostLoginLanding = () => {
           >
             <div style={styles.cardContent}>
               <img src={ProfessionalImage} alt="Professional" style={styles.image} />
-              <h3 style={styles.cardTitle}>Professional</h3>
+              <h3 style={styles.cardTitle}>Highly Suggested for Professional</h3>
               <p style={styles.cardDescription}>
-                Analyze your skills, identify gaps, and get insights on how to advance your career.
+                Career advancement assessments for professionals evaluate current skills and growth potential, offering insights for role transitions or career advancement
               </p>
-              <button style={styles.button}>Fill Form</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -136,4 +143,4 @@ const PostLoginLanding = () => {
   );
 };
 
-export default PostLoginLanding;
+export default PreAptitude;

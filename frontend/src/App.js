@@ -24,7 +24,10 @@ import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
 import SkillGapForm from './pages/SkillGapForm';
 import SpatialReasoning from './pages/SpatialReasoning';
+
 import MockInterview from './pages/MockInterview';
+import PreAptitude from './pages/PreAptitude';
+
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
@@ -65,6 +68,7 @@ function App() {
             <Route path="/report" element={<ReportUpload />} />
             {/* <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} /> */}
             <Route path="/mock-interview" element={<MockInterview />} />
+            <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
