@@ -1,51 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import { Card, CardContent, Typography, Grid, LinearProgress, Box } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-  { name: 'Jan', timeSpent: 30 },
-  { name: 'Feb', timeSpent: 45 },
-  { name: 'Mar', timeSpent: 50 },
-  { name: 'Apr', timeSpent: 40 },
-  { name: 'May', timeSpent: 60 },
-  { name: 'Jun', timeSpent: 70 },
-  { name: 'Jul', timeSpent: 80 },
-];
-
-const streaksData = [
-  { date: '2023-10-01', active: true },
-  { date: '2023-10-02', active: false },
-  { date: '2023-10-03', active: true },
-  { date: '2023-10-04', active: true },
-  { date: '2023-10-05', active: false },
-  { date: '2023-10-06', active: true },
-  { date: '2023-10-07', active: true },
-  { date: '2023-10-08', active: false },
-  { date: '2023-10-09', active: true },
-  { date: '2023-10-10', active: true },
-  { date: '2023-10-11', active: false },
-  { date: '2023-10-12', active: true },
-  { date: '2023-10-13', active: true },
-  { date: '2023-10-14', active: false },
-  { date: '2023-10-15', active: true },
-  { date: '2023-10-16', active: true },
-  { date: '2023-10-17', active: false },
-  { date: '2023-10-18', active: true },
-  { date: '2023-10-19', active: true },
-  { date: '2023-10-20', active: false },
-  { date: '2023-10-21', active: true },
-  { date: '2023-10-22', active: true },
-  { date: '2023-10-23', active: false },
-  { date: '2023-10-24', active: true },
-  { date: '2023-10-25', active: true },
-  { date: '2023-10-26', active: false },
-  { date: '2023-10-27', active: true },
-  { date: '2023-10-28', active: true },
-  { date: '2023-10-29', active: false },
-  { date: '2023-10-30', active: true },
-  { date: '2023-10-31', active: true },
-];
+import { useNavigate } from 'react-router-dom';
+import morningImage from '../assets/images/morning.png';
+import afternoonImage from '../assets/images/afternoon.png';
+import eveningImage from '../assets/images/evening.png';
+import nightImage from '../assets/images/night.png';
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -58,22 +18,44 @@ const getDaysInMonth = (month, year) => {
 };
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const [aptitudeClicked, setAptitudeClicked] = useState(false);
+  const [greeting, setGreeting] = useState('');
+  const [greetingImage, setGreetingImage] = useState('');
+
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+      setGreeting('Good Morning');
+      setGreetingImage(morningImage);
+    } else if (currentHour < 17) {
+      setGreeting('Good Afternoon');
+      setGreetingImage(afternoonImage);
+    } else if (currentHour < 20) {
+      setGreeting('Good Evening');
+      setGreetingImage(eveningImage);
+    } else {
+      setGreeting('Good Night');
+      setGreetingImage(nightImage);
+    }
+  }, []);
+
   const styles = {
     container: {
       display: 'flex',
+      backgroundColor: '#f0f2f5',
+      minHeight: '100vh',
     },
     content: {
       flexGrow: 1,
       padding: '2rem',
-      background: 'rgba(255, 255, 255, 0.1)',
-      backdropFilter: 'blur(10px)',
+      background: '#ffffff',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       margin: '2rem',
     },
     card: {
-      background: 'rgba(255, 255, 255, 0.1)',
-      backdropFilter: 'blur(10px)',
+      background: '#ffffff',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       marginBottom: '1rem',
@@ -92,30 +74,64 @@ const Dashboard = () => {
     cardContent: {
       padding: '1rem',
     },
-    streaksContainer: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(7, 1fr)',
-      gap: '5px',
-      marginTop: '2rem',
+    greetingCard: {
+      backgroundColor: '#ffeb3b', // Bright yellow background color
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      color: '#ffffff',
+      borderRadius: '10px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
+      padding: '2rem',
+      textAlign: 'center',
+      height: '100%', // Ensure the height matches the other cards
     },
-    streakDay: {
-      width: '30px',
-      height: '30px',
-      borderRadius: '5px',
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    greetingText: {
+      background: 'linear-gradient(to right, #ff7e5f, #feb47b)', // Gradient color
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      fontSize: '2.25rem',
+      fontWeight: 'bold',
+    },
+    resultsCard: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      background: '#ffffff',
+      borderRadius: '10px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
       cursor: 'pointer',
     },
-    activeDay: {
-      backgroundColor: '#4c51bf',
+    resultsContent: {
+      flexGrow: 1,
+      padding: '1rem',
+    },
+    resultsProgress: {
+      width: '10px',
+      height: '100%',
+      borderRadius: '5px',
     },
   };
 
-  const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear();
-  const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+  const handleAptitudeClick = () => {
+    if (!aptitudeClicked) {
+      setAptitudeClicked(true);
+      // Redirect to /aptitude
+      navigate('/aptitude');
+    }
+  };
+
+  const handleCareerAnalysisClick = () => {
+    navigate('/chatbot');
+  };
+
+  const handleMockInterviewClick = () => {
+    navigate('/mock-interview');
+  };
+
+  const handleResultsClick = () => {
+    navigate('/ResultsPage');
+  };
 
   return (
     <div style={styles.container}>
@@ -126,20 +142,8 @@ const Dashboard = () => {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Progress</Typography>
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Box mt={2}>
-                  <Typography variant="body2">Course Completion</Typography>
-                  <LinearProgress variant="determinate" value={70} style={styles.progress} />
-                </Box>
-                <Box mt={2}>
-                  <Typography variant="body2">Skill Development</Typography>
-                  <LinearProgress variant="determinate" value={50} style={styles.progress} />
-                </Box>
-              </CardContent>
+            <Card style={{ ...styles.greetingCard, backgroundImage: `url(${greetingImage})` }}>
+              <Typography style={styles.greetingText}>{greeting}, Aryan!</Typography>
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -171,23 +175,32 @@ const Dashboard = () => {
               <CardContent style={styles.cardContent}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
-                    <Card style={styles.card}>
+                    <Card 
+                      style={styles.card}
+                      onClick={handleAptitudeClick}
+                    >
                       <CardContent>
                         <Typography variant="body2">Aptitude Assessment</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <Card style={styles.card}>
+                    <Card 
+                      style={styles.card}
+                      onClick={handleCareerAnalysisClick}
+                    >
                       <CardContent>
-                        <Typography variant="body2">Feature 2</Typography>
+                        <Typography variant="body2">Career Analysis</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <Card style={styles.card}>
+                    <Card 
+                      style={styles.card}
+                      onClick={handleMockInterviewClick}
+                    >
                       <CardContent>
-                        <Typography variant="body2">Feature 3</Typography>
+                        <Typography variant="body2">Mock Interview</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -196,47 +209,19 @@ const Dashboard = () => {
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Time Spent on Website</Typography>
+            <Card 
+              style={styles.resultsCard}
+              onClick={handleResultsClick}
+            >
+              <LinearProgress variant="determinate" value={70} style={styles.resultsProgress} />
+              <div style={styles.resultsContent}>
+                <div style={styles.cardHeader}>
+                  <Typography variant="h6">Results</Typography>
+                </div>
+                <CardContent style={styles.cardContent}>
+                  <Typography variant="body2">View your test results and progress.</Typography>
+                </CardContent>
               </div>
-              <CardContent style={styles.cardContent}>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis label={{ value: 'Minutes', angle: -90, position: 'insideLeft' }} />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="timeSpent" stroke="#8884d8" activeDot={{ r: 8 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Streaks</Typography>
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Box style={styles.streaksContainer}>
-                  {daysInMonth.map((day, index) => {
-                    const isActive = streaksData.some(streak => new Date(streak.date).toDateString() === day.toDateString() && streak.active);
-                    return (
-                      <Box
-                        key={index}
-                        style={{
-                          ...styles.streakDay,
-                          ...(isActive ? styles.activeDay : {}),
-                        }}
-                      >
-                        {day.getDate()}
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </CardContent>
             </Card>
           </Grid>
         </Grid>
