@@ -42,17 +42,26 @@ export default function Login() {
 
   return (
     <div style={{ 
-      background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', 
-      color: '#2d3748', 
+      position: 'relative', 
       minHeight: '100vh', 
       display: 'flex', 
       flexDirection: 'column' 
     }}>
       <Header />
+      <div style={{ 
+        position: 'absolute', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '100%', 
+        zIndex: -1 
+      }}>
+        <Spline scene="https://prod.spline.design/AsKX0-IKsVF9tEe0/scene.splinecode" />
+      </div>
       <section style={{ 
         flex: 1, 
         display: 'flex', 
-        justifyContent: 'center', 
+        justifyContent: 'flex-end', 
         alignItems: 'center',
         padding: '2rem'
       }}>
@@ -63,9 +72,9 @@ export default function Login() {
           padding: '2rem',
           boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
           alignItems: 'center',
-          marginRight: '2rem'
+          width: '500px'
         }}>
-          <form onSubmit={handleLogin} style={{ width: '300px', marginRight: '2rem' }}>
+          <form onSubmit={handleLogin} style={{ width: '100%' }}>
             <h2 style={{ 
               fontSize: '2.25rem', 
               fontWeight: 'bold', 
@@ -93,7 +102,7 @@ export default function Login() {
                 required
                 style={{ 
                   width: '100%', 
-                  padding: '0.5rem', 
+                  padding: '0.75rem', 
                   borderRadius: '0.25rem', 
                   border: '1px solid #cbd5e0' 
                 }}
@@ -110,7 +119,7 @@ export default function Login() {
                   required
                   style={{ 
                     flex: 1, 
-                    padding: '0.5rem', 
+                    padding: '0.75rem', 
                     borderRadius: '0.25rem', 
                     border: '1px solid #cbd5e0' 
                   }}
@@ -165,9 +174,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-        </div>
-        <div style={{ width: '900px', height: '100%' }}>
-          <Spline scene="https://prod.spline.design/AsKX0-IKsVF9tEe0/scene.splinecode" />
         </div>
       </section>
       <Footer />

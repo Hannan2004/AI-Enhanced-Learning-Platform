@@ -22,7 +22,7 @@ async function startInterview(userInput) {
       generationConfig
     });
     const result = await chatSession.sendMessage(userInput);
-    return { response: result.response.text(), context: chatSession.history };
+    return result.response.text(); // Return the response text directly
   } catch (error) {
     console.error('Error starting the interview:', error);
     throw new Error('Interview failed');

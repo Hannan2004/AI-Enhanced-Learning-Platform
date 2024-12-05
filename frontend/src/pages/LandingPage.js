@@ -160,7 +160,7 @@ const LandingPage = () => {
         <nav style={navStyle}>
           <span
             style={linkStyle}
-            onClick={() => handleNavigation('/career-library')}
+            onClick={() => handleNavigation('/ExploreCareerOptions')}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = linkHoverStyle.backgroundColor;
               e.currentTarget.style.transform = linkHoverStyle.transform;

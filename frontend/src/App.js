@@ -25,6 +25,7 @@ import Test from './pages/Test';
 import SkillGapForm from './pages/SkillGapForm';
 import SpatialReasoning from './pages/SpatialReasoning';
 import MockInterview from './pages/MockInterview';
+import Contact from './pages/Contact';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -61,6 +62,7 @@ function App() {
             <Route path="/report" element={<ReportUpload />} />
             {/* <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} /> */}
             <Route path="/mock-interview" element={<MockInterview />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
       </div>
