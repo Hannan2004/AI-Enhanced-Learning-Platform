@@ -28,6 +28,7 @@ import MockInterview from './pages/MockInterview';
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
+import Contact from './pages/Contact';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -57,16 +58,17 @@ function App() {
             <Route path="/forms" element={<CareerPredictionForm/>}/>  
             <Route path="/Dashboard" element={<Dashboard/>} />  
             <Route path="/ExploreCareerOptions" element={ <ExploreCareerOptions/>} />
-            <Route path="/ProfilesPage" element={<ProfilePage/>} />
+            <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
-            {/* <Route path="/SkillGap" element={<SkillGap />} /> */}
+            <Route path="/SkillGap" element={<SkillGap />} /> 
             <Route path="/Test" element={<Test />} />
             <Route path="/skill-gap" element={<SkillGapForm />} />
             <Route path="/report" element={<ReportUpload />} />
-            <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} />
+            {/* <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} /> */}
             <Route path="/mock-interview" element={<MockInterview />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
       </div>

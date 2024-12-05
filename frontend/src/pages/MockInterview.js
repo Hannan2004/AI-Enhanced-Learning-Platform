@@ -18,18 +18,18 @@ const MockInterview = () => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append('userInput', userInput);
-
         try {
-            const response = await fetch('http://localhost:3001/start-interview', {
+            const res = await fetch('http://localhost:3001/start-interview', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userInput }),
             });
 
-            const data = await response.json();
+            const data = await res.json();
 
-            if (response.ok) {
+            if (res.ok) {
                 setResponse(data.interviewResponse);
             } else {
                 alert('Error: ' + data.error);
@@ -68,18 +68,20 @@ const MockInterview = () => {
 
             <style>{`
                 .container {
-                    font-family: Arial, sans-serif;
-                    max-width: 600px;
+                    font-family: 'Arial', sans-serif;
+                    max-width: 700px;
                     margin: 0 auto;
-                    padding: 20px;
-                    background-color: #f9f9f9;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    padding: 30px;
+                    background-color: #ffffff;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
                 }
 
                 h1 {
                     text-align: center;
-                    color: #333;
+                    color: #6a0dad;
+                    font-size: 28px;
+                    margin-bottom: 20px;
                 }
 
                 .input-container {
@@ -87,52 +89,66 @@ const MockInterview = () => {
                 }
 
                 label {
-                    font-size: 14px;
-                    color: #555;
-                    margin-bottom: 8px;
-                    display: inline-block;
+                    font-size: 16px;
+                    color: #6a0dad;
+                    margin-bottom: 10px;
+                    display: block;
                 }
 
                 textarea {
                     width: 100%;
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
+                    padding: 12px;
+                    border: 2px solid #6a0dad;
+                    border-radius: 8px;
                     font-size: 16px;
                     resize: vertical;
+                    background-color: #f7f2ff;
+                    color: #333;
+                }
+
+                textarea:focus {
+                    outline: none;
+                    border-color: #9a31e6;
+                    box-shadow: 0 0 6px rgba(106, 13, 173, 0.5);
                 }
 
                 button {
                     width: 100%;
-                    padding: 12px;
-                    background-color: #007bff;
+                    padding: 14px;
+                    background-color: #6a0dad;
                     color: white;
                     border: none;
-                    border-radius: 4px;
-                    font-size: 16px;
+                    border-radius: 8px;
+                    font-size: 18px;
                     cursor: pointer;
-                    transition: background-color 0.3s ease;
+                    transition: all 0.3s ease;
                 }
 
                 button:hover {
-                    background-color: #0056b3;
+                    background-color: #9a31e6;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(106, 13, 173, 0.2);
                 }
 
                 .response {
                     margin-top: 30px;
                     padding: 20px;
-                    background-color: #e9f7fe;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+                    background-color: #f3e5ff;
+                    border: 2px solid #9a31e6;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(154, 49, 230, 0.2);
                 }
 
                 .response h3 {
-                    color: #0056b3;
+                    color: #6a0dad;
+                    font-size: 20px;
                     margin-bottom: 10px;
                 }
 
                 .response p {
                     color: #333;
+                    font-size: 16px;
+                    line-height: 1.5;
                 }
             `}</style>
         </div>

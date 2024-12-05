@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -10,13 +10,15 @@ export default function Navbar() {
 
   const styles = {
     header: {
-      backgroundColor: '#4c51bf',
+      backgroundColor: 'rgba(76, 81, 191, 0.3)', // Purple shade for the background color
+      backdropFilter: 'blur(10px)',
       color: '#ffffff',
       padding: '1rem',
       position: 'fixed',
       top: 0,
       width: '100%',
       zIndex: 1000,
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
     },
     container: {
       maxWidth: '1200px',
@@ -44,7 +46,7 @@ export default function Navbar() {
       cursor: 'pointer',
     },
     linkHover: {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'rgba(255, 255, 255, 0.4)', // Darker shade for the hover effect
       transform: 'scale(1.05)',
     },
     '@media (max-width: 768px)': {
@@ -68,7 +70,7 @@ export default function Navbar() {
             <li>
               <span
                 style={styles.link}
-                onClick={() => handleNavigation('/dashboard')}
+                onClick={() => handleNavigation('/career-library')}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor;
                   e.currentTarget.style.transform = styles.linkHover.transform;
@@ -78,55 +80,7 @@ export default function Navbar() {
                   e.currentTarget.style.transform = 'none';
                 }}
               >
-                Dashboard
-              </span>
-            </li>
-            <li>
-              <span
-                style={styles.link}
-                onClick={() => handleNavigation('/profile')}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor;
-                  e.currentTarget.style.transform = styles.linkHover.transform;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.transform = 'none';
-                }}
-              >
-                Profile
-              </span>
-            </li>
-            <li>
-              <span
-                style={styles.link}
-                onClick={() => handleNavigation('/features')}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor;
-                  e.currentTarget.style.transform = styles.linkHover.transform;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.transform = 'none';
-                }}
-              >
-                Features
-              </span>
-            </li>
-            <li>
-              <span
-                style={styles.link}
-                onClick={() => handleNavigation('/about')}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor;
-                  e.currentTarget.style.transform = styles.linkHover.transform;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.transform = 'none';
-                }}
-              >
-                About
+                Career Library
               </span>
             </li>
             <li>
@@ -143,6 +97,22 @@ export default function Navbar() {
                 }}
               >
                 Contact
+              </span>
+            </li>
+            <li>
+              <span
+                style={styles.link}
+                onClick={() => handleNavigation('/login')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor;
+                  e.currentTarget.style.transform = styles.linkHover.transform;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.transform = 'none';
+                }}
+              >
+                Login
               </span>
             </li>
           </ul>

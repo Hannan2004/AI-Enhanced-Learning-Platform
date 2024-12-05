@@ -1,36 +1,41 @@
 [
-	{
-      "id": 1,
-      "question": ["Compare", "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.png"],
-      "options": [
-        {
-          "id": "a",
-          "type": "image",
-          "content": "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.a.png"
-        },
-        {
-          "id": "b",
-          "type": "image",
-          "content": "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.b.png"
-        },
-        {
-          "id": "c",
-          "type": "image",
-          "content": "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.c.png"
-        },
-        {
-          "id": "d",
-          "type": "image",
-          "content": "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.d.png"
-        },
-        {
-          "id": "e",
-          "type": "image",
-          "content": "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q1.e.png"
-        }
-      ],
-      "Correct answer": "e"
-    },
+	
+    [
+      {
+        "id": 1,
+        "question": ["Compare", "spatial_reasoning/Q1.png"],
+        "options": [
+          {
+            "id": "a",
+            "type": "image",
+            "content": "spatial_reasoning/Q1.a.png"
+          },
+          {
+            "id": "b",
+            "type": "image",
+            "content": "spatial_reasoning/Q1.b.png"
+          },
+          {
+            "id": "c",
+            "type": "image",
+            "content": "spatial_reasoning/Q1.c.png"
+          },
+          {
+            "id": "d",
+            "type": "image",
+            "content": "spatial_reasoning/Q1.d.png"
+          },
+          {
+            "id": "e",
+            "type": "image",
+            "content": "spatial_reasoning/Q1.e.png"
+          }
+        ],
+        "correctAnswer": "e"
+      }
+    ]
+    
+    ,
     {
       "id": 2,
       "question": ["Compare", "AI-Enhanced-Learning-Platform/frontend/src/assets/spatial_reasoning/Q2.png"],

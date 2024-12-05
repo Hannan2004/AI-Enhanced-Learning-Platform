@@ -47,15 +47,17 @@ app.use("/api/forms", formRoutes);
 
 // Mock Interview Route 
 app.post('/start-interview', async (req, res) => {
-    const { userInput } = req.body;  // Expect user input from request body
-
     try {
-        console.log('Received /start-interview request:', req.body);
-        const interviewResponse = await startInterview(userInput);  // Change made here: Called startInterview function
+        const userInput = req.body.userInput;
+        if (!userInput) {
+            return res.status(400).json({ error: 'User input is required' });
+        }
+
+        const interviewResponse = await startInterview(userInput);
         res.json({ interviewResponse });
     } catch (error) {
-        console.error('Error in /start-interview:', error.message);
-        res.status(500).json({ error: 'Error starting the interview' });
+        console.error('Error in /start-interview:', error);
+        res.status(500).json({ error: 'Interview failed' });
     }
 });
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import careersData from '../assets/json/200_careers_dataset.json'; // Adjust the path as necessary
 import { FaSearch, FaTimes } from 'react-icons/fa';
 
@@ -27,22 +26,20 @@ const ExploreCareerOptions = () => {
 
   const styles = {
     container: {
-      display: 'flex',
-    },
-    content: {
-      flexGrow: 1,
       padding: '2rem',
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      margin: '2rem',
+      margin: '2rem auto',
+      maxWidth: '1200px',
       fontFamily: 'Arial, sans-serif',
     },
     header: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      marginBottom: '2rem',
     },
     searchBar: {
       display: searchBarVisible ? 'block' : 'none',
@@ -66,13 +63,17 @@ const ExploreCareerOptions = () => {
       cursor: 'pointer',
       marginLeft: '1rem',
     },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+      gap: '2rem',
+    },
     careerCard: {
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       padding: '1rem',
-      marginBottom: '1rem',
       cursor: 'pointer',
       transition: 'transform 0.3s ease, background-color 0.3s ease',
     },
@@ -91,22 +92,21 @@ const ExploreCareerOptions = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName="Aryan Sikariya" />
-      <div style={styles.content}>
-        <div style={styles.header}>
-          <h1>Explore Career Options</h1>
-          <FaSearch style={styles.searchIcon} onClick={toggleSearchBar} />
-        </div>
-        <div style={styles.searchBar}>
-          <FaTimes style={styles.searchIcon} onClick={toggleSearchBar} />
-          <input
-            type="text"
-            placeholder="Search careers..."
-            value={searchTerm}
-            onChange={handleSearch}
-            style={styles.searchInput}
-          />
-        </div>
+      <div style={styles.header}>
+        <h1>Explore Career Options</h1>
+        <FaSearch style={styles.searchIcon} onClick={toggleSearchBar} />
+      </div>
+      <div style={styles.searchBar}>
+        <FaTimes style={styles.searchIcon} onClick={toggleSearchBar} />
+        <input
+          type="text"
+          placeholder="Search careers..."
+          value={searchTerm}
+          onChange={handleSearch}
+          style={styles.searchInput}
+        />
+      </div>
+      <div style={styles.grid}>
         {filteredCareers.map((career) => (
           <div
             key={career.id}
