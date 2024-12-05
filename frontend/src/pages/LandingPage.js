@@ -3,7 +3,13 @@ import Navbar from '../components/Navbar.js';
 import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import { useNavigate } from "react-router-dom";
-
+import AptitudeImage from '../assets/images/aptitude.png'; // Example image, adjust the path as necessary
+import CareerImage from '../assets/images/career2.png'; // Example image, adjust the path as necessary
+import SkillGapImage from '../assets/images/skillgap.png'; // Example image, adjust the path as necessary
+import FuturePlanningImage from '../assets/images/futureplanning.png'; // Example image, adjust the path as necessary
+import PersonalisedResultsImage from '../assets/images/personalisedresults.png'; // Example image, adjust the path as necessary
+import ChatbotImage from '../assets/images/chatbot.png'; // Example image, adjust the path as necessary
+import RoadMap from './RoadMap'; // Import the RoadMap component
 
 const buttonStyle = {
   backgroundColor: '#4c51bf',
@@ -20,29 +26,30 @@ const buttonStyle = {
 const cardStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.8)',
   backdropFilter: 'blur(10px)',
-  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+  boxShadow: '0 10px 15px -3px rgba(0, 0, 255, 0.3), 0 4px 6px -2px rgba(0, 0, 255, 0.2)',
   borderRadius: '0.5rem',
   padding: '1.5rem',
   textAlign: 'center',
-  cursor: 'pointer',
   transition: 'transform 0.2s',
+};
+
+const imageStyle = {
+  width: '40px',
+  height: '40px',
+  borderRadius: '50%',
+  marginBottom: '1rem',
 };
 
 const LandingPage = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
-  const handleLoginClick = () => {
-    navigate("/login"); // Redirect to the login route
-  };
-
-  const handleFeatureClick = (feature) => {
-    navigate(`/features/${feature}`); // Navigate to the feature page
+  const handleGetStartedClick = () => {
+    navigate("/signup"); // Redirect to the signup route
   };
 
   return (
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <Navbar /> {/* Use the Header component */}
-
 
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '5rem 0', background: 'linear-gradient(to bottom, #c3dafe, #ebf8ff)' }}>
@@ -51,11 +58,8 @@ const LandingPage = () => {
           Make smart decisions with our revolutionary AI enabled career guidance tools and expert career counsellors.
         </p>
         <div>
-          <button style={buttonStyle}>
+          <button style={buttonStyle} onClick={handleGetStartedClick}>
             Get Started
-          </button>
-          <button style={buttonStyle} onClick={handleLoginClick}>
-            Login
           </button>
         </div>
         <p style={{ fontSize: '1rem', color: '#4a5568', marginTop: '1.5rem' }}>
@@ -76,32 +80,32 @@ const LandingPage = () => {
             <FeatureCard
               title="Aptitude Assessment"
               description="Evaluate strengths, inclinations, and cognitive abilities with AI."
-              onClick={() => handleFeatureClick('aptitude-assessment')}
+              image={AptitudeImage}
             />
             <FeatureCard
               title="Career Recommendations"
               description="Tailored recommendations based on aspirations and interests."
-              onClick={() => handleFeatureClick('career-recommendations')}
+              image={CareerImage}
             />
             <FeatureCard
               title="Skill Gap Analysis"
               description="Identify skill gaps and recommend learning resources."
-              onClick={() => handleFeatureClick('skill-gap-analysis')}
+              image={SkillGapImage}
             />
             <FeatureCard
               title="Future Planning"
               description="Predict industry trends and provide progression opportunities."
-              onClick={() => handleFeatureClick('future-planning')}
+              image={FuturePlanningImage}
             />
             <FeatureCard
               title="Personalised Results"
               description="Track progress and career insights in real-time."
-              onClick={() => handleFeatureClick('personalised-results')}
+              image={PersonalisedResultsImage}
             />
             <FeatureCard
               title="Interactive Chatbot"
               description="Conversational interface to guide and assist users."
-              onClick={() => handleFeatureClick('interactive-chatbot')}
+              image={ChatbotImage}
             />
           </div>
         </div>
@@ -149,29 +153,8 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Enquiry Form Section */}
-      <section id="enquiry" style={{ padding: '5rem 0', backgroundColor: '#f7fafc' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '0 1.5rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', borderRadius: '0.5rem', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)' }}>
-          <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Enquiry Form</h3>
-          <form>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Name</label>
-              <input type="text" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }} />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Email</label>
-              <input type="email" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0' }} />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#4a5568' }}>Message</label>
-              <textarea style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #cbd5e0', resize: 'vertical' }} rows="4"></textarea>
-            </div>
-            <button type="submit" style={{ backgroundColor: '#4c51bf', color: '#ffffff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', width: '100%' }}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </section>
+      {/* RoadMap Section */}
+      <RoadMap />
 
       <Footer /> {/* Use the Footer component */}
     </div>
@@ -179,9 +162,10 @@ const LandingPage = () => {
 };
 
 // Reusable FeatureCard Component
-const FeatureCard = ({ title, description, onClick }) => {
+const FeatureCard = ({ title, description, image }) => {
   return (
-    <div onClick={onClick} style={cardStyle}>
+    <div style={cardStyle}>
+      <img src={image} alt={title} style={imageStyle} />
       <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
       <p style={{ color: '#718096' }}>{description}</p>
     </div>
