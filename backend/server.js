@@ -25,8 +25,7 @@ const { generatepLogicalQuestions } = require('./generateplogical');
 const { generateuLogicalQuestions } = require('./generateulogical');
 const { generatepVerbalQuestions } = require('./generatepverbal');
 const { generateuVerbalQuestions } = require('./generateuverbal');
-const { careerCounseling } = require('./counseling');
-
+const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
 
 
 
@@ -77,17 +76,19 @@ app.post('/start-interview', async (req, res) => {
 app.post('/counseling', async (req, res) => {
     const { input, context } = req.body;
 
+    if (!input || !context) {
+        return res.status(400).json({ error: 'Input and context are required' });
+    }
+
     try {
         console.log('Received /counseling request:', req.body);
         const result = await careerCounseling(input, context);
-        console.log('Error:', result);
         res.json(result);
     } catch (error) {
         console.error('Error in /counseling:', error);
-        res.status(500).send(error.message);
+        res.status(500).json({ error: 'Failed to perform career counseling' });
     }
 });
-
 app.post('/generateNumerical', async (req, res) => {
     const { type } = req.body;
 
@@ -101,31 +102,7 @@ app.post('/generateNumerical', async (req, res) => {
     }    
 });
 
-app.post('/generatepNumerical', async (req, res) => {
-    const { type } = req.body;
 
-    try {
-        console.log('Received /generatepNumerical request:', req.body);
-        const result = await generatepNumericalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generatepNumerical:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
-
-app.post('/generateuNumerical', async (req, res) => {
-    const { type } = req.body;
-
-    try {
-        console.log('Received /generateuNumerical request:', req.body);
-        const result = await generateuNumericalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generateuNumerical:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
 
 
 
@@ -143,32 +120,9 @@ app.post('/generateVerbal', async (req, res) => {
 });
 
 
-app.post('/generateuVerbal', async (req, res) => {
-    const { type } = req.body;
-
-    try {
-        console.log('Received /generateuVerbal request:', req.body);
-        const result = await generateuVerbalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generateuVerbal:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
 
 
-app.post('/generatepVerbal', async (req, res) => {
-    const { type } = req.body;
 
-    try {
-        console.log('Received /generatepVerbal request:', req.body);
-        const result = await generatepVerbalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generatepVerbal:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
 
 
 
@@ -187,32 +141,9 @@ app.post('/generateLogical', async (req, res) => {
 
 
 
-app.post('/generatepLogical', async (req, res) => {
-    const { type } = req.body;
-
-    try {
-        console.log('Received /generatepLogical request:', req.body);
-        const result = await generatepLogicalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generatepLogical:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
 
 
-app.post('/generateuLogical', async (req, res) => {
-    const { type } = req.body;
 
-    try {
-        console.log('Received /generateuLogical request:', req.body);
-        const result = await generateuLogicalQuestions(type);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generateuLogical:', error.message);
-        res.status(500).send(error.message);
-    }    
-});
 
 
 app.post('/generateRecommendations', upload.single('report'), async (req, res) => {

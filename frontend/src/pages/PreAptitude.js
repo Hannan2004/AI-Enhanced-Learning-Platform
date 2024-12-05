@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
 import Header from '../components/Navbar.js'; // Correct the Header component path
 import Footer from '../components/Footer.js'; // Correct the Footer component path
 import StudentImage from '../assets/images/stu.png'; // Correct the image path
@@ -7,6 +7,12 @@ import UndergradImage from '../assets/images/underg.png'; // Correct the image p
 import ProfessionalImage from '../assets/images/workingp.png'; // Correct the image path
 
 const PreAptitude = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (userType) => {
+    navigate('/aptitude', { state: { userType } });
+  };
+
   const styles = {
     container: {
       background: 'linear-gradient(to right, #ebf8ff, #c3dafe)',
@@ -92,6 +98,7 @@ const PreAptitude = () => {
             style={styles.card}
             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onClick={() => handleCardClick('student')}
           >
             <div style={styles.cardContent}>
               <img src={StudentImage} alt="Student" style={styles.image} />
@@ -99,15 +106,14 @@ const PreAptitude = () => {
               <p style={styles.cardDescription}>
                 Psychometric tests for 10th-passed students help identify their strengths, interests, and aptitudes, guiding them in selecting the right academic stream based on their abilities
               </p>
-              <Link to="/aptitude">
-                <button style={styles.button}>Give Aptitude Test</button>
-              </Link>
+              <button style={styles.button}>Give Aptitude Test</button>
             </div>
           </div>
           <div
             style={styles.card}
             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onClick={() => handleCardClick('undergraduate')}
           >
             <div style={styles.cardContent}>
               <img src={UndergradImage} alt="Undergraduate" style={styles.image} />
@@ -115,15 +121,14 @@ const PreAptitude = () => {
               <p style={styles.cardDescription}>
                 Career fit assessments for graduates match their skills and interests with suitable job roles or internships, helping them find the best career opportunities
               </p>
-              <Link to="/aptitude">
-                <button style={styles.button}>Give Aptitude Test</button>
-              </Link>
+              <button style={styles.button}>Give Aptitude Test</button>
             </div>
           </div>
           <div
             style={styles.card}
             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onClick={() => handleCardClick('professional')}
           >
             <div style={styles.cardContent}>
               <img src={ProfessionalImage} alt="Professional" style={styles.image} />
@@ -131,9 +136,7 @@ const PreAptitude = () => {
               <p style={styles.cardDescription}>
                 Career advancement assessments for professionals evaluate current skills and growth potential, offering insights for role transitions or career advancement
               </p>
-              <Link to="/aptitude">
-                <button style={styles.button}>Give Aptitude Test</button>
-              </Link>
+              <button style={styles.button}>Give Aptitude Test</button>
             </div>
           </div>
         </div>
