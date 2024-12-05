@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AvatarImage from '../assets/images/Avatar.png'; // Correct the image path
-import LoadingAnimation from './LoadingAnimation.js'; // Adjust the path to your LoadingAnimation component
 import { FaBars } from 'react-icons/fa'; // Import an icon for the toggle button
 
 const Sidebar = ({ userName }) => {
-  const [loading, setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
-    setLoading(true);
-    setTimeout(() => {
-      navigate(path);
-      setLoading(false);
-    }, 2000); // Adjust the timeout duration as needed
+    navigate(path);
   };
 
   const toggleSidebar = () => {
@@ -105,68 +99,60 @@ const Sidebar = ({ userName }) => {
 
   return (
     <div style={styles.sidebar}>
-      {loading ? (
-        <LoadingAnimation />
-      ) : (
+      <FaBars style={styles.toggleButton} onClick={toggleSidebar} />
+      {!collapsed && (
         <>
-          <FaBars style={styles.toggleButton} onClick={toggleSidebar} />
-          {!collapsed && (
-            <>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
-                <div style={styles.welcome}>Welcome, {userName}!</div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/ProfilesPage')}
-                >
-                  <span style={styles.linkText}>View Profile</span>
-                </div>
-                
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/dashboard')}
-                >
-                  <span style={styles.linkText}>Dashboard</span>
-                </div>
-                
-                
-                
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/notifications')}
-                >
-                  <span style={styles.linkText}>Notifications</span>
-                </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/SkillGap')}
-                >
-                  <span style={styles.linkText}>Skill Gap</span>
-                </div>
-                <div
-                  style={styles.link}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/ExploreCareerOptions')}
-                >
-                  <span style={styles.linkText}>Explore </span>
-                </div>
-              </div>
-              <div style={styles.contactDetails}>
-                <p>Email: contact@example.com</p>
-                <p>Phone: +123 456 7890</p>
-                <p>Address: 123 Main St, Anytown, USA</p>
-              </div>
-            </>
-          )}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
+            <div style={styles.welcome}>Welcome, {userName}!</div>
+            <div
+              style={styles.link}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => handleNavigation('/profile')}
+            >
+              <span style={styles.linkText}>View Profile</span>
+            </div>
+            
+            <div
+              style={styles.link}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => handleNavigation('/dashboard')}
+            >
+              <span style={styles.linkText}>Dashboard</span>
+            </div>
+            
+            <div
+              style={styles.link}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => handleNavigation('/notifications')}
+            >
+              <span style={styles.linkText}>Notifications</span>
+            </div>
+            <div
+              style={styles.link}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => handleNavigation('/SkillGap')}
+            >
+              <span style={styles.linkText}>Skill Gap</span>
+            </div>
+            <div
+              style={styles.link}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              onClick={() => handleNavigation('/ExploreCareerOptions')}
+            >
+              <span style={styles.linkText}>Explore </span>
+            </div>
+          </div>
+          <div style={styles.contactDetails}>
+            <p>Email: contact@example.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Address: 123 Main St, Anytown, USA</p>
+          </div>
         </>
       )}
     </div>
