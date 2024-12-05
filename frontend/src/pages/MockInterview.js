@@ -18,18 +18,18 @@ const MockInterview = () => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append('userInput', userInput);
-
         try {
-            const response = await fetch('http://localhost:3001/start-interview', {
+            const res = await fetch('http://localhost:3001/start-interview', {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userInput }),
             });
 
-            const data = await response.json();
+            const data = await res.json();
 
-            if (response.ok) {
+            if (res.ok) {
                 setResponse(data.interviewResponse);
             } else {
                 alert('Error: ' + data.error);

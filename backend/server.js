@@ -2,15 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
 const multer = require('multer');
 require('dotenv').config();
 
 
 
-const { Signup } = require('./models/signupModel');
-const { Login } = require('./models/loginModel');
+// const { Signup } = require('./models/signupModel');
+// const { Login } = require('./models/loginModel');
+const authRoutes = require('./routes/authRoutes');
+const formRoutes = require('./routes/formsRoutes');
 const { generateRecommendations } = require('./generateRecommendations');
 const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
@@ -39,55 +41,23 @@ const connectDB = async () => {
 
 connectDB();
 
-// Signup Route
-app.post('/api/auth/signup', async (req, res) => {
-    const { email, password, confirmPassword } = req.body;
-
-    try {
-        const user = new Signup({ email, password, confirmPassword });
-        await user.save();
-        res.status(201).json({ message: "User registered successfully" });
-    } catch (error) {
-        console.error("Error in /signup:", error.message);
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Login Route
-app.post('/api/auth/login', async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        const user = await Signup.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ error: "Invalid email or password" });
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ error: "Invalid email or password" });
-        }
-
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
-    } catch (error) {
-        console.error("Error in /login:", error.message);
-        res.status(500).json({ error: error.message });
-    }
-});
-
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/forms", formRoutes);
 
 // Mock Interview Route 
 app.post('/start-interview', async (req, res) => {
-    const { userInput } = req.body;  // Expect user input from request body
-
     try {
-        console.log('Received /start-interview request:', req.body);
-        const interviewResponse = await startInterview(userInput);  // Change made here: Called startInterview function
+        const userInput = req.body.userInput;
+        if (!userInput) {
+            return res.status(400).json({ error: 'User input is required' });
+        }
+
+        const interviewResponse = await startInterview(userInput);
         res.json({ interviewResponse });
     } catch (error) {
-        console.error('Error in /start-interview:', error.message);
-        res.status(500).json({ error: 'Error starting the interview' });
+        console.error('Error in /start-interview:', error);
+        res.status(500).json({ error: 'Interview failed' });
     }
 });
 
