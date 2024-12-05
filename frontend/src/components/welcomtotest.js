@@ -1,15 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 
 const WelcomePage = () => {
-  const navigate = useNavigate();
-
-  const handleStart = () => {
-    navigate('/numerical-ability');
-  };
-
   const styles = {
     container: {
       display: 'flex',
@@ -40,16 +33,6 @@ const WelcomePage = () => {
     cardContent: {
       padding: '1rem',
     },
-    startButton: {
-      marginTop: '1rem',
-      padding: '0.5rem 1rem',
-      backgroundColor: '#4c51bf',
-      color: '#ffffff',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '1rem',
-    },
   };
 
   return (
@@ -76,9 +59,6 @@ const WelcomePage = () => {
             <Typography variant="body1" gutterBottom>
               Each section will have 5 questions and you will have 1 minute for each question.
             </Typography>
-            <button style={styles.startButton} onClick={handleStart}>
-              Start Test
-            </button>
           </CardContent>
         </Card>
       </div>
