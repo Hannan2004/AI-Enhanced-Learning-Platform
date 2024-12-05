@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Header from '../components/Navbar.js'; // Correct the Header component path
 import Footer from '../components/Footer.js'; // Correct the Footer component path
 import StudentImage from '../assets/images/stu.png'; // Correct the image path
@@ -40,7 +41,7 @@ const PreAptitude = () => {
       textAlign: 'center',
       flex: '1 1 30%',
       transition: 'transform 0.3s ease',
-      height: '500px', // Adjust height for deeper rectangular shape
+      height: '550px', // Increased height for deeper rectangular shape
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -96,9 +97,11 @@ const PreAptitude = () => {
               <img src={StudentImage} alt="Student" style={styles.image} />
               <h3 style={styles.cardTitle}> Highly Suggested for Students</h3>
               <p style={styles.cardDescription}>
-              Psychometric tests for 10th-passed students help identify their strengths, interests, and aptitudes, guiding them in selecting the right academic stream based on their abilities
+                Psychometric tests for 10th-passed students help identify their strengths, interests, and aptitudes, guiding them in selecting the right academic stream based on their abilities
               </p>
-              <button style={styles.button}>Give Aptitude Test</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
           <div
@@ -110,9 +113,11 @@ const PreAptitude = () => {
               <img src={UndergradImage} alt="Undergraduate" style={styles.image} />
               <h3 style={styles.cardTitle}>Highly Suggested for Undergraduate</h3>
               <p style={styles.cardDescription}>
-              Career fit assessments for graduates match their skills and interests with suitable job roles or internships, helping them find the best career opportunities
+                Career fit assessments for graduates match their skills and interests with suitable job roles or internships, helping them find the best career opportunities
               </p>
-              <button style={styles.button}>Give Aptitude Test</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
           <div
@@ -124,9 +129,11 @@ const PreAptitude = () => {
               <img src={ProfessionalImage} alt="Professional" style={styles.image} />
               <h3 style={styles.cardTitle}>Highly Suggested for Professional</h3>
               <p style={styles.cardDescription}>
-              Career advancement assessments for professionals evaluate current skills and growth potential, offering insights for role transitions or career advancement
+                Career advancement assessments for professionals evaluate current skills and growth potential, offering insights for role transitions or career advancement
               </p>
-              <button style={styles.button}>Give Aptitude Test</button>
+              <Link to="/aptitude">
+                <button style={styles.button}>Give Aptitude Test</button>
+              </Link>
             </div>
           </div>
         </div>
