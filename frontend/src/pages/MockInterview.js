@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 
 const MockInterview = () => {
     const [userInput, setUserInput] = useState('');
@@ -42,35 +43,45 @@ const MockInterview = () => {
 
     return (
         <div className="container">
-            <h1>Mock Interview Chatbot</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="input-container">
-                    <label htmlFor="userInput">Your Question:</label>
-                    <textarea
-                        id="userInput"
-                        value={userInput}
-                        onChange={handleInputChange}
-                        rows="4"
-                        placeholder="Ask me anything about your career..."
-                    ></textarea>
-                </div>
+            <Sidebar userName="Aryan Sikariya" />
+            <div className="content">
+                <h1>Mock Interview Chatbot</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-container">
+                        <label htmlFor="userInput">Your Question:</label>
+                        <textarea
+                            id="userInput"
+                            value={userInput}
+                            onChange={handleInputChange}
+                            rows="4"
+                            placeholder="Ask me anything about your career..."
+                        ></textarea>
+                    </div>
 
-                <button type="submit">Ask</button>
-            </form>
+                    <button type="submit">Ask</button>
+                </form>
 
-            {/* Display the Interview Response */}
-            {response && (
-                <div className="response">
-                    <h3>Chatbot Response:</h3>
-                    <p>{response}</p>
-                </div>
-            )}
+                {/* Display the Interview Response */}
+                {response && (
+                    <div className="response">
+                        <h3>Chatbot Response:</h3>
+                        <p>{response}</p>
+                    </div>
+                )}
+            </div>
 
             <style>{`
                 .container {
+                    display: flex;
                     font-family: 'Arial', sans-serif;
+                    min-height: 100vh;
+                    background-color: #f0f2f5;
+                }
+
+                .content {
+                    flex-grow: 1;
                     max-width: 700px;
-                    margin: 0 auto;
+                    margin: 2rem auto;
                     padding: 30px;
                     background-color: #ffffff;
                     border-radius: 12px;
