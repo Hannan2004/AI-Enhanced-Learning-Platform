@@ -161,9 +161,9 @@ const Sidebar = ({ userName }) => {
                 </div>
               </div>
               <div style={styles.contactDetails}>
-                <p>Email: contact@example.com</p>
-                <p>Phone: +123 456 7890</p>
-                <p>Address: 123 Main St, Anytown, USA</p>
+                <p>Email: sanskruti.nawander@gmail.com</p>
+                <p>Phone: 9757347983</p>
+                <p>Address: Mumbai</p>
               </div>
             </>
           )}

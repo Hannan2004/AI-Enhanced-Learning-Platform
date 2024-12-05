@@ -1,144 +1,154 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import { FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa'; // Importing FontAwesome icons
+
+// Styled components for the layout and styling
+const ContactContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-image: url('path_to_your_background_image.jpg'); /* Add your background image path */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+`;
+
+const ContactInfo = styled.div`
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 20px;
+  margin-right: 20px;
+`;
+
+const FormContainer = styled.div`
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 20px;
+`;
+
+const Header = styled.h2`
+  font-size: 2rem;
+  color: #4c51bf;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+const ContactDetail = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const Icon = styled.div`
+  margin-right: 15px;
+  font-size: 2rem;
+  color: #4c51bf;
+`;
+
+const Text = styled.div`
+  h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+  }
+`;
+
+const ContactForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 12px;
+  background-color: #4c51bf;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: #3c44b1;
+  }
+`;
 
 const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-    });
+  return (
+    <ContactContainer>
+      {/* Contact Information Section */}
+      <ContactInfo>
+        <Header>Contact Us</Header>
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
+        <ContactDetail>
+          <Icon>
+            <FaPhone />
+          </Icon>
+          <Text>
+            <h3>CALL US</h3>
+            <p>1 (234) 567-891, 1 (234) 987-654</p>
+          </Text>
+        </ContactDetail>
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form Data:', formData);
-        // Here you can add the code to send the form data to your server
-        alert('Your enquiry has been submitted!');
-    };
+        <ContactDetail>
+          <Icon>
+            <FaMapMarkerAlt />
+          </Icon>
+          <Text>
+            <h3>LOCATION</h3>
+            <p>121 Rock Street, 21 Avenue, New York, NY 92103-9000</p>
+          </Text>
+        </ContactDetail>
 
-    return (
-        <div className="contact-container">
-            <h1>Contact Us</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="subject">Subject:</label>
-                    <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="message">Message:</label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows="5"
-                        required
-                    ></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+        <ContactDetail>
+          <Icon>
+            <FaClock />
+          </Icon>
+          <Text>
+            <h3>BUSINESS HOURS</h3>
+            <p>Mon - Fri ..... 10 am - 8 pm, Sat, Sun .... Closed</p>
+          </Text>
+        </ContactDetail>
+      </ContactInfo>
 
-            <style>{`
-                .contact-container {
-                    font-family: 'Arial', sans-serif;
-                    max-width: 600px;
-                    margin: 0 auto;
-                    padding: 30px;
-                    background-color: #ffffff;
-                    border-radius: 12px;
-                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-                }
-
-                h1 {
-                    text-align: center;
-                    color: #6a0dad;
-                    font-size: 28px;
-                    margin-bottom: 20px;
-                }
-
-                .form-group {
-                    margin-bottom: 20px;
-                }
-
-                label {
-                    font-size: 16px;
-                    color: #6a0dad;
-                    margin-bottom: 10px;
-                    display: block;
-                }
-
-                input, textarea {
-                    width: 100%;
-                    padding: 12px;
-                    border: 2px solid #6a0dad;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    background-color: #f7f2ff;
-                    color: #333;
-                }
-
-                input:focus, textarea:focus {
-                    outline: none;
-                    border-color: #9a31e6;
-                    box-shadow: 0 0 6px rgba(106, 13, 173, 0.5);
-                }
-
-                button {
-                    width: 100%;
-                    padding: 14px;
-                    background-color: #6a0dad;
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    font-size: 18px;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                }
-
-                button:hover {
-                    background-color: #9a31e6;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 8px rgba(106, 13, 173, 0.2);
-                }
-            `}</style>
-        </div>
-    );
+      {/* Contact Form Section */}
+      <FormContainer>
+        <h3>Contact Form</h3>
+        <ContactForm>
+          <Input type="text" placeholder="Enter your Name" />
+          <Input type="email" placeholder="Enter a valid email address" />
+          <Textarea placeholder="Your Message" />
+          <Button type="submit">Submit</Button>
+        </ContactForm>
+      </FormContainer>
+    </ContactContainer>
+  );
 };
 
 export default Contact;
