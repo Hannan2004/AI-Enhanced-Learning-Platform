@@ -42,9 +42,6 @@ function App() {
             <Route path="/recommendations" element={<ReportUpload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/student-form" element={<StudentForm />} />
-            <Route path="/graduate-form" element={<GraduateForm />} />
-            <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/chatbot" element={<Chatbot />} /> 
             <Route path="/student/dashboard" element={<StudentDashboard />} /> 
             <Route path="/numerical-ability" element={<NumericalAbility setScores={setScores} />} />
@@ -69,6 +66,9 @@ function App() {
             {/* <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} /> */}
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/student-form" element={<StudentForm />} />
+            <Route path="/graduate-form" element={<GraduateForm />} />
+            <Route path="/professional-form" element={<ProfessionalForm />} />
           </Routes>
         </main>
       </div>
