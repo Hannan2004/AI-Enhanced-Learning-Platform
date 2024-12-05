@@ -32,6 +32,7 @@ import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
+import NumericaluAbility from './pages/NumericalU';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -45,9 +46,6 @@ function App() {
             <Route path="/recommendations" element={<ReportUpload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/student-form" element={<StudentForm />} />
-            <Route path="/graduate-form" element={<GraduateForm />} />
-            <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/chatbot" element={<Chatbot />} /> 
             <Route path="/student/dashboard" element={<StudentDashboard />} /> 
             <Route path="/numerical-ability" element={<NumericalAbility setScores={setScores} />} />
@@ -73,6 +71,10 @@ function App() {
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/numericalu-ability" element={<NumericaluAbility />} />
+            <Route path="/student-form" element={<StudentForm />} />
+            <Route path="/graduate-form" element={<GraduateForm />} />
+            <Route path="/professional-form" element={<ProfessionalForm />} />
           </Routes>
         </main>
       </div>
