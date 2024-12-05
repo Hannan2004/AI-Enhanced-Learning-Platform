@@ -10,7 +10,7 @@ import Results from './components/Results';
 import RoadMap from './pages/RoadMap';
 import CareerPredictionForm from './pages/Forms';
 import AfterLogin from './pages/AfterLogin';
-import SignupPage from './pages/SignupPage';
+import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import ExploreCareerOptions from './pages/ExploreCareerOptions';
 import ReportUpload from './pages/ReportUpload';
@@ -22,12 +22,12 @@ import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
-<<<<<<< HEAD
 import SkillGapForm from './pages/SkillGapForm';
-=======
 import SpatialReasoning from './pages/SpatialReasoning';
 import MockInterview from './pages/MockInterview';
->>>>>>> 55491258e3a19a7abdff97eeea0863b7d7253e3d
+import StudentForm from './pages/StudentForm';
+import GraduateForm from './pages/GraduateForm';
+import ProfessionalForm from './pages/ProfessionalForm';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -40,7 +40,10 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/recommendations" element={<ReportUpload />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/student-form" element={<StudentForm />} />
+            <Route path="/graduate-form" element={<GraduateForm />} />
+            <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/chatbot" element={<Chatbot />} /> 
             <Route path="/student/dashboard" element={<StudentDashboard />} /> 
             <Route path="/numerical-ability" element={<NumericalAbility setScores={setScores} />} />
@@ -60,13 +63,10 @@ function App() {
             <Route path="/CareerOptions" element={<CareerOptions />} />
             {/* <Route path="/SkillGap" element={<SkillGap />} /> */}
             <Route path="/Test" element={<Test />} />
-<<<<<<< HEAD
             <Route path="/skill-gap" element={<SkillGapForm />} />
-=======
             <Route path="/report" element={<ReportUpload />} />
             <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} />
             <Route path="/mock-interview" element={<MockInterview />} />
->>>>>>> 55491258e3a19a7abdff97eeea0863b7d7253e3d
           </Routes>
         </main>
       </div>

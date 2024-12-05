@@ -4,7 +4,6 @@ import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import { useNavigate } from "react-router-dom";
 
-
 const buttonStyle = {
   backgroundColor: '#4c51bf',
   color: '#ffffff',
@@ -35,6 +34,10 @@ const LandingPage = () => {
     navigate("/login"); // Redirect to the login route
   };
 
+  const handleSignupClick = () => {
+    navigate("/signup");
+  };
+
   const handleFeatureClick = (feature) => {
     navigate(`/features/${feature}`); // Navigate to the feature page
   };
@@ -43,7 +46,6 @@ const LandingPage = () => {
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <Navbar /> {/* Use the Header component */}
 
-
       {/* Hero Section */}
       <section style={{ textAlign: 'center', padding: '5rem 0', background: 'linear-gradient(to bottom, #c3dafe, #ebf8ff)' }}>
         <h2 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>Discover Your Perfect Career</h2>
@@ -51,7 +53,7 @@ const LandingPage = () => {
           Make smart decisions with our revolutionary AI enabled career guidance tools and expert career counsellors.
         </p>
         <div>
-          <button style={buttonStyle}>
+          <button style={buttonStyle} onClick={handleSignupClick}>
             Get Started
           </button>
           <button style={buttonStyle} onClick={handleLoginClick}>
