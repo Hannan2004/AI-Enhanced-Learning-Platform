@@ -24,7 +24,7 @@ import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
 import SkillGapForm from './pages/SkillGapForm';
 import SpatialReasoning from './pages/SpatialReasoning';
-
+import StudentProfile from './pages/StudentProfile';
 import MockInterview from './pages/MockInterview';
 import PreAptitude from './pages/PreAptitude';
 
@@ -73,6 +73,7 @@ function App() {
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/professional-form" element={<ProfessionalForm />} />
+            <Route path="/student-profile/:userId" element={<StudentProfile />} />
           </Routes>
         </main>
       </div>

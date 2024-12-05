@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const StudentForm = require('../models/StudentFormModel');
 
 const submitStudentForm = async (req, res) => {
@@ -17,12 +19,10 @@ const submitStudentForm = async (req, res) => {
       achievements,
       learningPreferences,
       skills,
-    } = req.body; // Ensure all necessary fields are passed in the request
-
-    console.log('Received form data:', req.body); // Debugging log
+    } = req.body;
 
     // Create and save the new student form
-    const formData = await StudentForm.create({
+    const formData = new StudentForm({
       userId,
       firstName,
       lastName,
@@ -41,12 +41,46 @@ const submitStudentForm = async (req, res) => {
 
     await formData.save();
 
-    console.log('Form data saved:', formData); // Debugging log
+    // Write the user information to a JSON file
+    const studentDetailsPath = path.join(__dirname, '../data/studentDetails.json');
+    const studentDetails = {
+      userId,
+      firstName,
+      lastName,
+      dob,
+      gender,
+      contactNumber,
+      location,
+      school,
+      percentage,
+      favoriteSubjects,
+      extraCurricular,
+      achievements,
+      learningPreferences,
+      skills,
+    };
 
-    res.status(201).json({ message: 'Student form submitted successfully', formData });
+    fs.readFile(studentDetailsPath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading studentDetails.json:', err);
+        return res.status(500).json({ message: 'Error saving student details' });
+      }
+
+      const studentDetailsArray = data ? JSON.parse(data) : [];
+      studentDetailsArray.push(studentDetails);
+
+      fs.writeFile(studentDetailsPath, JSON.stringify(studentDetailsArray, null, 2), (err) => {
+        if (err) {
+          console.error('Error writing to studentDetails.json:', err);
+          return res.status(500).json({ message: 'Error saving student details' });
+        }
+
+        res.status(201).json({ message: 'Student form submitted successfully', formData });
+      });
+    });
   } catch (error) {
     console.error('Error submitting student form:', error);
-    res.status(500).json({ error: 'Failed to submit student form' });
+    res.status(500).json({ message: 'Failed to submit student form' });
   }
 };
 

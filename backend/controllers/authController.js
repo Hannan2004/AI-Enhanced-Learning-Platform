@@ -27,6 +27,7 @@ const signup = async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "User registered successfully!", userId: newUser._id });
   } catch (error) {
+    console.error("Error during signup:", error); // Log the error details
     res.status(500).json({ message: "Error during signup", error: error.message });
   }
 };
@@ -55,8 +56,9 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful", token, userId: user._id });
   } catch (error) {
+    console.error("Error during login:", error); // Log the error details
     res.status(500).json({ message: "Error during login", error: error.message });
   }
 };
