@@ -1,33 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
 const multer = require('multer');
 require('dotenv').config();
 
-
-
-// const { Signup } = require('./models/signupModel');
-// const { Login } = require('./models/loginModel');
-const authRoutes = require('./routes/authRoutes');
-const formRoutes = require('./routes/formsRoutes');
 const { generateRecommendations } = require('./generateRecommendations');
 const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
 const { generateSkillGap } = require('./skillGap');
-const { generatepNumericalQuestions } = require('./generatepnumerical');
-const { generateuNumericalQuestions } = require('./generateunumerical'); // Adjust the path as necessary
-const { generatepLogicalQuestions } = require('./generateplogical');
-const { generateuLogicalQuestions } = require('./generateulogical');
-const { generatepVerbalQuestions } = require('./generatepverbal');
-const { generateuVerbalQuestions } = require('./generateuverbal');
+
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
-
-
 
 const app = express();
 const port = 3001;
@@ -36,23 +20,6 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(bodyParser.json());
 app.use(cors());
-
-// MongoDB connection
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("MongoDB connected");
-    } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
-        process.exit(1);
-    }
-};
-
-connectDB();
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/forms", formRoutes);
 
 // Mock Interview Route 
 app.post('/start-interview', async (req, res) => {
@@ -69,8 +36,6 @@ app.post('/start-interview', async (req, res) => {
         res.status(500).json({ error: 'Interview failed' });
     }
 });
-
-
 
 // Other routes and logic
 app.post('/counseling', async (req, res) => {
@@ -89,6 +54,7 @@ app.post('/counseling', async (req, res) => {
         res.status(500).json({ error: 'Failed to perform career counseling' });
     }
 });
+
 app.post('/generateNumerical', async (req, res) => {
     const { type } = req.body;
 
@@ -101,10 +67,6 @@ app.post('/generateNumerical', async (req, res) => {
         res.status(500).send(error.message);
     }    
 });
-
-
-
-
 
 app.post('/generateVerbal', async (req, res) => {
     const { type } = req.body;
@@ -119,13 +81,6 @@ app.post('/generateVerbal', async (req, res) => {
     }    
 });
 
-
-
-
-
-
-
-
 app.post('/generateLogical', async (req, res) => {
     const { type } = req.body;
 
@@ -138,13 +93,6 @@ app.post('/generateLogical', async (req, res) => {
         res.status(500).send(error.message);
     }    
 });
-
-
-
-
-
-
-
 
 app.post('/generateRecommendations', upload.single('report'), async (req, res) => {
     try {
@@ -179,3 +127,6 @@ app.post('/generateSkillGap', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+
+

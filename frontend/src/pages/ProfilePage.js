@@ -1,30 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import { Card, CardContent, Typography, Grid, Avatar, Box, TextField, Button } from '@mui/material';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 const ProfilePage = () => {
-  const [name, setName] = useState('Aryan Sikariya');
-  const [email, setEmail] = useState('aryan@example.com');
-  const [dob, setDob] = useState('1990-01-01');
-  const [educationLevel, setEducationLevel] = useState('Undergraduate');
-  const [currentGrade, setCurrentGrade] = useState('');
-  const [marks10, setMarks10] = useState('85');
-  const [marks12, setMarks12] = useState('90');
-  const [degreeStatus, setDegreeStatus] = useState('Completed');
-  const [yearOfDegree, setYearOfDegree] = useState('2012');
-  const [specialization, setSpecialization] = useState('Computer Science');
-  const [skills, setSkills] = useState('JavaScript, React, Node.js');
-  const [achievements, setAchievements] = useState('Top performer in coding competitions');
-  const [experience, setExperience] = useState('2 years as a Software Engineer');
-  const [hobbiesSkills, setHobbiesSkills] = useState('Reading, Coding, Traveling');
-  const [experienceYears, setExperienceYears] = useState('2');
-  const [experienceDescription, setExperienceDescription] = useState('Worked at XYZ Company as a Software Engineer');
-  const [linkedin, setLinkedin] = useState('https://www.linkedin.com/in/aryansikariya');
+  const [userData, setUserData] = useState(null);
+  const [roleData, setRoleData] = useState(null);  // To store role-specific data
   const [editable, setEditable] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      const db = getFirestore();
+      const userRef = doc(db, 'users', user.uid);  // Reference to the user's document in Firestore
+
+      // Fetch user data
+      getDoc(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userDocData = snapshot.data();
+          setUserData(userDocData);
+
+          // Based on the role, fetch the corresponding data from the specific collection
+          const role = userDocData.role;  // Assuming role is stored in the user's document
+
+          let roleCollection = '';
+          if (role === 'undergraduate') {
+            roleCollection = 'graduates';
+          } else if (role === 'professional') {
+            roleCollection = 'professionalForms';
+          } else if (role === 'student') {
+            roleCollection = 'students';
+          }
+
+          if (roleCollection) {
+            const roleRef = collection(db, roleCollection);
+            const roleQuery = query(roleRef, where("username", "==", userDocData.username));
+
+            getDocs(roleQuery).then((querySnapshot) => {
+              const roleData = [];
+              querySnapshot.forEach((doc) => {
+                roleData.push(doc.data());
+              });
+              setRoleData(roleData);
+            }).catch((error) => {
+              console.error(`Error fetching ${roleCollection}: `, error);
+            });
+          }
+        } else {
+          console.log("No user data available");
+        }
+      }).catch((error) => {
+        console.error("Error fetching user data: ", error);
+      });
+    }
+  }, []);
 
   const handleEdit = () => {
     setEditable(!editable);
   };
+
+  if (!userData) {
+    return <div>Loading...</div>; // Show a loading state while fetching data
+  }
 
   const styles = {
     container: {
@@ -68,7 +108,7 @@ const ProfilePage = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName="Aryan Sikariya" />
+      <Sidebar userName={userData.name} />
       <div style={styles.content}>
         <Typography variant="h4" gutterBottom>
           Profile
@@ -77,10 +117,10 @@ const ProfilePage = () => {
           <Grid item xs={12} md={4}>
             <Card style={styles.card}>
               <CardContent style={styles.profileDetails}>
-                <Avatar alt="Aryan Sikariya" src="/path/to/avatar.jpg" style={styles.avatar} />
-                <Typography variant="h6">{name}</Typography>
+                <Avatar alt={userData.name} src={userData.avatarUrl} style={styles.avatar} />
+                <Typography variant="h6">{userData.name}</Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Software Engineer
+                  {userData.profession || 'Software Engineer'}
                 </Typography>
                 <Button variant="contained" color="primary" style={{ marginTop: '1rem' }}>
                   View Resume
@@ -95,8 +135,8 @@ const ProfilePage = () => {
                 <Box style={styles.profileInfo}>
                   <TextField
                     label="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={userData.name}
+                    onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                     fullWidth
                     margin="normal"
                     InputProps={{
@@ -105,8 +145,8 @@ const ProfilePage = () => {
                   />
                   <TextField
                     label="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={userData.email}
+                    onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                     fullWidth
                     margin="normal"
                     InputProps={{
@@ -116,8 +156,8 @@ const ProfilePage = () => {
                   <TextField
                     label="Date of Birth"
                     type="date"
-                    value={dob}
-                    onChange={(e) => setDob(e.target.value)}
+                    value={userData.dob}
+                    onChange={(e) => setUserData({ ...userData, dob: e.target.value })}
                     fullWidth
                     margin="normal"
                     InputLabelProps={{
@@ -127,146 +167,36 @@ const ProfilePage = () => {
                       readOnly: !editable,
                     }}
                   />
-                  <TextField
-                    label="10th Marks"
-                    type="number"
-                    value={marks10}
-                    onChange={(e) => setMarks10(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="12th Marks"
-                    type="number"
-                    value={marks12}
-                    onChange={(e) => setMarks12(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Degree Status"
-                    value={degreeStatus}
-                    onChange={(e) => setDegreeStatus(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Year of Degree"
-                    type="number"
-                    value={yearOfDegree}
-                    onChange={(e) => setYearOfDegree(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Specialization"
-                    value={specialization}
-                    onChange={(e) => setSpecialization(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Skills"
-                    value={skills}
-                    onChange={(e) => setSkills(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Achievements"
-                    value={achievements}
-                    onChange={(e) => setAchievements(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Experience"
-                    value={experience}
-                    onChange={(e) => setExperience(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Hobbies & Skills"
-                    value={hobbiesSkills}
-                    onChange={(e) => setHobbiesSkills(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Experience in Years"
-                    type="number"
-                    value={experienceYears}
-                    onChange={(e) => setExperienceYears(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="Description of Experience"
-                    value={experienceDescription}
-                    onChange={(e) => setExperienceDescription(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
-                  <TextField
-                    label="LinkedIn Profile"
-                    value={linkedin}
-                    onChange={(e) => setLinkedin(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      readOnly: !editable,
-                    }}
-                  />
+                  {/* Add more fields as necessary */}
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleEdit}
+                    style={{ marginTop: '1rem' }}
+                  >
+                    {editable ? 'Save' : 'Edit'}
+                  </Button>
                 </Box>
-                <Button variant="contained" color="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
-                  {editable ? 'Save Details' : 'Edit Details'}
-                </Button>
               </CardContent>
             </Card>
+
+            {/* Role-specific data */}
+            {roleData && roleData.length > 0 && (
+              <Card style={styles.card}>
+                <CardContent>
+                  <Typography variant="h6">Role-Specific Data</Typography>
+                  <div>
+                    {roleData.map((data, index) => (
+                      <div key={index}>
+                        <Typography variant="body1">{data.title}</Typography>
+                        <Typography variant="body2">{data.description}</Typography>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </Grid>
         </Grid>
       </div>

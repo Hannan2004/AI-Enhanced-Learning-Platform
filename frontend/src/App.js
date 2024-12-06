@@ -36,6 +36,7 @@ import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
 
 
+
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
 
@@ -74,6 +75,7 @@ function App() {
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
             
+
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/professional-form" element={<ProfessionalForm />} />

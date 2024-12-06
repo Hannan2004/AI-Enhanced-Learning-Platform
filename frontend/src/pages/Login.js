@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { auth, signInWithEmailAndPassword } from '../firebase'; // Import Firebase auth
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate(); // Move useNavigate to the top level
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      username,
-      password
-    };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/login', userData);
+      // Attempt to sign in with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Set success message and navigate to the dashboard
       setSuccess('Login successful!');
       setError('');
-      navigate('/dashboard'); // Use navigate function here
+      navigate('/dashboard', { state: { userId: user.uid } });
     } catch (error) {
       setError('Login failed. Please try again.');
       setSuccess('');
@@ -35,11 +35,11 @@ const Login = () => {
         {success && <p className="text-green-500 mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 mb-2">Username</label>
+            <label className="block text-gray-700 mb-2">Email</label>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full p-2 border border-gray-300 rounded-lg"
             />

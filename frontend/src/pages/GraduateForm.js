@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { db } from '../firebase'; // Import your Firebase instance
+import { collection, addDoc } from 'firebase/firestore'; // Firestore functions
 
 const GraduateForm = () => {
   const location = useLocation();
-  const userId = location.state?.userId || '';
+  const userId = location.state?.userId || ''; // Get userId from location state
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    userId: userId, // This should be set to the logged-in user's ID
+    userId: userId, // Set userId to the logged-in user's ID
     firstName: '',
     lastName: '',
     dob: '',
@@ -24,6 +24,7 @@ const GraduateForm = () => {
     achievements: '',
     skills: '',
   });
+  
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -39,9 +40,14 @@ const GraduateForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/api/forms/graduate', formData);
+      // Add data to Firestore under a 'graduates' collection
+      await addDoc(collection(db, 'graduates'), formData);
+      
+      // If successful, set success message
       setSuccess('Form submitted successfully!');
       setError('');
+      
+      // Navigate to the dashboard after submission
       navigate('/dashboard');
     } catch (error) {
       setError('Failed to submit form. Please try again.');
@@ -56,6 +62,7 @@ const GraduateForm = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {success && <p className="text-green-500 mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Form fields */}
           <div>
             <label className="block text-gray-700 mb-2">First Name</label>
             <input
@@ -150,7 +157,7 @@ const GraduateForm = () => {
           <div>
             <label className="block text-gray-700 mb-2">Graduation Year</label>
             <input
-              type="number"
+              type="text"
               name="graduationYear"
               value={formData.graduationYear}
               onChange={handleChange}
@@ -161,7 +168,7 @@ const GraduateForm = () => {
           <div>
             <label className="block text-gray-700 mb-2">CGPA</label>
             <input
-              type="number"
+              type="text"
               name="cgpa"
               value={formData.cgpa}
               onChange={handleChange}

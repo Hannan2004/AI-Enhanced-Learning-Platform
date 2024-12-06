@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase'; // Import Firestore
+import { collection, addDoc } from 'firebase/firestore';
 
 const ProfessionalForm = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const ProfessionalForm = () => {
     achievements: '',
     skills: '',
   });
+  
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -39,7 +41,12 @@ const ProfessionalForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/api/forms/professional', formData);
+      // Save data to Firebase Firestore
+      const docRef = await addDoc(collection(db, 'professionalForms'), {
+        ...formData,
+        userId: userId, // Save the user ID with the form data
+      });
+      
       setSuccess('Form submitted successfully!');
       setError('');
       navigate('/dashboard');
@@ -56,6 +63,7 @@ const ProfessionalForm = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {success && <p className="text-green-500 mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Form fields */}
           <div>
             <label className="block text-gray-700 mb-2">First Name</label>
             <input
@@ -95,7 +103,6 @@ const ProfessionalForm = () => {
               name="gender"
               value={formData.gender}
               onChange={handleChange}
-              required
               className="w-full p-2 border border-gray-300 rounded-lg"
             >
               <option value="Male">Male</option>
@@ -106,7 +113,7 @@ const ProfessionalForm = () => {
           <div>
             <label className="block text-gray-700 mb-2">Contact Number</label>
             <input
-              type="text"
+              type="tel"
               name="contactNumber"
               value={formData.contactNumber}
               onChange={handleChange}
@@ -170,12 +177,13 @@ const ProfessionalForm = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 mb-2">Courses/Certifications</label>
+            <label className="block text-gray-700 mb-2">Courses & Certifications</label>
             <input
               type="text"
               name="coursesCertifications"
               value={formData.coursesCertifications}
               onChange={handleChange}
+              required
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
           </div>
@@ -186,6 +194,7 @@ const ProfessionalForm = () => {
               name="achievements"
               value={formData.achievements}
               onChange={handleChange}
+              required
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
           </div>
@@ -196,9 +205,11 @@ const ProfessionalForm = () => {
               name="skills"
               value={formData.skills}
               onChange={handleChange}
+              required
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
           </div>
+
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
             Submit
           </button>
