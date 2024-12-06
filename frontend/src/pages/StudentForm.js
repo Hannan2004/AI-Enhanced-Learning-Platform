@@ -21,6 +21,9 @@ const StudentForm = () => {
     achievements: '',
     learningPreferences: 'Auditory',
     skills: '',
+    interests: '',
+    aspirations: '',
+    hobbies: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -215,6 +218,36 @@ const StudentForm = () => {
               type="text"
               name="skills"
               value={formData.skills}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Interests</label>
+            <input
+              type="text"
+              name="interests"
+              value={formData.interests}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Aspirations</label>
+            <input
+              type="text"
+              name="aspirations"
+              value={formData.aspirations}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Hobbies</label>
+            <input
+              type="text"
+              name="hobbies"
+              value={formData.hobbies}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg"
             />

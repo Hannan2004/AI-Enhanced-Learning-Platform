@@ -1,9 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { Chart, registerables } from 'chart.js';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import { motion } from 'framer-motion';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase'; // Import Firestore instance
 
 // Register the necessary Chart.js components
 Chart.register(...registerables);
@@ -11,6 +14,23 @@ Chart.register(...registerables);
 const Results = ({ userName, scores }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          setUserDetails(userDoc.data());
+        }
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   useEffect(() => {
     if (chartRef.current) {
@@ -48,8 +68,19 @@ const Results = ({ userName, scores }) => {
 
     doc.text(`Name: ${userName}`, 20, 30);
 
+    if (userDetails) {
+      doc.text(`Email: ${userDetails.email}`, 20, 40);
+      doc.text(`Role: ${userDetails.role}`, 20, 50);
+      doc.text(`Aspirations: ${userDetails.aspirations || 'N/A'}`, 20, 60);
+      doc.text(`Interests: ${userDetails.interests || 'N/A'}`, 20, 70);
+      doc.text(`Hobbies: ${userDetails.hobbies || 'N/A'}`, 20, 80);
+      doc.text(`Passions: ${userDetails.passions || 'N/A'}`, 20, 90);
+      doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 100);
+      doc.text(`Achievements: ${userDetails.achievements || 'N/A'}`, 20, 110);
+    }
+
     doc.autoTable({
-      startY: 40,
+      startY: 120,
       head: [['Category', 'Score']],
       body: [
         ['Numerical Ability', scores.numerical],

@@ -119,7 +119,10 @@ const Sidebar = () => {
             <>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
-                <div style={styles.welcome}>Welcome, {userName || 'Guest'}!</div> {/* Display userName or 'Guest' if no user */}
+                <div style={styles.welcome}>
+                  Welcome, {userName ? userName.substring(0, 6) : 'Guest'}!
+                </div>
+                {/* Navigation Links */}
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
@@ -128,7 +131,6 @@ const Sidebar = () => {
                 >
                   <span style={styles.linkText}>View Profile</span>
                 </div>
-                
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
@@ -137,7 +139,6 @@ const Sidebar = () => {
                 >
                   <span style={styles.linkText}>Dashboard</span>
                 </div>
-                
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}

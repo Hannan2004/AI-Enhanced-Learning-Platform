@@ -23,13 +23,10 @@ import CareerOptions from './pages/CareerOptions';
 import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
-import Test from './pages/Test';
 import SkillGapForm from './pages/SkillGapForm';
-
 import StudentProfile from './pages/StudentProfile';
 import MockInterview from './pages/MockInterview';
 import PreAptitude from './pages/PreAptitude';
-
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
@@ -67,7 +64,7 @@ function App() {
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
             <Route path="/SkillGap" element={<SkillGap />} /> 
-            <Route path="/Test" element={<Test />} />
+            
             <Route path="/skill-gap" element={<SkillGapForm />} />
             <Route path="/report" element={<ReportUpload />} />
             

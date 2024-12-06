@@ -23,8 +23,11 @@ const GraduateForm = () => {
     internshipWorkExp: '',
     achievements: '',
     skills: '',
+    interests: '',
+    aspirations: '',
+    hobbies: '',
   });
-  
+
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -42,11 +45,11 @@ const GraduateForm = () => {
     try {
       // Add data to Firestore under a 'graduates' collection
       await addDoc(collection(db, 'graduates'), formData);
-      
+
       // If successful, set success message
       setSuccess('Form submitted successfully!');
       setError('');
-      
+
       // Navigate to the dashboard after submission
       navigate('/dashboard');
     } catch (error) {
@@ -202,6 +205,36 @@ const GraduateForm = () => {
               type="text"
               name="skills"
               value={formData.skills}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Interests</label>
+            <input
+              type="text"
+              name="interests"
+              value={formData.interests}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Aspirations</label>
+            <input
+              type="text"
+              name="aspirations"
+              value={formData.aspirations}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Hobbies</label>
+            <input
+              type="text"
+              name="hobbies"
+              value={formData.hobbies}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
