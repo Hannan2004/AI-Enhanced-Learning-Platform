@@ -6,6 +6,7 @@ import morningImage from '../assets/images/morning.png';
 import afternoonImage from '../assets/images/afternoon.png';
 import eveningImage from '../assets/images/evening.png';
 import nightImage from '../assets/images/night.png';
+import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -22,6 +23,7 @@ const Dashboard = () => {
   const [aptitudeClicked, setAptitudeClicked] = useState(false);
   const [greeting, setGreeting] = useState('');
   const [greetingImage, setGreetingImage] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const currentHour = new Date().getHours();
@@ -37,6 +39,13 @@ const Dashboard = () => {
     } else {
       setGreeting('Good Night');
       setGreetingImage(nightImage);
+    }
+
+    // Fetch the currently logged-in user's details from Firebase Authentication
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setUser(currentUser);
     }
   }, []);
 
@@ -116,8 +125,10 @@ const Dashboard = () => {
   const handleAptitudeClick = () => {
     if (!aptitudeClicked) {
       setAptitudeClicked(true);
-      // Redirect to /aptitude
-      navigate('/preaptitude');
+      // Pass only necessary user details to avoid cloning issues
+      const userDetails = user ? { displayName: user.displayName, email: user.email, uid: user.uid } : null;
+      // Redirect to /preaptitude with user details
+      navigate('/preaptitude', { state: { user: userDetails } });
     }
   };
 
@@ -135,7 +146,7 @@ const Dashboard = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName="Aryan Sikariya" />
+      <Sidebar userName={user ? user.displayName || user.email : 'Guest'} />
       <div style={styles.content}>
         <Typography variant="h4" gutterBottom>
           Dashboard
@@ -143,7 +154,7 @@ const Dashboard = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Card style={{ ...styles.greetingCard, backgroundImage: `url(${greetingImage})` }}>
-              <Typography style={styles.greetingText}>{greeting}, Aryan!</Typography>
+              <Typography style={styles.greetingText}>{greeting}, {user ? user.displayName || user.email : 'Guest'}!</Typography>
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
