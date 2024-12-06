@@ -117,7 +117,7 @@ const Dashboard = () => {
     if (!aptitudeClicked) {
       setAptitudeClicked(true);
       // Redirect to /aptitude
-      navigate('/aptitude');
+      navigate('/preaptitude');
     }
   };
 

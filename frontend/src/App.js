@@ -32,7 +32,7 @@ import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
-import NumericaluAbility from './pages/NumericalU';
+
 
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/numericalu-ability" element={<NumericaluAbility />} />
+
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/professional-form" element={<ProfessionalForm />} />

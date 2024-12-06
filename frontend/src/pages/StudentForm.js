@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase'; // Import Firebase auth and db
 
 const StudentForm = () => {
-  const location = useLocation();
-  const userId = location.state?.userId || '';
   const navigate = useNavigate();
-
+  const [username, setUsername] = useState('');
   const [formData, setFormData] = useState({
-    userId: userId, // This should be set to the logged-in user's ID
     firstName: '',
     lastName: '',
     dob: '',
@@ -27,6 +25,16 @@ const StudentForm = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Get the authenticated user's details
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUsername(user.displayName || user.email.split('@')[0]); // Fetch username or email prefix
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -37,13 +45,22 @@ const StudentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const dataToSave = {
+      ...formData,
+      username,
+      grade: '10th', // Explicitly mention 10th grade
+    };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/forms/student', formData);
+      // Save data directly to Firebase Firestore
+      const userId = auth.currentUser?.uid || 'anonymous';
+      await setDoc(doc(db, "students", userId), dataToSave);
+
       setSuccess('Form submitted successfully!');
       setError('');
       navigate('/dashboard');
     } catch (error) {
+      console.error('Error saving data:', error);
       setError('Failed to submit form. Please try again.');
       setSuccess('');
     }

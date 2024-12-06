@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 // const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -11,8 +11,8 @@ require('dotenv').config();
 
 // const { Signup } = require('./models/signupModel');
 // const { Login } = require('./models/loginModel');
-const authRoutes = require('./routes/authRoutes');
-const formRoutes = require('./routes/formsRoutes');
+//const authRoutes = require('./routes/authRoutes');
+//const formRoutes = require('./routes/formsRoutes');
 const { generateRecommendations } = require('./generateRecommendations');
 const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
@@ -32,6 +32,7 @@ const upload = multer({ dest: 'uploads/' });
 app.use(bodyParser.json());
 app.use(cors());
 
+/*
 // MongoDB connection
 const connectDB = async () => {
     try {
@@ -42,6 +43,7 @@ const connectDB = async () => {
         process.exit(1);
     }
 };
+*/
 
 connectDB();
 
@@ -84,6 +86,8 @@ app.post('/counseling', async (req, res) => {
         res.status(500).json({ error: 'Failed to perform career counseling' });
     }
 });
+
+
 app.post('/generateNumerical', async (req, res) => {
     const { type } = req.body;
 
@@ -174,3 +178,6 @@ app.post('/generateSkillGap', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+
+

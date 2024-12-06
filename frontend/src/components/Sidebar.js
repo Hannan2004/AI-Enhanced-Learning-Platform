@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AvatarImage from '../assets/images/Avatar.png'; // Correct the image path
 import { FaBars } from 'react-icons/fa'; // Import an icon for the toggle button
+import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
 
-const Sidebar = ({ userName }) => {
+const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [userName, setUserName] = useState('');
   const navigate = useNavigate();
+
+  // Fetch the currently logged-in user's name from Firebase Authentication
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      setUserName(user.displayName || user.email); // If the user has a display name, use it, otherwise use their email
+    }
+  }, []);
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -107,12 +119,12 @@ const Sidebar = ({ userName }) => {
             <>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
-                <div style={styles.welcome}>Welcome, {userName}!</div>
+                <div style={styles.welcome}>Welcome, {userName || 'Guest'}!</div> {/* Display userName or 'Guest' if no user */}
                 <div
                   style={styles.link}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  onClick={() => handleNavigation('/ProfilesPage')}
+                  onClick={() => handleNavigation('/profile')}
                 >
                   <span style={styles.linkText}>View Profile</span>
                 </div>
@@ -125,8 +137,6 @@ const Sidebar = ({ userName }) => {
                 >
                   <span style={styles.linkText}>Dashboard</span>
                 </div>
-                
-                
                 
                 <div
                   style={styles.link}
@@ -160,57 +170,6 @@ const Sidebar = ({ userName }) => {
               </div>
             </>
           )}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <img src={AvatarImage} alt="Avatar" style={styles.avatar} />
-            <div style={styles.welcome}>Welcome, {userName}!</div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/profile')}
-            >
-              <span style={styles.linkText}>View Profile</span>
-            </div>
-            
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/dashboard')}
-            >
-              <span style={styles.linkText}>Dashboard</span>
-            </div>
-            
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/notifications')}
-            >
-              <span style={styles.linkText}>Notifications</span>
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/SkillGap')}
-            >
-              <span style={styles.linkText}>Skill Gap</span>
-            </div>
-            <div
-              style={styles.link}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.linkHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onClick={() => handleNavigation('/ExploreCareerOptions')}
-            >
-              <span style={styles.linkText}>Explore </span>
-            </div>
-          </div>
-          <div style={styles.contactDetails}>
-            <p>Email: contact@example.com</p>
-            <p>Phone: +123 456 7890</p>
-            <p>Address: 123 Main St, Anytown, USA</p>
-          </div>
         </>
       )}
     </div>
