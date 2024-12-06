@@ -20,10 +20,8 @@ import ProfilePage from './pages/ProfilePage';
 import ResultsPage from './pages/ResultsPage';
 import Notifications from './pages/Notifications';
 import CareerOptions from './pages/CareerOptions';
-import SkillGap from './pages/SkillGap';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
-import SkillGapForm from './pages/SkillGapForm';
 import StudentProfile from './pages/StudentProfile';
 import MockInterview from './pages/MockInterview';
 import PreAptitude from './pages/PreAptitude';
@@ -32,6 +30,8 @@ import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
 import ResumeUploader from './pages/ProfessionalForm';
+import SkillGap from './pages/SkillGap';
+import SkillQuestionPage from './pages/SkillQuestionPage';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -62,20 +62,21 @@ function App() {
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
-            <Route path="/SkillGap" element={<SkillGap />} /> 
+            {/* <Route path="/SkillGap" element={<SkillGap />} />*/} 
             
-            <Route path="/skill-gap" element={<SkillGapForm />} />
+            {/*<Route path="/skill-gap" element={<SkillGapForm />} />*/}
             <Route path="/report" element={<ReportUpload />} />
             
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
             
-
+            <Route path="/skill-gap" element={<SkillGap />} />
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
             <Route path="/professional-form" element={<ResumeUploader />} />
+            <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
           </Routes>
         </main>
       </div>
