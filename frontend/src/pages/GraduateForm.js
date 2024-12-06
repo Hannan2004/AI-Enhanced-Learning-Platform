@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { db } from '../firebase'; // Import your Firebase instance
-import { collection, addDoc } from 'firebase/firestore'; // Firestore functions
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase'; // Import Firebase auth and db
 
 const GraduateForm = () => {
   const location = useLocation();
@@ -43,8 +43,13 @@ const GraduateForm = () => {
     e.preventDefault();
 
     try {
-      // Add data to Firestore under a 'graduates' collection
-      await addDoc(collection(db, 'graduates'), formData);
+      const userId = auth.currentUser?.uid || 'anonymous';
+
+      // Save form data to Firestore, including the user UID
+      await setDoc(doc(db, 'graduates', userId), {
+        ...formData,
+        userId,
+      });
 
       // If successful, set success message
       setSuccess('Form submitted successfully!');

@@ -55,9 +55,13 @@ const StudentForm = () => {
     };
 
     try {
-      // Save data directly to Firebase Firestore
       const userId = auth.currentUser?.uid || 'anonymous';
-      await setDoc(doc(db, "students", userId), dataToSave);
+
+      // Save data directly to Firebase Firestore, including the user UID
+      await setDoc(doc(db, "students", userId), {
+        ...dataToSave,
+        userId,
+      });
 
       setSuccess('Form submitted successfully!');
       setError('');
