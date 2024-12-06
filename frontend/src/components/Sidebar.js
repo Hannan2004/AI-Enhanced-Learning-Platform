@@ -163,11 +163,6 @@ const Sidebar = () => {
                   <span style={styles.linkText}>Explore </span>
                 </div>
               </div>
-              <div style={styles.contactDetails}>
-                <p>Email: sanskruti.nawander@gmail.com</p>
-                <p>Phone: 9757347983</p>
-                <p>Address: Mumbai</p>
-              </div>
             </>
           )}
         </>
