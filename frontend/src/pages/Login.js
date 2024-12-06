@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, signInWithEmailAndPassword } from '../firebase'; // Import Firebase auth
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -13,11 +13,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Attempt to sign in with Firebase
-      await signInWithEmailAndPassword(auth, username, password);
+      // Attempt to sign in with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Set success message and navigate to the dashboard
       setSuccess('Login successful!');
       setError('');
-      navigate('/dashboard'); // Navigate to dashboard on successful login
+      navigate('/dashboard', { state: { userId: user.uid } });
     } catch (error) {
       setError('Login failed. Please try again.');
       setSuccess('');
@@ -32,11 +35,11 @@ const Login = () => {
         {success && <p className="text-green-500 mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 mb-2">Username (Email)</label>
+            <label className="block text-gray-700 mb-2">Email</label>
             <input
               type="email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full p-2 border border-gray-300 rounded-lg"
             />

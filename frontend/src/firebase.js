@@ -1,10 +1,8 @@
-// Import the functions you need
-import { initializeApp, getApps } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Correct import
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
+// Your Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyCAQZiVZ8f_i2RLUrzaEO2ysPQKSegJdgo",
   authDomain: "ai-powered-careerrecomendation.firebaseapp.com",
@@ -16,9 +14,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]; // Prevent duplicate initialization
-const analytics = getAnalytics(app); // Initialize Firebase Analytics
-const auth = getAuth(app); // Initialize Firebase Auth
-const db = getFirestore(app); // Initialize Firestore
+const app = initializeApp(firebaseConfig);
 
-export { app, analytics, auth, db , signInWithEmailAndPassword}; // Export Firebase instances
+// Initialize Firebase Authentication and Firestore
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword };
