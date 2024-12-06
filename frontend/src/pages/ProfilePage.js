@@ -6,9 +6,7 @@ import { getFirestore, doc, getDoc, collection, getDocs, query, where } from 'fi
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
-  const [roleData, setRoleData] = useState(null);  // Store role-specific data
-  const [userPosts, setUserPosts] = useState([]);
-  const [userActivities, setUserActivities] = useState([]);
+  const [roleData, setRoleData] = useState(null);  // To store role-specific data
   const [editable, setEditable] = useState(false);
 
   useEffect(() => {
@@ -19,61 +17,38 @@ const ProfilePage = () => {
       const db = getFirestore();
       const userRef = doc(db, 'users', user.uid);  // Reference to the user's document in Firestore
 
-      // Fetch user data and role
+      // Fetch user data
       getDoc(userRef).then((snapshot) => {
         if (snapshot.exists()) {
           const userDocData = snapshot.data();
           setUserData(userDocData);
 
-          // Based on the role, fetch the corresponding data from the correct collection
+          // Based on the role, fetch the corresponding data from the specific collection
+          const role = userDocData.role;  // Assuming role is stored in the user's document
+
           let roleCollection = '';
-          if (userDocData.role === 'undergraduate') {
-            roleCollection = 'graduates'; // Map 'undergraduate' to 'graduates' collection
-          } else if (userDocData.role === 'professional') {
-            roleCollection = 'professionalForms'; // Map 'professional' to 'professionalForms' collection
-          } else if (userDocData.role === 'student') {
-            roleCollection = 'students'; // Map 'student' to 'students' collection
+          if (role === 'undergraduate') {
+            roleCollection = 'graduates';
+          } else if (role === 'professional') {
+            roleCollection = 'professionalForms';
+          } else if (role === 'student') {
+            roleCollection = 'students';
           }
 
           if (roleCollection) {
             const roleRef = collection(db, roleCollection);
-            const roleQuery = query(roleRef, where('userId', '==', user.uid));  // Use user ID to fetch role-specific data
+            const roleQuery = query(roleRef, where("username", "==", userDocData.username));
+
             getDocs(roleQuery).then((querySnapshot) => {
-              const roleDetails = [];
+              const roleData = [];
               querySnapshot.forEach((doc) => {
-                roleDetails.push(doc.data());
+                roleData.push(doc.data());
               });
-              setRoleData(roleDetails[0]);  // Assuming only one document for the user in each collection
+              setRoleData(roleData);
             }).catch((error) => {
-              console.error("Error fetching role data: ", error);
+              console.error(`Error fetching ${roleCollection}: `, error);
             });
           }
-
-          // Fetch posts based on username (same logic as before)
-          const postsRef = collection(db, 'posts');
-          const postsQuery = query(postsRef, where('username', '==', userDocData.username));
-          getDocs(postsQuery).then((querySnapshot) => {
-            const posts = [];
-            querySnapshot.forEach((doc) => {
-              posts.push(doc.data());
-            });
-            setUserPosts(posts);
-          }).catch((error) => {
-            console.error("Error fetching posts: ", error);
-          });
-
-          // Fetch activities based on username (same logic as before)
-          const activitiesRef = collection(db, 'activities');
-          const activitiesQuery = query(activitiesRef, where('username', '==', userDocData.username));
-          getDocs(activitiesQuery).then((querySnapshot) => {
-            const activities = [];
-            querySnapshot.forEach((doc) => {
-              activities.push(doc.data());
-            });
-            setUserActivities(activities);
-          }).catch((error) => {
-            console.error("Error fetching activities: ", error);
-          });
         } else {
           console.log("No user data available");
         }
@@ -87,7 +62,7 @@ const ProfilePage = () => {
     setEditable(!editable);
   };
 
-  if (!userData || !roleData) {
+  if (!userData) {
     return <div>Loading...</div>; // Show a loading state while fetching data
   }
 
@@ -145,7 +120,7 @@ const ProfilePage = () => {
                 <Avatar alt={userData.name} src={userData.avatarUrl} style={styles.avatar} />
                 <Typography variant="h6">{userData.name}</Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {roleData.profession || 'N/A'}
+                  {userData.profession || 'Software Engineer'}
                 </Typography>
                 <Button variant="contained" color="primary" style={{ marginTop: '1rem' }}>
                   View Resume
@@ -192,32 +167,7 @@ const ProfilePage = () => {
                       readOnly: !editable,
                     }}
                   />
-                  {/* Add role-specific fields from roleData */}
-                  {roleData && (
-                    <>
-                      <TextField
-                        label="Degree"
-                        value={roleData.degree || ''}
-                        onChange={(e) => setRoleData({ ...roleData, degree: e.target.value })}
-                        fullWidth
-                        margin="normal"
-                        InputProps={{
-                          readOnly: !editable,
-                        }}
-                      />
-                      <TextField
-                        label="Experience"
-                        value={roleData.experience || ''}
-                        onChange={(e) => setRoleData({ ...roleData, experience: e.target.value })}
-                        fullWidth
-                        margin="normal"
-                        InputProps={{
-                          readOnly: !editable,
-                        }}
-                      />
-                      {/* Add more role-specific fields if necessary */}
-                    </>
-                  )}
+                  {/* Add more fields as necessary */}
 
                   <Button
                     variant="contained"
@@ -231,41 +181,22 @@ const ProfilePage = () => {
               </CardContent>
             </Card>
 
-            <Card style={styles.card}>
-              <CardContent>
-                <Typography variant="h6">User Posts</Typography>
-                <div>
-                  {userPosts.length === 0 ? (
-                    <Typography>No posts available</Typography>
-                  ) : (
-                    userPosts.map((post, index) => (
+            {/* Role-specific data */}
+            {roleData && roleData.length > 0 && (
+              <Card style={styles.card}>
+                <CardContent>
+                  <Typography variant="h6">Role-Specific Data</Typography>
+                  <div>
+                    {roleData.map((data, index) => (
                       <div key={index}>
-                        <Typography variant="body1">{post.title}</Typography>
-                        <Typography variant="body2">{post.content}</Typography>
+                        <Typography variant="body1">{data.title}</Typography>
+                        <Typography variant="body2">{data.description}</Typography>
                       </div>
-                    ))
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card style={styles.card}>
-              <CardContent>
-                <Typography variant="h6">User Activities</Typography>
-                <div>
-                  {userActivities.length === 0 ? (
-                    <Typography>No activities available</Typography>
-                  ) : (
-                    userActivities.map((activity, index) => (
-                      <div key={index}>
-                        <Typography variant="body1">{activity.name}</Typography>
-                        <Typography variant="body2">{activity.description}</Typography>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </Grid>
         </Grid>
       </div>
