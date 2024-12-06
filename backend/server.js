@@ -19,12 +19,7 @@ const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
 const { generateSkillGap } = require('./skillGap');
-const { generatepNumericalQuestions } = require('./generatepnumerical');
-const { generateuNumericalQuestions } = require('./generateunumerical'); // Adjust the path as necessary
-const { generatepLogicalQuestions } = require('./generateplogical');
-const { generateuLogicalQuestions } = require('./generateulogical');
-const { generatepVerbalQuestions } = require('./generatepverbal');
-const { generateuVerbalQuestions } = require('./generateuverbal');
+
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
 
 
