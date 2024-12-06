@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -16,6 +15,9 @@ import {
   Chip,
 } from '@mui/material';
 
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+
 const NumericalAbility = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
@@ -23,8 +25,9 @@ const NumericalAbility = ({ setScores }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes
   const navigate = useNavigate();
-
+  const location = useLocation();
   const { userType } = useParams();
+  const user = location.state?.user;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -37,16 +40,19 @@ const NumericalAbility = ({ setScores }) => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/generateNumerical', { type: userType });
+      console.log('Fetching questions for type:', userType, 'and user:', user);
+      const response = await axios.post('http://localhost:3001/generateNumerical', { type: userType, user });
+      console.log('Questions fetched:', response.data.response);
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
       console.error('Error fetching questions:', error);
+      console.error('Error details:', error.response ? error.response.data : error.message);
     }
   };
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [userType, user]);
 
   const handleAnswerChange = (index, answer) => {
     setUserAnswers({ ...userAnswers, [index]: answer });
@@ -56,12 +62,31 @@ const NumericalAbility = ({ setScores }) => {
     setMarkedQuestions({ ...markedQuestions, [index]: !markedQuestions[index] });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let score = 0;
     questions.forEach((q, i) => {
       if (userAnswers[i] === q.correctAnswer) score++;
     });
     setScores((prev) => ({ ...prev, numerical: score }));
+
+    // Save the result to Firestore
+    try {
+      const docRef = doc(db, 'numericalResults', user.uid);
+      await setDoc(docRef, {
+        user: {
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid,
+        },
+        score: score,
+        answers: userAnswers,
+        timestamp: new Date(),
+      });
+      console.log('Result saved to Firestore');
+    } catch (error) {
+      console.error('Error saving result to Firestore:', error);
+    }
+
     navigate('/verbal-ability');
   };
 
