@@ -34,6 +34,7 @@ import Contact from './pages/Contact';
 import TestInstructions from './pages/TestInstructions';
 
 
+import ResumeUploader from './pages/ProfessionalForm';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -76,8 +77,8 @@ function App() {
 
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
-            <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
+            <Route path="/professional-form" element={<ResumeUploader />} />
           </Routes>
         </main>
       </div>

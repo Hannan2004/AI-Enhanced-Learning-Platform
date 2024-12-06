@@ -1,7 +1,5 @@
-// PreAptitude.js
-
 import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate from react-router-dom
 
 import Footer from "../components/Footer.js"; // Correct the Footer component path
 import StudentImage from "../assets/images/stu.png"; // Correct the image path
@@ -10,9 +8,11 @@ import ProfessionalImage from "../assets/images/workingp.png"; // Correct the im
 
 const PreAptitude = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state?.user;
 
   const handleCardClick = (userType) => {
-    navigate(`/aptitude/${userType}, { state: { userType } }`);
+    navigate(`/aptitude/${userType}`, { state: { userType, user } });
   };
 
   const styles = {
@@ -94,7 +94,6 @@ const PreAptitude = () => {
 
   return (
     <div style={styles.container}>
-    
       <div style={styles.mainContent}>
         <div style={styles.cardContainer}>
           <div

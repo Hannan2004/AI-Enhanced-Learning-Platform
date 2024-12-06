@@ -1,222 +1,87 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase'; // Import Firestore
-import { collection, addDoc } from 'firebase/firestore';
+import axios from 'axios';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase'; // Import Firebase auth and db
+import FileUpload from './FileUpload';
+import ResumeForm from './ResumeForm';
 
-const ProfessionalForm = () => {
-  const location = useLocation();
-  const userId = location.state?.userId || '';
-  const navigate = useNavigate();
-
+const ResumeUploader = () => {
   const [formData, setFormData] = useState({
-    userId: userId, // This should be set to the logged-in user's ID
     firstName: '',
     lastName: '',
+    phone: '',
     dob: '',
     gender: 'Male',
-    contactNumber: '',
     location: '',
-    company: '',
-    position: '',
-    yearsOfExperience: '',
+    companyName: '',
+    jobTitle: '',
+    experience: '',
+    skills: '',
     domainExpertise: '',
     coursesCertifications: '',
-    achievements: '',
-    skills: '',
   });
-  
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [resumeFile, setResumeFile] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setResumeFile(file);
+
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    axios.post('http://localhost:3001/fetchDetails', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(response => {
+      setFormData(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching details:', error);
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
+  const handleSave = async () => {
     try {
-      // Save data to Firebase Firestore
-      const docRef = await addDoc(collection(db, 'professionalForms'), {
+      const userId = auth.currentUser?.uid || 'anonymous';
+
+      // Save form data to Firestore, including the user UID
+      await setDoc(doc(db, 'professionalForms', userId), {
         ...formData,
-        userId: userId, // Save the user ID with the form data
+        userId,
       });
-      
-      setSuccess('Form submitted successfully!');
-      setError('');
-      navigate('/dashboard');
+
+      alert('Details saved successfully!');
     } catch (error) {
-      setError('Failed to submit form. Please try again.');
-      setSuccess('');
+      console.error('Error saving details:', error);
+      alert('Failed to save details. Please try again.');
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6 text-center">Professional Form</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">{success}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Form fields */}
-          <div>
-            <label className="block text-gray-700 mb-2">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Date of Birth</label>
-            <input
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Contact Number</label>
-            <input
-              type="tel"
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Location</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Company</label>
-            <input
-              type="text"
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Position</label>
-            <input
-              type="text"
-              name="position"
-              value={formData.position}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Years of Experience</label>
-            <input
-              type="number"
-              name="yearsOfExperience"
-              value={formData.yearsOfExperience}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Domain Expertise</label>
-            <input
-              type="text"
-              name="domainExpertise"
-              value={formData.domainExpertise}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Courses & Certifications</label>
-            <input
-              type="text"
-              name="coursesCertifications"
-              value={formData.coursesCertifications}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Achievements</label>
-            <input
-              type="text"
-              name="achievements"
-              value={formData.achievements}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Skills</label>
-            <input
-              type="text"
-              name="skills"
-              value={formData.skills}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-
-          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
-            Submit
-          </button>
-        </form>
+        <h1 className="text-2xl font-bold mb-6 text-center text-indigo-800">Upload Resume</h1>
+        <FileUpload handleFileChange={handleFileChange} />
+        <ResumeForm formData={formData} handleChange={handleChange} />
+        <button
+          onClick={handleSave}
+          className="mt-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+        >
+          Save
+        </button>
       </div>
     </div>
   );
 };
 
-export default ProfessionalForm;
+export default ResumeUploader;

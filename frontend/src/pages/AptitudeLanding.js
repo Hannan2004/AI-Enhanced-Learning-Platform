@@ -1,18 +1,17 @@
-// AptitudeLanding.js
-
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar"; // Adjust the path as necessary
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const WelcomePage = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const { userType } = useParams();
+  const user = location.state?.user;
 
   const handleStart = () => {
-    navigate(`/numerical-ability/${userType}`);
+    navigate(`/numerical-ability/${userType}`, { state: { userType, user } });
   };
 
   const styles = {
@@ -59,7 +58,7 @@ const WelcomePage = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName="Aryan Sikariya" />
+      <Sidebar userName={user ? user.displayName || user.email : "Guest"} />
       <div style={styles.content}>
         <Typography variant="h4" gutterBottom>
           Welcome to Aptitude Test

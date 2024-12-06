@@ -10,7 +10,7 @@ const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
 const { generateSkillGap } = require('./skillGap');
-
+const { fetchDetails } = require('./fetchDetails');
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
 
 const app = express();
@@ -105,6 +105,20 @@ app.post('/generateRecommendations', upload.single('report'), async (req, res) =
     } catch (error) {
         console.error('Error generating recommendations:', error);
         res.status(500).send({ error: 'An error occurred while generating recommendations.' });
+    }
+});
+
+app.post('/fetchDetails', upload.single('resume'), async (req, res) => {
+    try {
+        console.log('Received /fetchDetails request:', req.file);
+        const filePath = req.file.path;
+        const mimeType = req.file.mimetype;
+        const details = await fetchDetails(filePath, mimeType);
+        console.log('Details fetched:', details);
+        res.status(200).json(details);
+    } catch (error) {
+        console.error('Error fetching details:', error);
+        res.status(500).send({ error: 'An error occurred while fetching details.' });
     }
 });
 

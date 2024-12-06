@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -14,6 +14,8 @@ import {
   Grid,
   Chip,
 } from '@mui/material';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const LogicalReasoning = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
@@ -22,6 +24,8 @@ const LogicalReasoning = ({ setScores }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state?.user;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,10 +38,13 @@ const LogicalReasoning = ({ setScores }) => {
 
   const fetchQuestions = async () => {
     try {
+      console.log('Fetching questions for logical reasoning');
       const response = await axios.post('http://localhost:3001/generateLogical', { type: 'logical-reasoning' });
+      console.log('Questions fetched:', response.data.response);
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
       console.error('Error fetching logical reasoning questions:', error);
+      console.error('Error details:', error.response ? error.response.data : error.message);
     }
   };
 
@@ -53,12 +60,34 @@ const LogicalReasoning = ({ setScores }) => {
     setMarkedQuestions({ ...markedQuestions, [index]: !markedQuestions[index] });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let score = 0;
     questions.forEach((q, i) => {
       if (userAnswers[i] === q.correctAnswer) score++;
     });
     setScores((prev) => ({ ...prev, logicalReasoning: score }));
+
+    // Save the result to Firestore
+    try {
+      if (!user || !user.uid) {
+        throw new Error('User with valid UID is required');
+      }
+      const docRef = doc(db, 'logicalResults', user.uid);
+      await setDoc(docRef, {
+        user: {
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid,
+        },
+        score: score,
+        answers: userAnswers,
+        timestamp: new Date(),
+      });
+      console.log('Result saved to Firestore');
+    } catch (error) {
+      console.error('Error saving result to Firestore:', error);
+    }
+
     navigate('/results'); // Navigate to results page after submission
   };
 
