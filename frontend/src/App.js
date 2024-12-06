@@ -31,6 +31,7 @@ import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
+import TestInstructions from './pages/TestInstructions';
 
 
 
@@ -71,7 +72,7 @@ function App() {
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
-            
+            <Route path="/test-instructions" element={<TestInstructions/>} />
 
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
