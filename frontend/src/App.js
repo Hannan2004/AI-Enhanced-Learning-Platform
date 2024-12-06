@@ -29,6 +29,9 @@ import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
+import TestInstructions from './pages/TestInstructions';
+
+
 import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
@@ -70,8 +73,13 @@ function App() {
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
+<<<<<<< HEAD
             
             <Route path="/skill-gap" element={<SkillGap />} />
+=======
+            <Route path="/test-instructions" element={<TestInstructions/>} />
+
+>>>>>>> 8edcc65434959e034a4b26049f4dbf5207e91267
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />

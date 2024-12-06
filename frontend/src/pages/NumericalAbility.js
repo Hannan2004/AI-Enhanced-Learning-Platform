@@ -87,7 +87,8 @@ const NumericalAbility = ({ setScores }) => {
       console.error('Error saving result to Firestore:', error);
     }
 
-    navigate('/verbal-ability');
+    // Navigate to verbal ability page with user details and scores
+    navigate('/verbal-ability', { state: { user, scores: { numerical: score } } });
   };
 
   return (

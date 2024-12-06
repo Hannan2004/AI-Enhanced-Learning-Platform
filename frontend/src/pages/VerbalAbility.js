@@ -25,7 +25,7 @@ const VerbalAbility = ({ setScores }) => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
-  const user = location.state?.user;
+  const { user, scores } = location.state;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,7 +88,8 @@ const VerbalAbility = ({ setScores }) => {
       console.error('Error saving result to Firestore:', error);
     }
 
-    navigate('/logical-reasoning');  // Navigate to Logical Reasoning after submission
+    // Navigate to logical reasoning page with user details and scores
+    navigate('/logical-reasoning', { state: { user, scores: { ...scores, verbal: score } } });
   };
 
   return (

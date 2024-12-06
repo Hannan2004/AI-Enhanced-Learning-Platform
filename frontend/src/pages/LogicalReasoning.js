@@ -25,7 +25,7 @@ const LogicalReasoning = ({ setScores }) => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
-  const user = location.state?.user;
+  const { user, scores } = location.state;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,7 +88,8 @@ const LogicalReasoning = ({ setScores }) => {
       console.error('Error saving result to Firestore:', error);
     }
 
-    navigate('/results'); // Navigate to results page after submission
+    // Navigate to results page with user details and scores
+    navigate('/results', { state: { user, scores: { ...scores, logicalReasoning: score } } });
   };
 
   return (
