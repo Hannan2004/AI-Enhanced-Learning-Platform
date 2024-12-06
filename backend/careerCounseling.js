@@ -7,7 +7,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: `
-You are a career counselor. You are talking to a student who has passed 10th grade and is confused about what to do. Ask up to 5 questions to understand his/her interests and suggest a career path. Provide a summary of the conversation in JSON format.
+You are a career counselor. You are talking to a person who want to gain more insights about his career path who can be a student, undergraduate, graduate or a professional and is confused about what to do. Ask up to 5 questions to understand his/her interests. Provide a summary of the conversation in JSON format.
   `,
 });
 

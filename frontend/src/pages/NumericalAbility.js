@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -23,6 +24,8 @@ const NumericalAbility = ({ setScores }) => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes
   const navigate = useNavigate();
 
+  const { userType } = useParams();
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (timeLeft > 0) setTimeLeft(timeLeft - 1);
@@ -34,7 +37,7 @@ const NumericalAbility = ({ setScores }) => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/generateNumerical', { type: 'numerical-ability' });
+      const response = await axios.post('http://localhost:3001/generateNumerical', { type: userType });
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
       console.error('Error fetching questions:', error);

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Login';
@@ -27,12 +28,12 @@ import SpatialReasoning from './pages/SpatialReasoning';
 import StudentProfile from './pages/StudentProfile';
 import MockInterview from './pages/MockInterview';
 import PreAptitude from './pages/PreAptitude';
-
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
 import NumericaluAbility from './pages/NumericalU';
+
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -48,11 +49,11 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/chatbot" element={<Chatbot />} /> 
             <Route path="/student/dashboard" element={<StudentDashboard />} /> 
-            <Route path="/numerical-ability" element={<NumericalAbility setScores={setScores} />} />
+            <Route path="/numerical-ability/:userType" element={<NumericalAbility setScores={setScores} />} />
             <Route path="/verbal-ability" element={<VerbalAbility setScores={setScores} />} />
             <Route path="/logical-reasoning" element={<LogicalReasoning setScores={setScores} />} />
             <Route path="/results" element={<Results scores={scores} />} />
-            <Route path="/aptitude" element={<AptitudeLandingPage />} />          
+            <Route path="/aptitude/:userType" element={<AptitudeLandingPage />} />          
             <Route path="/student/dashboard" element={<StudentDashboard />} />  
             <Route path="/roadmap" element={<RoadMap/>}/>   
             <Route path="/studentorprofessional" element={<AfterLogin/>}/>   
@@ -76,6 +77,7 @@ function App() {
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
+            
           </Routes>
         </main>
       </div>
