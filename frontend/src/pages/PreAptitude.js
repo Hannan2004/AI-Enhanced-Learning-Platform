@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
-import Header from "../components/Navbar.js"; // Correct the Header component path
+
 import Footer from "../components/Footer.js"; // Correct the Footer component path
 import StudentImage from "../assets/images/stu.png"; // Correct the image path
 import UndergradImage from "../assets/images/underg.png"; // Correct the image path
@@ -94,7 +94,7 @@ const PreAptitude = () => {
 
   return (
     <div style={styles.container}>
-      <Header /> {/* Use the Header component */}
+    
       <div style={styles.mainContent}>
         <div style={styles.cardContainer}>
           <div

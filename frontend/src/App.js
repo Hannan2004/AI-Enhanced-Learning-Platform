@@ -1,3 +1,4 @@
+// App.js
 
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -10,7 +11,7 @@ import LogicalReasoning from './pages/LogicalReasoning';
 import Results from './components/Results';
 import RoadMap from './pages/RoadMap';
 import CareerPredictionForm from './pages/Forms';
-import AfterLogin from './pages/AfterLogin';
+
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import ExploreCareerOptions from './pages/ExploreCareerOptions';
@@ -24,15 +25,15 @@ import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import Test from './pages/Test';
 import SkillGapForm from './pages/SkillGapForm';
-import SpatialReasoning from './pages/SpatialReasoning';
+
 import StudentProfile from './pages/StudentProfile';
 import MockInterview from './pages/MockInterview';
 import PreAptitude from './pages/PreAptitude';
+
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
-import NumericaluAbility from './pages/NumericalU';
 
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
             <Route path="/aptitude/:userType" element={<AptitudeLandingPage />} />          
             <Route path="/student/dashboard" element={<StudentDashboard />} />  
             <Route path="/roadmap" element={<RoadMap/>}/>   
-            <Route path="/studentorprofessional" element={<AfterLogin/>}/>   
+             
             <Route path="/forms" element={<CareerPredictionForm/>}/>  
             <Route path="/Dashboard" element={<Dashboard/>} />  
             <Route path="/ExploreCareerOptions" element={ <ExploreCareerOptions/>} />
@@ -68,16 +69,15 @@ function App() {
             <Route path="/Test" element={<Test />} />
             <Route path="/skill-gap" element={<SkillGapForm />} />
             <Route path="/report" element={<ReportUpload />} />
-            {/* <Route path="/spatial-reasoning" element={<SpatialReasoning setScores={setScores} />} /> */}
+            
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/numericalu-ability" element={<NumericaluAbility />} />
+            
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/professional-form" element={<ProfessionalForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
-            
           </Routes>
         </main>
       </div>

@@ -117,7 +117,7 @@ const Dashboard = () => {
     if (!aptitudeClicked) {
       setAptitudeClicked(true);
       // Redirect to /aptitude
-      navigate('/aptitude');
+      navigate('/preaptitude');
     }
   };
 
@@ -149,20 +149,20 @@ const Dashboard = () => {
           <Grid item xs={12} md={6}>
             <Card style={styles.card}>
               <div style={styles.cardHeader}>
-                <Typography variant="h6">Suitable Job Predictions</Typography>
+                {/* <Typography variant="h6">Suitable Job Predictions</Typography> */}
               </div>
               <CardContent style={styles.cardContent}>
                 <Box mt={2}>
-                  <Typography variant="body2">Software Engineer</Typography>
-                  <Typography variant="body2" color="textSecondary">70% match</Typography>
+                  {/* <Typography variant="body2">Software Engineer</Typography> */}
+                  {/* <Typography variant="body2" color="textSecondary">70% match</Typography> */}
                 </Box>
                 <Box mt={2}>
-                  <Typography variant="body2">Data Scientist</Typography>
-                  <Typography variant="body2" color="textSecondary">65% match</Typography>
+                  {/* <Typography variant="body2">Data Scientist</Typography>
+                  <Typography variant="body2" color="textSecondary">65% match</Typography> */}
                 </Box>
                 <Box mt={2}>
-                  <Typography variant="body2">Product Manager</Typography>
-                  <Typography variant="body2" color="textSecondary">60% match</Typography>
+                  {/* <Typography variant="body2">Product Manager</Typography>
+                  <Typography variant="body2" color="textSecondary">60% match</Typography> */}
                 </Box>
               </CardContent>
             </Card>
