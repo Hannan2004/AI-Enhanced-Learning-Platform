@@ -37,6 +37,8 @@ import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
 import MermaidRoadmap from './pages/MermaidRoadmap';
 
+import CareerRoadmapPage from './pages/CareerRoadmapPage';
+import PreSkillGapLandingPage from './pages/PreSkillGapLandingPage';
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
 
@@ -65,6 +67,10 @@ function App() {
             <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
+            <Route path="/CareerOptions" element={<CareerOptions />} />
+            <Route path="/SkillGap" element={<SkillGap />} /> 
+            <Route path="/pre-skill-gap" element={<PreSkillGapLandingPage />} /> 
+            <Route path="/graduate-skill-gap" element={<SkillGap />} />
             
             
             {/* <Route path="/skill-gap" element={<SkillGapForm />} /> */}
@@ -81,6 +87,8 @@ function App() {
             <Route path="/professional-form" element={<ResumeUploader />} />
             <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
             {/* <Route path="/career-roadmap" element={<MermaidRoadmap/>} /> */}
+            <Route path="/skill-question" element={<SkillQuestionPage />} />
+            <Route path="/career-roadmap" element={<CareerRoadmapPage />} />
           </Routes>
         </main>
       </div>

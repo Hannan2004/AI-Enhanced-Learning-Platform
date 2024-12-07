@@ -144,6 +144,11 @@ const Dashboard = () => {
     navigate('/ResultsPage');
   };
 
+  const handleSkillGapTestClick = () => {
+    const userDetails = user ? { displayName: user.displayName, email: user.email, uid: user.uid } : null;
+    navigate('/pre-skill-gap', { state: { user: userDetails } });
+  };
+
   return (
     <div style={styles.container}>
       <Sidebar userName={user ? user.displayName || user.email : 'Guest'} />
@@ -185,7 +190,7 @@ const Dashboard = () => {
               </div>
               <CardContent style={styles.cardContent}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Card 
                       style={styles.card}
                       onClick={handleAptitudeClick}
@@ -195,7 +200,7 @@ const Dashboard = () => {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Card 
                       style={styles.card}
                       onClick={handleCareerAnalysisClick}
@@ -205,13 +210,23 @@ const Dashboard = () => {
                       </CardContent>
                     </Card>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3}>
                     <Card 
                       style={styles.card}
                       onClick={handleMockInterviewClick}
                     >
                       <CardContent>
                         <Typography variant="body2">Mock Interview</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Card 
+                      style={styles.card}
+                      onClick={handleSkillGapTestClick}
+                    >
+                      <CardContent>
+                        <Typography variant="body2">Skill Gap Test</Typography>
                       </CardContent>
                     </Card>
                   </Grid>

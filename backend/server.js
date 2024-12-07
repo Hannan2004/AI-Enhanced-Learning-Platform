@@ -13,7 +13,9 @@ const { skillGapAnalysis } = require('./skillGap');
 const { fetchDetails } = require('./fetchDetails');
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
 const { getSkillGap } = require('./getSkillGap');
-
+const { careerAdvancement } = require('./careerAdvancement');
+const { careerSuggestion } = require('./careerSuggestions');
+const { generateRoadmap } = require('./careerRoadmap');
 const app = express();
 const port = 3001;
 
@@ -134,6 +136,7 @@ app.post('/getSkillGap', async (req, res) => {
     }
   });
 
+
 app.post('/skillgap', async (req, res) => {
     try {
       const jobDescription = req.body;
@@ -144,6 +147,39 @@ app.post('/skillgap', async (req, res) => {
       res.status(500).send({ error: 'An error occurred while performing skill gap analysis.' });
     }
 });
+
+app.post('/career-advancement', async (req, res) => {
+    try {
+      const resumeInfo = req.body;
+      const analysisResult = await careerAdvancement(resumeInfo);
+      res.status(200).json(analysisResult);
+    } catch (error) {
+      console.error('Error performing career advancement analysis:', error);
+      res.status(500).send({ error: 'An error occurred while performing career advancement analysis.' });
+    }
+  });
+  
+  app.post('/getCareerAdvice', async (req, res) => {
+    try {
+      const { resumeInfo, answers } = req.body;
+      const analysisResult = await careerSuggestion(resumeInfo, answers);
+      res.status(200).json({ analysis: analysisResult });
+    } catch (error) {
+      console.error('Error in /getCareerAdvice:', error);
+      res.status(500).send({ error: 'Failed to get career advice' });
+    }
+  });
+
+  app.post('/generateRoadmap', async (req, res) => {
+    try {
+      const { advancement } = req.body;
+      const roadmap = await generateRoadmap(advancement);
+      res.status(200).json({ roadmap: roadmap });
+    } catch (error) {
+      console.error('Error in /generateRoadmap:', error);
+      res.status(500).send({ error: 'Failed to generate roadmap' });
+    }
+  });  
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -48,7 +48,7 @@ const Signup = () => {
       } else if (role === 'Graduate/Undergraduate') {
         navigate('/graduate-form', { state: { userId: user.uid } });
       } else if (role === 'Professional') {
-        navigate('/professional-form', { state: { userId: user.uid } });
+        navigate('/dashboard', { state: { userId: user.uid } });
       }
     } catch (err) {
       setError(err.message || 'Signup failed. Please try again.');
