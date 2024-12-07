@@ -112,7 +112,6 @@ const Results = () => {
     }
   }, [scores, user]);
   
-
   const downloadPDF = () => {
     const doc = new jsPDF();
   
@@ -131,18 +130,17 @@ const Results = () => {
     doc.line(15, 35, 195, 35);
   
     doc.setFontSize(14);
-doc.text('User Information:', 20, 45);
-doc.setFontSize(12);
-doc.setFont('helvetica', 'italic');
-doc.text(`Name: ${userDetails.username || 'N/A'}`, 20, 55); // Include the username
-doc.text(`Email: ${user.email || 'N/A'}`, 20, 65);
-doc.text(`Role: ${user.role || 'N/A'}`, 20, 75); // Include the role
-
-// Add a box around user details
-doc.setDrawColor(150, 150, 150);
-doc.rect(15, 40, 180, 40); // Adjust the height to fit all fields
-console.log('User Details in PDF:', userDetails);
-
+    doc.text('User Information:', 20, 45);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'italic');
+    doc.text(`Name: ${userDetails.username || 'N/A'}`, 20, 55); // Include the username
+    doc.text(`Email: ${user.email || 'N/A'}`, 20, 65); // Include the email
+    doc.text(`Role: ${user.role || 'N/A'}`, 20, 75); // Include the role
+  
+    // Add a box around user details
+    doc.setDrawColor(150, 150, 150);
+    doc.rect(15, 40, 180, 40); // Adjust the height to fit all fields
+    console.log('User Details in PDF:', userDetails);
   
     // Add additional user details
     if (userDetails) {
@@ -192,7 +190,7 @@ console.log('User Details in PDF:', userDetails);
       doc.rect(20, finalY, 160, 90);
     }
   
-    // Add footer
+    // Add footer with spacing
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(10);
     doc.setFont('helvetica', 'italic');
@@ -206,9 +204,6 @@ console.log('User Details in PDF:', userDetails);
     // Save the PDF
     doc.save('Career-Guidance-Test-Results.pdf');
   };
-  
-  
-  
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
