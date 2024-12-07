@@ -8,6 +8,7 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'; // Import Firestore instance
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Register the necessary Chart.js components
 Chart.register(...registerables);
@@ -19,8 +20,16 @@ const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, scores } = location.state;
+  const navigate = useNavigate();
+  const { user, scores } = location.state || {};
 
   useEffect(() => {
+    if (!user || !scores) {
+      // Redirect to a fallback page if user or scores are not available
+      navigate('/');
+      return;
+    }
+
     const fetchUserDetails = async () => {
       if (user) {
         console.log('Fetching user details for user:', user);
@@ -54,10 +63,10 @@ const Results = () => {
     };
 
     fetchUserDetails();
-  }, [user]);
+  }, [user, scores, navigate]);
 
   useEffect(() => {
-    if (chartRef.current) {
+    if (chartRef.current && scores) {
       // Destroy the previous chart instance if it exists
       if (chartInstance.current) {
         chartInstance.current.destroy();
@@ -126,7 +135,7 @@ const Results = () => {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
-      <Sidebar userName={user.displayName || user.email} />
+      <Sidebar userName={user?.displayName || user?.email || 'Guest'} />
       <div className="flex-grow flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -135,9 +144,9 @@ const Results = () => {
           className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center"
         >
           <h1 className="text-3xl font-bold mb-6 text-indigo-800">Test Results</h1>
-          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {scores.numerical}</p>
-          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {scores.verbal}</p>
-          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {scores.logicalReasoning}</p>
+          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {scores?.numerical || 'N/A'}</p>
+          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {scores?.verbal || 'N/A'}</p>
+          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {scores?.logicalReasoning || 'N/A'}</p>
           <canvas ref={chartRef} width="400" height="200" className="mb-4"></canvas>
           <motion.button
             whileHover={{ scale: 1.05 }}
