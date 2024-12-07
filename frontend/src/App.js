@@ -35,6 +35,7 @@ import TestInstructions from './pages/TestInstructions';
 import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
+import CareerRoadmapPage from './pages/CareerRoadmapPage';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -81,7 +82,8 @@ function App() {
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
             <Route path="/professional-form" element={<ResumeUploader />} />
-            <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
+            <Route path="/skill-question" element={<SkillQuestionPage />} />
+            <Route path="/career-roadmap" element={<CareerRoadmapPage />} />
           </Routes>
         </main>
       </div>

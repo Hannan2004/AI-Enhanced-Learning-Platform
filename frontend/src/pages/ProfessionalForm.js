@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase'; // Import Firebase auth and db
 import FileUpload from './FileUpload';
 import ResumeForm from './ResumeForm';
@@ -21,6 +22,7 @@ const ResumeUploader = () => {
     coursesCertifications: '',
   });
   const [resumeFile, setResumeFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -50,7 +52,7 @@ const ResumeUploader = () => {
     }));
   };
 
-  const handleSave = async () => {
+  const handleSaveAndNext = async () => {
     try {
       const userId = auth.currentUser?.uid || 'anonymous';
 
@@ -60,7 +62,8 @@ const ResumeUploader = () => {
         userId,
       });
 
-      alert('Details saved successfully!');
+      // Navigate to SkillQuestionPage with the extracted resume information
+      navigate('/skill-question', { state: { job: formData } });
     } catch (error) {
       console.error('Error saving details:', error);
       alert('Failed to save details. Please try again.');
@@ -74,10 +77,10 @@ const ResumeUploader = () => {
         <FileUpload handleFileChange={handleFileChange} />
         <ResumeForm formData={formData} handleChange={handleChange} />
         <button
-          onClick={handleSave}
+          onClick={handleSaveAndNext}
           className="mt-4 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
         >
-          Save
+          Save and Next
         </button>
       </div>
     </div>
