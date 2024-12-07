@@ -36,7 +36,8 @@ import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
 import MermaidRoadmap from './pages/MermaidRoadmap';
-
+import Community from './pages/Community';
+import GroupDetail from './pages/GroupDetail';
 import CareerRoadmapPage from './pages/CareerRoadmapPage';
 import PreSkillGapLandingPage from './pages/PreSkillGapLandingPage';
 function App() {
@@ -72,7 +73,8 @@ function App() {
             <Route path="/pre-skill-gap" element={<PreSkillGapLandingPage />} /> 
             <Route path="/graduate-skill-gap" element={<SkillGap />} />
             
-            
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<GroupDetail />} />
             {/* <Route path="/skill-gap" element={<SkillGapForm />} /> */}
             <Route path="/report" element={<ReportUpload />} />
             <Route path="/mock-interview" element={<MockInterview />} />

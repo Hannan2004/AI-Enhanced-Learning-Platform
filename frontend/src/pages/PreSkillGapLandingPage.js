@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Box, Button } from '@mui/material';
+import { ArrowForward, ArrowBack } from '@mui/icons-material';
 
 const PreSkillGapLandingPage = () => {
   const navigate = useNavigate();
@@ -21,58 +22,76 @@ const PreSkillGapLandingPage = () => {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh',
-      backgroundColor: '#f0f2f5',
+      backgroundColor: '#f0f4f8',
+      padding: '2rem',
     },
     card: {
-      background: '#ffffff',
-      borderRadius: '10px',
-      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      cursor: 'pointer',
-      transition: 'transform 0.3s ease',
-      '&:hover': {
-        transform: 'scale(1.05)',
-      },
-    },
-    cardContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
       padding: '2rem',
+      margin: '1rem',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+      borderRadius: '10px',
+      backgroundColor: '#ffffff',
       textAlign: 'center',
     },
-    cardTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      marginBottom: '1rem',
-    },
-    cardDescription: {
-      fontSize: '1rem',
-      color: '#666',
+    arrowButton: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '1rem',
     },
   };
 
   return (
-    <div style={styles.container}>
+    <Box style={styles.container}>
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={12} md={6}>
-          <Card style={styles.card} onClick={handleProfessionalClick}>
-            <CardContent style={styles.cardContent}>
-              <Typography style={styles.cardTitle}>Professional</Typography>
-              <Typography style={styles.cardDescription}>
-                Take the skill gap test tailored for professionals.
+          <Card style={styles.card}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Professional
               </Typography>
+              <Typography variant="body1">
+                Click here if you are a professional looking to assess your skill gaps.
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                style={styles.arrowButton}
+                onClick={handleProfessionalClick}
+                endIcon={<ArrowForward />}
+              >
+                Professional
+              </Button>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card style={styles.card} onClick={handleGraduateClick}>
-            <CardContent style={styles.cardContent}>
-              <Typography style={styles.cardTitle}>Graduate</Typography>
-              <Typography style={styles.cardDescription}>
-                Take the skill gap test tailored for graduates.
+          <Card style={styles.card}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Graduate
               </Typography>
+              <Typography variant="body1">
+                Click here if you are a graduate looking to assess your skill gaps.
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={styles.arrowButton}
+                onClick={handleGraduateClick}
+                endIcon={<ArrowBack />}
+              >
+                Graduate
+              </Button>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 };
 
