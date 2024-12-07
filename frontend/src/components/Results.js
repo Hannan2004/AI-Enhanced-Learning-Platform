@@ -62,66 +62,147 @@ const Results = () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
-
-      // Create a new chart instance
-      const ctx = chartRef.current.getContext('2d');
-      chartInstance.current = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
-          datasets: [{
-            label: 'Scores',
-            data: [scores.numerical, scores.verbal, scores.logicalReasoning],
-            backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
-          }],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
+  
+      // Fetch user details and update the chart
+      const fetchUserData = async () => {
+        try {
+          if (user) {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+  
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+  
+              console.log('Fetched user data:', userData);
+  
+              // Use the fetched username and role in your chart labels or options if needed
+              const username = userData.username || 'N/A';
+              const role = userData.role || 'N/A';
+  
+              // Create a new chart instance
+              const ctx = chartRef.current.getContext('2d');
+              chartInstance.current = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
+                  datasets: [{
+                    label: `${username} - ${role}`, // Include username and role in the chart label
+                    data: [scores.numerical, scores.verbal, scores.logicalReasoning],
+                    backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
+                  }],
+                },
+                options: {
+                  responsive: true,
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                },
+              });
+            } else {
+              console.log('No user document found for user ID:', user.uid);
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      };
+  
+      fetchUserData();
     }
-  }, [scores]);
-
+  }, [scores, user]);
+  
   const downloadPDF = () => {
     const doc = new jsPDF();
-
+  
     console.log('Generating PDF for user:', user.displayName || user.email); // Debugging log
-
-    doc.text(`Email: ${user.displayName || user.email || 'N/A'}`, 20, 30);
-
+  
+    // Add PDF title with styling
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text('Career Guidance Test Results', 105, 20, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(14);
+    doc.text('Your personalized results and insights for career planning.', 105, 30, { align: 'center' });
+  
+    // Draw a horizontal line to separate sections
+    doc.setDrawColor(0, 0, 0);
+    doc.line(15, 35, 195, 35);
+  
+    doc.setFontSize(14);
+    doc.text('User Information:', 20, 45);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'italic');
+    doc.text(`Name: ${userDetails.username || 'N/A'}`, 20, 55); // Include the username
+    doc.text(`Email: ${user.email || 'N/A'}`, 20, 65); // Include the email
+    doc.text(`Role: ${user.role || 'N/A'}`, 20, 75); // Include the role
+  
+    // Add a box around user details
+    doc.setDrawColor(150, 150, 150);
+    doc.rect(15, 40, 180, 40); // Adjust the height to fit all fields
+    console.log('User Details in PDF:', userDetails);
+  
+    // Add additional user details
     if (userDetails) {
-      Object.entries(userDetails).forEach(([key, value], index) => {
-        doc.text(`${key}: ${value || 'N/A'}`, 20, 40 + index * 10);
-      });
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.text('Personal Details:', 20, 90);
+  
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      doc.text(`Aspirations: ${userDetails.aspirations || 'N/A'}`, 20, 100);
+      doc.text(`Interests: ${userDetails.interests || 'N/A'}`, 20, 110);
+      doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 120);
+  
+      // Add a box around personal details
+      doc.setDrawColor(150, 150, 150);
+      doc.rect(15, 85, 180, 50);
     }
-
+  
+    // Add scores table with better styling
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.text('Test Scores:', 20, 145);
+  
     doc.autoTable({
-      startY: Object.keys(userDetails || {}).length * 10 + 50,
+      startY: 155,
       head: [['Category', 'Score']],
       body: [
         ['Numerical Ability', scores.numerical],
         ['Verbal Ability', scores.verbal],
         ['Logical Reasoning', scores.logicalReasoning],
       ],
+      theme: 'grid', // Change to a grid layout for better visuals
+      headStyles: { fillColor: [44, 62, 80], textColor: [255, 255, 255] }, // Dark header with white text
+      styles: { halign: 'center', fontSize: 12 },
+      bodyStyles: { textColor: [0, 0, 0] }, // Black text for the body
     });
-
-    const totalScore = scores.numerical + scores.verbal + scores.logicalReasoning;
-    const percentage = ((totalScore / 3) * 100).toFixed(2);
-
-    doc.text(`Total Score: ${totalScore}`, 20, doc.autoTable.previous.finalY + 10);
-    doc.text(`Percentage: ${percentage}%`, 20, doc.autoTable.previous.finalY + 20);
-
-    // Add chart to PDF
+  
+    // Add chart to the PDF
     const chartCanvas = chartRef.current;
-    const chartImage = chartCanvas.toDataURL('image/png');
-    doc.addImage(chartImage, 'PNG', 20, doc.autoTable.previous.finalY + 30, 160, 90);
-
-    doc.save('test-results.pdf');
+    if (chartCanvas) {
+      const chartImage = chartCanvas.toDataURL('image/png');
+      const finalY = doc.autoTable.previous.finalY + 10;
+  
+      // Adding the chart with a border
+      doc.addImage(chartImage, 'PNG', 20, finalY, 160, 90);
+      doc.setDrawColor(150, 150, 150);
+      doc.rect(20, finalY, 160, 90);
+    }
+  
+    // Add footer with spacing
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.text(
+      'Generated by AI-Driven Career Guidance Tool. © 2024 Udaan Technologies. All rights reserved.',
+      pageHeight / 2,
+      pageHeight - 10,
+      { align: 'center' }
+    );
+  
+    // Save the PDF
+    doc.save('Career-Guidance-Test-Results.pdf');
   };
 
   return (
