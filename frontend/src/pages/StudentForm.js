@@ -7,6 +7,7 @@ import { auth, db } from '../firebase'; // Import Firebase auth and db
 const StudentForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // State to hold the user's email
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -33,6 +34,7 @@ const StudentForm = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUsername(user.displayName || user.email.split('@')[0]); // Fetch username or email prefix
+        setEmail(user.email); // Set the user's email
       }
     });
     return unsubscribe;
@@ -51,6 +53,7 @@ const StudentForm = () => {
     const dataToSave = {
       ...formData,
       username,
+      email, // Include email in the data to be saved
       grade: '10th', // Explicitly mention 10th grade
     };
 
@@ -256,7 +259,7 @@ const StudentForm = () => {
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
           </div>
-          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
             Submit
           </button>
         </form>
