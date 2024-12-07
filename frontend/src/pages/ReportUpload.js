@@ -18,7 +18,7 @@ const Results = () => {
   const [userDetails, setUserDetails] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, scores } = location.state;
+  const { user } = location.state;
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -81,7 +81,7 @@ const Results = () => {
           labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
           datasets: [{
             label: 'Scores',
-            data: [scores.numerical, scores.verbal, scores.logicalReasoning],
+            data: [user.scores.numerical, user.scores.verbal, user.scores.logicalReasoning],
             backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
           }],
         },
@@ -95,7 +95,7 @@ const Results = () => {
         },
       });
     }
-  }, [scores]);
+  }, [user.scores]);
 
   const downloadPDF = () => {
     const doc = new jsPDF();
@@ -114,13 +114,13 @@ const Results = () => {
       startY: Object.keys(userDetails).length * 10 + 50,
       head: [['Category', 'Score']],
       body: [
-        ['Numerical Ability', scores.numerical],
-        ['Verbal Ability', scores.verbal],
-        ['Logical Reasoning', scores.logicalReasoning],
+        ['Numerical Ability', user.scores.numerical],
+        ['Verbal Ability', user.scores.verbal],
+        ['Logical Reasoning', user.scores.logicalReasoning],
       ],
     });
 
-    const totalScore = scores.numerical + scores.verbal + scores.logicalReasoning;
+    const totalScore = user.scores.numerical + user.scores.verbal + user.scores.logicalReasoning;
     const percentage = ((totalScore / 3) * 100).toFixed(2);
 
     doc.text(`Total Score: ${totalScore}`, 20, doc.autoTable.previous.finalY + 10);
@@ -144,9 +144,9 @@ const Results = () => {
           className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center"
         >
           <h1 className="text-3xl font-bold mb-6 text-indigo-800">Test Results</h1>
-          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {scores.numerical}</p>
-          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {scores.verbal}</p>
-          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {scores.logicalReasoning}</p>
+          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {user.scores.numerical}</p>
+          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {user.scores.verbal}</p>
+          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {user.scores.logicalReasoning}</p>
           <canvas ref={chartRef} width="400" height="200" className="mb-4"></canvas>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -159,7 +159,7 @@ const Results = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/report')}
+            onClick={() => navigate('/report', { state: { user } })}
             className="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
           >
             Know Your Career by Uploading the Result

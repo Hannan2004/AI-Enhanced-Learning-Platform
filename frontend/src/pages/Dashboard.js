@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-import { Card, CardContent, Typography, Grid, LinearProgress, Box } from '@mui/material';
+import { Card, CardContent, Typography, Grid, LinearProgress, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import morningImage from '../assets/images/morning.png';
 import afternoonImage from '../assets/images/afternoon.png';
 import eveningImage from '../assets/images/evening.png';
 import nightImage from '../assets/images/night.png';
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
+import { styled } from '@mui/system';
+import { motion } from 'framer-motion';
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -69,6 +71,10 @@ const Dashboard = () => {
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       marginBottom: '1rem',
       cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+      },
     },
     progress: {
       height: '10px',
@@ -110,6 +116,10 @@ const Dashboard = () => {
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       marginBottom: '1rem',
       cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+      },
     },
     resultsContent: {
       flexGrow: 1,
@@ -191,64 +201,59 @@ const Dashboard = () => {
               <CardContent style={styles.cardContent}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={3}>
-                    <Card 
-                      style={styles.card}
-                      onClick={handleAptitudeClick}
-                    >
-                      <CardContent>
-                        <Typography variant="body2">Aptitude Assessment</Typography>
-                      </CardContent>
-                    </Card>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Card style={styles.card} onClick={handleAptitudeClick}>
+                        <CardContent>
+                          <Typography variant="body2">Aptitude Assessment</Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <Card 
-                      style={styles.card}
-                      onClick={handleCareerAnalysisClick}
-                    >
-                      <CardContent>
-                        <Typography variant="body2">Career Analysis</Typography>
-                      </CardContent>
-                    </Card>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Card style={styles.card} onClick={handleCareerAnalysisClick}>
+                        <CardContent>
+                          <Typography variant="body2">Career Analysis</Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <Card 
-                      style={styles.card}
-                      onClick={handleMockInterviewClick}
-                    >
-                      <CardContent>
-                        <Typography variant="body2">Mock Interview</Typography>
-                      </CardContent>
-                    </Card>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Card style={styles.card} onClick={handleMockInterviewClick}>
+                        <CardContent>
+                          <Typography variant="body2">Mock Interview</Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <Card 
-                      style={styles.card}
-                      onClick={handleSkillGapTestClick}
-                    >
-                      <CardContent>
-                        <Typography variant="body2">Skill Gap Test</Typography>
-                      </CardContent>
-                    </Card>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Card style={styles.card} onClick={handleSkillGapTestClick}>
+                        <CardContent>
+                          <Typography variant="body2">Skill Gap Test</Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Card 
-              style={styles.resultsCard}
-              onClick={handleResultsClick}
-            >
-              <LinearProgress variant="determinate" value={70} style={styles.resultsProgress} />
-              <div style={styles.resultsContent}>
-                <div style={styles.cardHeader}>
-                  <Typography variant="h6">Results</Typography>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card style={styles.resultsCard} onClick={handleResultsClick}>
+                <LinearProgress variant="determinate" value={70} style={styles.resultsProgress} />
+                <div style={styles.resultsContent}>
+                  <div style={styles.cardHeader}>
+                    <Typography variant="h6">Results</Typography>
+                  </div>
+                  <CardContent style={styles.cardContent}>
+                    <Typography variant="body2">View your test results and progress.</Typography>
+                  </CardContent>
                 </div>
-                <CardContent style={styles.cardContent}>
-                  <Typography variant="body2">View your test results and progress.</Typography>
-                </CardContent>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           </Grid>
         </Grid>
       </div>

@@ -18,7 +18,8 @@ const Results = () => {
   const [userDetails, setUserDetails] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, scores } = location.state;
+  const state = location.state || {};
+  const { user, scores } = state;
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -116,56 +117,47 @@ const Results = () => {
     const doc = new jsPDF();
   
     console.log('Generating PDF for user:', user.displayName || user.email); // Debugging log
-  
-    // Add PDF title with styling
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('Career Guidance Test Results', 105, 20, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(14);
-    doc.text('Your personalized results and insights for career planning.', 105, 30, { align: 'center' });
-  
-    // Draw a horizontal line to separate sections
-    doc.setDrawColor(0, 0, 0);
-    doc.line(15, 35, 195, 35);
-  
-    doc.setFontSize(14);
-    doc.text('User Information:', 20, 45);
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'italic');
-    doc.text(`Name: ${userDetails.username || 'N/A'}`, 20, 55); // Include the username
-    doc.text(`Email: ${user.email || 'N/A'}`, 20, 65); // Include the email
-    doc.text(`Role: ${user.role || 'N/A'}`, 20, 75); // Include the role
-  
-    // Add a box around user details
-    doc.setDrawColor(150, 150, 150);
-    doc.rect(15, 40, 180, 40); // Adjust the height to fit all fields
-    console.log('User Details in PDF:', userDetails);
-  
-    // Add additional user details
+
+    doc.text(`Name: ${user.displayName || user.email || 'N/A'}`, 20, 30);
+
     if (userDetails) {
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(14);
-      doc.text('Personal Details:', 20, 90);
-  
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(12);
-      doc.text(`Aspirations: ${userDetails.aspirations || 'N/A'}`, 20, 100);
-      doc.text(`Interests: ${userDetails.interests || 'N/A'}`, 20, 110);
-      doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 120);
-  
-      // Add a box around personal details
-      doc.setDrawColor(150, 150, 150);
-      doc.rect(15, 85, 180, 50);
+      doc.text(`Email: ${userDetails.email || 'N/A'}`, 20, 40);
+      doc.text(`Role: ${userDetails.role || 'N/A'}`, 20, 50);
+      doc.text(`Aspirations: ${userDetails.aspirations || 'N/A'}`, 20, 60);
+      doc.text(`Interests: ${userDetails.interests || 'N/A'}`, 20, 70);
+      doc.text(`Hobbies: ${userDetails.hobbies || 'N/A'}`, 20, 80);
+      doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 90);
+      doc.text(`Achievements: ${userDetails.achievements || 'N/A'}`, 20, 100);
+      if (userDetails.role === 'undergraduate') {
+        doc.text(`CGPA: ${userDetails.cgpa || 'N/A'}`, 20, 110);
+        doc.text(`College: ${userDetails.college || 'N/A'}`, 20, 120);
+        doc.text(`Contact Number: ${userDetails.contactNumber || 'N/A'}`, 20, 130);
+        doc.text(`Degree: ${userDetails.degree || 'N/A'}`, 20, 140);
+        doc.text(`DOB: ${userDetails.dob || 'N/A'}`, 20, 150);
+        doc.text(`First Name: ${userDetails.firstName || 'N/A'}`, 20, 160);
+        doc.text(`Gender: ${userDetails.gender || 'N/A'}`, 20, 170);
+        doc.text(`Graduation Year: ${userDetails.graduationYear || 'N/A'}`, 20, 180);
+        doc.text(`Internship/Work Experience: ${userDetails.internshipWorkExp || 'N/A'}`, 20, 190);
+        doc.text(`Last Name: ${userDetails.lastName || 'N/A'}`, 20, 200);
+        doc.text(`Location: ${userDetails.location || 'N/A'}`, 20, 210);
+      } else if (userDetails.role === 'student') {
+        doc.text(`Contact Number: ${userDetails.contactNumber || 'N/A'}`, 20, 110);
+        doc.text(`DOB: ${userDetails.dob || 'N/A'}`, 20, 120);
+        doc.text(`Extra Curricular: ${userDetails.extraCurricular || 'N/A'}`, 20, 130);
+        doc.text(`Favorite Subjects: ${userDetails.favoriteSubjects || 'N/A'}`, 20, 140);
+        doc.text(`First Name: ${userDetails.firstName || 'N/A'}`, 20, 150);
+        doc.text(`Gender: ${userDetails.gender || 'N/A'}`, 20, 160);
+        doc.text(`Grade: ${userDetails.grade || 'N/A'}`, 20, 170);
+        doc.text(`Learning Preferences: ${userDetails.learningPreferences || 'N/A'}`, 20, 180);
+        doc.text(`Location: ${userDetails.location || 'N/A'}`, 20, 190);
+        doc.text(`Percentage: ${userDetails.percentage || 'N/A'}`, 20, 200);
+        doc.text(`School: ${userDetails.school || 'N/A'}`, 20, 210);
+        doc.text(`Username: ${userDetails.username || 'N/A'}`, 20, 220);
+      }
     }
-  
-    // Add scores table with better styling
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
-    doc.text('Test Scores:', 20, 145);
-  
+
     doc.autoTable({
-      startY: 155,
+      startY: userDetails && userDetails.role === 'undergraduate' ? 230 : 240,
       head: [['Category', 'Score']],
       body: [
         ['Numerical Ability', scores.numerical],
@@ -231,7 +223,7 @@ const Results = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/report')}
+            onClick={() => navigate('/report', { state: { user, scores } })}
             className="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
           >
             Know Your Career by Uploading the Result
