@@ -9,9 +9,10 @@ const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
-const { generateSkillGap } = require('./skillGap');
+const { skillGapAnalysis } = require('./skillGap');
 const { fetchDetails } = require('./fetchDetails');
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary
+const { getSkillGap } = require('./getSkillGap');
 
 const app = express();
 const port = 3001;
@@ -122,21 +123,27 @@ app.post('/fetchDetails', upload.single('resume'), async (req, res) => {
     }
 });
 
-app.post('/generateSkillGap', async (req, res) => {
+app.post('/getSkillGap', async (req, res) => {
     try {
-      const { userInput } = req.body;
-  
-      if (!userInput) {
-        return res.status(400).json({ error: "userInput is required" });
-      }
-  
-      const skillGapAnalysis = await generateSkillGap(userInput);
-      res.status(200).json({ skillGapAnalysis });
+      const { jobDescription, answers } = req.body;
+      const analysisResult = await getSkillGap(jobDescription, answers);
+      res.status(200).json({ analysis: analysisResult });
     } catch (error) {
-      console.error("Error in generateSkillGap:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error('Error performing skill gap analysis:', error);
+      res.status(500).send({ error: 'An error occurred while performing skill gap analysis.' });
     }
   });
+
+app.post('/skillgap', async (req, res) => {
+    try {
+      const jobDescription = req.body;
+      const analysisResult = await skillGapAnalysis(jobDescription);
+      res.status(200).json(analysisResult);
+    } catch (error) {
+      console.error('Error performing skill gap analysis:', error);
+      res.status(500).send({ error: 'An error occurred while performing skill gap analysis.' });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

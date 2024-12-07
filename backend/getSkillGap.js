@@ -7,8 +7,10 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
   systemInstruction: `
-    You are an expert Skill Gap Analyser. You will be given the JSON of the job description.
-    \`\`\` JSON Format
+    You are an expert skill gap analysis test expert.
+    You will be given the job description along with the questions and answers of the user.
+    job description:
+    \`\`\` json
     {
       title: 'Job title',
       company: 'Company name',
@@ -20,13 +22,15 @@ const model = genAI.getGenerativeModel({
       ],
     },
     \`\`\`
-    \`\`\` Response JSON
+    \`\`\` json 
     [
       {
-        "question": "question"
+        question: question,
+        answer: answer,
       }
     ]
-    Your task is to generate 5 Questions related to the job description in JSON format.
+    \`\`\`
+    Your job is to assess the user's answers and give a skill gap analysis to the user. Also, suggest/recommend courses to learn the skill.
   `,
 });
 
@@ -38,7 +42,7 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-async function skillGapAnalysis(jobDescription) {
+async function getSkillGap(jobDescription, answers) {
   const chatSession = model.startChat({
     generationConfig,
     history: [
@@ -46,25 +50,14 @@ async function skillGapAnalysis(jobDescription) {
         role: "user",
         parts: [
           { text: JSON.stringify(jobDescription) },
+          { text: JSON.stringify(answers) },
         ],
       },
     ],
   });
 
-  const result = await chatSession.sendMessage("Generate 5 Questions related to the job description");
-
-  // Extract JSON from response text
-  const jsonResponse = result.response.text().match(/\[[\s\S]*\]/);
-  if (!jsonResponse) {
-    throw new Error("Invalid JSON response");
-  }
-  try {
-    const questionsArray = JSON.parse(jsonResponse[0]);
-    return { questions: questionsArray };
-  } catch (error) {
-    console.error("Error parsing JSON response:", error);
-    throw new Error("Failed to parse JSON response");
-  }
+  const result = await chatSession.sendMessage("Assess the user's answers and provide a skill gap analysis.");
+  return result.response.text();
 }
 
-module.exports = { skillGapAnalysis };
+module.exports = { getSkillGap };
