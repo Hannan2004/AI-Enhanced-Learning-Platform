@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
 import { motion } from 'framer-motion';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'; // Import Firestore instance
 import { useLocation } from 'react-router-dom';
 
@@ -26,13 +26,27 @@ const Results = () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          if (userData.role === 'undergraduate') {
-            const graduateDoc = await getDoc(doc(db, 'graduates', user.uid));
-            if (graduateDoc.exists()) {
-              setUserDetails(graduateDoc.data());
+          const email = user.email; // Email to use for querying
+          let userCollection;
+
+          // Determine which collection to query based on the role
+          if (userData.role === '10th Grade Student') {
+            userCollection = 'students';
+          } else if (userData.role === 'Graduate/Undergraduate') {
+            userCollection = 'graduates';
+          }
+
+          if (userCollection) {
+            const q = query(collection(db, userCollection), where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                setUserDetails(doc.data());
+              });
+            } else {
+              console.log('No user found in', userCollection, 'with email:', email);
             }
-          } else if (userData.role === 'student') {
-            setUserDetails(userData);
           }
         }
       }
@@ -77,46 +91,16 @@ const Results = () => {
 
     console.log('Generating PDF for user:', user.displayName || user.email); // Debugging log
 
-    doc.text(`Name: ${user.displayName || user.email || 'N/A'}`, 20, 30);
+    doc.text(`Email: ${user.displayName || user.email || 'N/A'}`, 20, 30);
 
     if (userDetails) {
-      doc.text(`Email: ${userDetails.email || 'N/A'}`, 20, 40);
-      doc.text(`Role: ${userDetails.role || 'N/A'}`, 20, 50);
-      doc.text(`Aspirations: ${userDetails.aspirations || 'N/A'}`, 20, 60);
-      doc.text(`Interests: ${userDetails.interests || 'N/A'}`, 20, 70);
-      doc.text(`Hobbies: ${userDetails.hobbies || 'N/A'}`, 20, 80);
-      doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 90);
-      doc.text(`Achievements: ${userDetails.achievements || 'N/A'}`, 20, 100);
-      if (userDetails.role === 'undergraduate') {
-        doc.text(`CGPA: ${userDetails.cgpa || 'N/A'}`, 20, 110);
-        doc.text(`College: ${userDetails.college || 'N/A'}`, 20, 120);
-        doc.text(`Contact Number: ${userDetails.contactNumber || 'N/A'}`, 20, 130);
-        doc.text(`Degree: ${userDetails.degree || 'N/A'}`, 20, 140);
-        doc.text(`DOB: ${userDetails.dob || 'N/A'}`, 20, 150);
-        doc.text(`First Name: ${userDetails.firstName || 'N/A'}`, 20, 160);
-        doc.text(`Gender: ${userDetails.gender || 'N/A'}`, 20, 170);
-        doc.text(`Graduation Year: ${userDetails.graduationYear || 'N/A'}`, 20, 180);
-        doc.text(`Internship/Work Experience: ${userDetails.internshipWorkExp || 'N/A'}`, 20, 190);
-        doc.text(`Last Name: ${userDetails.lastName || 'N/A'}`, 20, 200);
-        doc.text(`Location: ${userDetails.location || 'N/A'}`, 20, 210);
-      } else if (userDetails.role === 'student') {
-        doc.text(`Contact Number: ${userDetails.contactNumber || 'N/A'}`, 20, 110);
-        doc.text(`DOB: ${userDetails.dob || 'N/A'}`, 20, 120);
-        doc.text(`Extra Curricular: ${userDetails.extraCurricular || 'N/A'}`, 20, 130);
-        doc.text(`Favorite Subjects: ${userDetails.favoriteSubjects || 'N/A'}`, 20, 140);
-        doc.text(`First Name: ${userDetails.firstName || 'N/A'}`, 20, 150);
-        doc.text(`Gender: ${userDetails.gender || 'N/A'}`, 20, 160);
-        doc.text(`Grade: ${userDetails.grade || 'N/A'}`, 20, 170);
-        doc.text(`Learning Preferences: ${userDetails.learningPreferences || 'N/A'}`, 20, 180);
-        doc.text(`Location: ${userDetails.location || 'N/A'}`, 20, 190);
-        doc.text(`Percentage: ${userDetails.percentage || 'N/A'}`, 20, 200);
-        doc.text(`School: ${userDetails.school || 'N/A'}`, 20, 210);
-        doc.text(`Username: ${userDetails.username || 'N/A'}`, 20, 220);
-      }
+      Object.entries(userDetails).forEach(([key, value], index) => {
+        doc.text(`${key}: ${value || 'N/A'}`, 20, 40 + index * 10);
+      });
     }
 
     doc.autoTable({
-      startY: userDetails && userDetails.role === 'undergraduate' ? 230 : 240,
+      startY: Object.keys(userDetails || {}).length * 10 + 50,
       head: [['Category', 'Score']],
       body: [
         ['Numerical Ability', scores.numerical],

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase'; // Import Firebase auth and db
 
 const GraduateForm = () => {
   const location = useLocation();
-  const userId = location.state?.userId || ''; // Get userId from location state
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); // State to hold the user's email
 
   const [formData, setFormData] = useState({
-    userId: userId, // Set userId to the logged-in user's ID
     firstName: '',
     lastName: '',
     dob: '',
@@ -31,6 +32,17 @@ const GraduateForm = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Get the authenticated user's details
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUsername(user.displayName || user.email.split('@')[0]); // Fetch username or email prefix
+        setEmail(user.email); // Set the user's email
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -41,23 +53,27 @@ const GraduateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const dataToSave = {
+      ...formData,
+      username,
+      email, // Include email in the data to be saved
+      userType: 'Graduate', // Explicitly mention the user type as graduate
+    };
 
     try {
       const userId = auth.currentUser?.uid || 'anonymous';
 
-      // Save form data to Firestore, including the user UID
-      await setDoc(doc(db, 'graduates', userId), {
-        ...formData,
+      // Save data directly to Firebase Firestore, including the user UID
+      await setDoc(doc(db, "graduates", userId), {
+        ...dataToSave,
         userId,
       });
 
-      // If successful, set success message
       setSuccess('Form submitted successfully!');
       setError('');
-
-      // Navigate to the dashboard after submission
       navigate('/dashboard');
     } catch (error) {
+      console.error('Error saving data:', error);
       setError('Failed to submit form. Please try again.');
       setSuccess('');
     }
@@ -70,7 +86,6 @@ const GraduateForm = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {success && <p className="text-green-500 mb-4">{success}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Form fields */}
           <div>
             <label className="block text-gray-700 mb-2">First Name</label>
             <input
@@ -176,7 +191,7 @@ const GraduateForm = () => {
           <div>
             <label className="block text-gray-700 mb-2">CGPA</label>
             <input
-              type="text"
+              type="number"
               name="cgpa"
               value={formData.cgpa}
               onChange={handleChange}
@@ -244,7 +259,7 @@ const GraduateForm = () => {
               className="w-full p-2 border border-gray-300 rounded-lg"
             />
           </div>
-          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
             Submit
           </button>
         </form>

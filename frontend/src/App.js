@@ -66,15 +66,12 @@ function App() {
             <Route path="/Notifications" element={<Notifications />} />
             <Route path="/CareerOptions" element={<CareerOptions />} />
             <Route path="/SkillGap" element={<SkillGap />} /> 
-            
             <Route path="/skill-gap" element={<SkillGapForm />} />
             <Route path="/report" element={<ReportUpload />} />
-            
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/test-instructions" element={<TestInstructions/>} />
-
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
