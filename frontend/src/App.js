@@ -29,7 +29,7 @@ import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
-import TestInstructions from './pages/TestInstructions';
+
 
 
 import ResumeUploader from './pages/ProfessionalForm';
@@ -67,7 +67,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
-            <Route path="/CareerOptions" element={<CareerOptions />} />
+            {/* <Route path="/CareerOptions" element={<CareerOptions />} /> */}
             <Route path="/SkillGap" element={<SkillGap />} /> 
             <Route path="/pre-skill-gap" element={<PreSkillGapLandingPage />} /> 
             <Route path="/graduate-skill-gap" element={<SkillGap />} />
@@ -80,7 +80,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             
             <Route path="/skill-gap" element={<SkillGap />} />
-            <Route path="/test-instructions" element={<TestInstructions/>} />
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
