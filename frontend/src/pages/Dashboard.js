@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-import { Card, CardContent, Typography, Grid, LinearProgress, Box, Button } from '@mui/material';
+import { Card, CardContent, Typography, Grid, LinearProgress, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import morningImage from '../assets/images/morning.png';
 import afternoonImage from '../assets/images/afternoon.png';
 import eveningImage from '../assets/images/evening.png';
 import nightImage from '../assets/images/night.png';
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
+import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
+import { Tilt } from 'react-tilt';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import WorkIcon from '@mui/icons-material/Work';
+import PersonIcon from '@mui/icons-material/Person';
+import SchoolIcon from '@mui/icons-material/School';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import Brightness5Icon from '@mui/icons-material/Brightness5';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -25,22 +36,33 @@ const Dashboard = () => {
   const [aptitudeClicked, setAptitudeClicked] = useState(false);
   const [greeting, setGreeting] = useState('');
   const [greetingImage, setGreetingImage] = useState('');
+  const [greetingIcon, setGreetingIcon] = useState(null);
+  const [greetingColor, setGreetingColor] = useState('');
   const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState('Guest');
 
   useEffect(() => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
       setGreeting('Good Morning');
       setGreetingImage(morningImage);
+      setGreetingIcon(<WbSunnyIcon style={styles.greetingIcon} />);
+      setGreetingColor('linear-gradient(135deg, #FFDD00 0%, #FBB034 100%)');
     } else if (currentHour < 17) {
       setGreeting('Good Afternoon');
       setGreetingImage(afternoonImage);
+      setGreetingIcon(<Brightness5Icon style={styles.greetingIcon} />);
+      setGreetingColor('linear-gradient(135deg, #FF8008 0%, #FFC837 100%)');
     } else if (currentHour < 20) {
       setGreeting('Good Evening');
       setGreetingImage(eveningImage);
+      setGreetingIcon(<Brightness4Icon style={styles.greetingIcon} />);
+      setGreetingColor('linear-gradient(135deg, #667EEA 0%, #764BA2 100%)');
     } else {
       setGreeting('Good Night');
       setGreetingImage(nightImage);
+      setGreetingIcon(<NightsStayIcon style={styles.greetingIcon} />);
+      setGreetingColor('linear-gradient(135deg, #2C3E50 0%, #4CA1AF 100%)');
     }
 
     // Fetch the currently logged-in user's details from Firebase Authentication
@@ -48,32 +70,44 @@ const Dashboard = () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       setUser(currentUser);
+      fetchUserName(currentUser.uid);
     }
   }, []);
+
+  const fetchUserName = async (uid) => {
+    const db = getFirestore();
+    const userDoc = doc(db, 'users', uid);
+    const userSnap = await getDoc(userDoc);
+    if (userSnap.exists()) {
+      setUserName(userSnap.data().displayName);
+    }
+  };
 
   const styles = {
     container: {
       display: 'flex',
-      backgroundColor: '#f0f2f5',
+      background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
       minHeight: '100vh',
     },
     content: {
       flexGrow: 1,
-      padding: '2rem',
-      background: '#ffffff',
-      borderRadius: '10px',
-      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      padding: '2.5rem',
       margin: '2rem',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '20px',
+      backdropFilter: 'blur(10px)',
+      boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
     },
     card: {
-      background: '#ffffff',
-      borderRadius: '10px',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '16px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       marginBottom: '1rem',
       cursor: 'pointer',
-      transition: 'transform 0.3s ease-in-out',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
       '&:hover': {
         transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
       },
     },
     progress: {
@@ -81,44 +115,51 @@ const Dashboard = () => {
       borderRadius: '5px',
     },
     cardHeader: {
-      backgroundColor: '#4c51bf',
+      background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
       color: '#ffffff',
       padding: '0.5rem',
-      borderRadius: '10px 10px 0 0',
+      borderRadius: '16px 16px 0 0',
     },
     cardContent: {
       padding: '1rem',
     },
     greetingCard: {
-      backgroundColor: '#ffeb3b', // Bright yellow background color
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      color: '#ffffff',
-      borderRadius: '10px',
-      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      marginBottom: '1rem',
-      padding: '2rem',
-      textAlign: 'center',
-      height: '100%', // Ensure the height matches the other cards
+      background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.18)',
+      borderRadius: '20px',
+      padding: '2.5rem',
+      position: 'relative',
+      overflow: 'hidden',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     greetingText: {
-      background: 'linear-gradient(to right, #ff7e5f, #feb47b)', // Gradient color
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      fontSize: '2.25rem',
-      fontWeight: 'bold',
+      color: 'white',
+      fontSize: '2.5rem',
+      fontWeight: '700',
+      textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
+      textAlign: 'center',
+      lineHeight: '1.2',
+    },
+    greetingIcon: {
+      fontSize: '3rem',
+      marginBottom: '1rem',
     },
     resultsCard: {
       display: 'flex',
       alignItems: 'center',
-      background: '#ffffff',
-      borderRadius: '10px',
+      background: 'rgba(255, 255, 255, 0.95)',
+      borderRadius: '16px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       marginBottom: '1rem',
       cursor: 'pointer',
-      transition: 'transform 0.3s ease-in-out',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
       '&:hover': {
         transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
       },
     },
     resultsContent: {
@@ -129,6 +170,11 @@ const Dashboard = () => {
       width: '10px',
       height: '100%',
       borderRadius: '5px',
+    },
+    featureIcon: {
+      fontSize: '2.5rem',
+      color: '#4F46E5',
+      marginBottom: '1rem',
     },
   };
 
@@ -161,16 +207,29 @@ const Dashboard = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName={user ? user.displayName || user.email : 'Guest'} />
+      <Sidebar userName={userName} />
       <div style={styles.content}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
           Dashboard
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Card style={{ ...styles.greetingCard, backgroundImage: `url(${greetingImage})` }}>
-              <Typography style={styles.greetingText}>{greeting}, {user ? user.displayName || user.email : 'Guest'}!</Typography>
-            </Card>
+            <Tilt options={{ max: 25, scale: 1.05 }}>
+              <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Card style={{ ...styles.greetingCard, background: greetingColor }}>
+                  <Box display="flex" flexDirection="column" alignItems="center">
+                    {greetingIcon}
+                    <Typography style={styles.greetingText}>
+                      {greeting}, {userName}!
+                    </Typography>
+                  </Box>
+                </Card>
+              </motion.div>
+            </Tilt>
           </Grid>
           <Grid item xs={12} md={6}>
             <Card style={styles.card}>
@@ -204,6 +263,7 @@ const Dashboard = () => {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Card style={styles.card} onClick={handleAptitudeClick}>
                         <CardContent>
+                          <AssessmentIcon style={styles.featureIcon} />
                           <Typography variant="body2">Aptitude Assessment</Typography>
                         </CardContent>
                       </Card>
@@ -213,6 +273,7 @@ const Dashboard = () => {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Card style={styles.card} onClick={handleCareerAnalysisClick}>
                         <CardContent>
+                          <WorkIcon style={styles.featureIcon} />
                           <Typography variant="body2">Career Analysis</Typography>
                         </CardContent>
                       </Card>
@@ -222,6 +283,7 @@ const Dashboard = () => {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Card style={styles.card} onClick={handleMockInterviewClick}>
                         <CardContent>
+                          <PersonIcon style={styles.featureIcon} />
                           <Typography variant="body2">Mock Interview</Typography>
                         </CardContent>
                       </Card>
@@ -231,6 +293,7 @@ const Dashboard = () => {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Card style={styles.card} onClick={handleSkillGapTestClick}>
                         <CardContent>
+                          <SchoolIcon style={styles.featureIcon} />
                           <Typography variant="body2">Skill Gap Test</Typography>
                         </CardContent>
                       </Card>
@@ -249,6 +312,7 @@ const Dashboard = () => {
                     <Typography variant="h6">Results</Typography>
                   </div>
                   <CardContent style={styles.cardContent}>
+                    <EqualizerIcon style={styles.featureIcon} />
                     <Typography variant="body2">View your test results and progress.</Typography>
                   </CardContent>
                 </div>
