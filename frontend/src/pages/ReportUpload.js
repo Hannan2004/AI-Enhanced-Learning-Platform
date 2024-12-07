@@ -1,44 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import { Card, CardContent, Typography, Button, Box, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-
-const FlipCard = styled.div`
-  background-color: transparent;
-  width: 100%;
-  height: 200px;
-  perspective: 1000px;
-  margin-bottom: 20px;
-`;
-
-const FlipCardInner = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-
-  ${FlipCard}:hover & {
-    transform: rotateY(180deg);
-  }
-`;
-
-const FlipCardFront = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-`;
-
-const FlipCardBack = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-`;
+import CareerOpeepsImage from '../assets/images/CareerOpeeps.png'; // Import the image
 
 const ReportUpload = () => {
   const [file, setFile] = useState(null);
@@ -59,11 +24,15 @@ const ReportUpload = () => {
     formData.append('report', file);
 
     try {
-      const response = await axios.post('http://localhost:3001/generateRecommendations', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        'http://localhost:3001/generateRecommendations',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
       setRecommendations(response.data.career_recommendations);
     } catch (error) {
       console.error('Error uploading report:', error);
@@ -82,15 +51,21 @@ const ReportUpload = () => {
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       margin: '2rem',
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr 1fr',
+      gridTemplateRows: 'auto auto',
+      gap: '1rem',
+      justifyItems: 'center',
+      alignItems: 'center',
     },
     card: {
       background: 'rgba(255, 255, 255, 0.1)',
       backdropFilter: 'blur(10px)',
       borderRadius: '10px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      padding: '2rem',
+      padding: '1rem',
       width: '100%',
-      maxWidth: '600px',
+      cursor: 'pointer',
     },
     cardHeader: {
       backgroundColor: '#4c51bf',
@@ -106,10 +81,14 @@ const ReportUpload = () => {
       backgroundColor: '#4c51bf',
       color: '#ffffff',
     },
-    flipCardContainer: {
-      marginTop: '2rem',
+    image: {
       width: '100%',
-      maxWidth: '800px',
+      borderRadius: '10px',
+    },
+    matchPercentage: {
+      marginTop: '1rem',
+      fontWeight: 'bold',
+      color: '#4c51bf',
     },
   };
 
@@ -117,33 +96,38 @@ const ReportUpload = () => {
     <div style={styles.container}>
       <Sidebar userName="Aryan Sikariya" />
       <div style={styles.content}>
-        <Card style={styles.card}>
-          <div style={styles.cardHeader}>
-            <Typography variant="h6">Upload Your Report</Typography>
-          </div>
-          <CardContent style={styles.cardContent}>
-            <form onSubmit={handleSubmit}>
-              <input type="file" accept="application/pdf" onChange={handleFileChange} />
-              <Button type="submit" variant="contained" style={styles.button}>
-                Upload
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        <div style={styles.flipCardContainer}>
-          {recommendations.map((rec, index) => (
-            <FlipCard key={index}>
-              <FlipCardInner>
-                <FlipCardFront className="bg-blue-500 text-white p-4 rounded-lg">
+        <Box gridColumn="1 / span 3" gridRow="1 / span 1">
+          <img src={CareerOpeepsImage} alt="Career Options" style={styles.image} />
+        </Box>
+        <Box gridColumn="1 / span 3" gridRow="2 / span 1">
+          <Card style={styles.card}>
+            <div style={styles.cardHeader}>
+              <Typography variant="h6">Upload Your Report</Typography>
+            </div>
+            <CardContent style={styles.cardContent}>
+              <form onSubmit={handleSubmit}>
+                <input type="file" accept="application/pdf" onChange={handleFileChange} />
+                <Button type="submit" variant="contained" style={styles.button}>
+                  Upload
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+        {recommendations.map((rec, index) => (
+          <Box key={index} gridColumn="span 1" gridRow="span 1">
+            <Link to={`/career-roadmap/${rec.career}`} style={{ textDecoration: 'none' }}>
+              <Card style={styles.card}>
+                <div style={styles.cardHeader}>
                   <Typography variant="h6">{rec.career}</Typography>
-                </FlipCardFront>
-                <FlipCardBack className="bg-gray-100 text-black p-4 rounded-lg">
+                </div>
+                <CardContent style={styles.cardContent}>
                   <Typography variant="body2">{rec.reason}</Typography>
-                </FlipCardBack>
-              </FlipCardInner>
-            </FlipCard>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </Box>
+        ))}
       </div>
     </div>
   );

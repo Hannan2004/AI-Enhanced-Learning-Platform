@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'; // Import Firestore instance
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Register the necessary Chart.js components
 Chart.register(...registerables);
@@ -17,6 +17,7 @@ const Results = () => {
   const chartInstance = useRef(null);
   const [userDetails, setUserDetails] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, scores } = location.state;
 
   useEffect(() => {
@@ -142,9 +143,17 @@ const Results = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={downloadPDF}
-            className="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+            className="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 mb-4"
           >
             Download PDF
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/report')}
+            className="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+          >
+            Know Your Career by Uploading the Result
           </motion.button>
         </motion.div>
       </div>

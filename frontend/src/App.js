@@ -19,7 +19,7 @@ import ReportUpload from './pages/ReportUpload';
 import ProfilePage from './pages/ProfilePage';
 import ResultsPage from './pages/ResultsPage';
 import Notifications from './pages/Notifications';
-import CareerOptions from './pages/CareerOptions';
+
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import StudentProfile from './pages/StudentProfile';
@@ -35,6 +35,7 @@ import TestInstructions from './pages/TestInstructions';
 import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
+import MermaidRoadmap from './pages/MermaidRoadmap';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -64,12 +65,9 @@ function App() {
             <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/ResultsPage" element={<ResultsPage/>} />
             <Route path="/Notifications" element={<Notifications />} />
-            <Route path="/CareerOptions" element={<CareerOptions />} />
-            <Route path="/SkillGap" element={<SkillGap />} /> 
-            <Route path="/skill-gap" element={<SkillGapForm />} />
-            {/* <Route path="/SkillGap" element={<SkillGap />} />*/} 
             
-            {/*<Route path="/skill-gap" element={<SkillGapForm />} />*/}
+            
+            {/* <Route path="/skill-gap" element={<SkillGapForm />} /> */}
             <Route path="/report" element={<ReportUpload />} />
             <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
@@ -82,6 +80,7 @@ function App() {
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
             <Route path="/professional-form" element={<ResumeUploader />} />
             <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
+            {/* <Route path="/career-roadmap" element={<MermaidRoadmap/>} /> */}
           </Routes>
         </main>
       </div>
