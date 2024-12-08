@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import CareerOpeepsImage from '../assets/images/CareerOpeeps.png';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import CareerRoadmapTimeline from './CareerRoadmapTimeline';
 
 const ReportUpload = () => {
   const [file, setFile] = useState(null);
@@ -135,13 +136,13 @@ const ReportUpload = () => {
           </Box>
         ))}
         {roadmap && (
-          <Box gridColumn="1 / span 3">
+          <Box gridColumn="1 / span 3" width="100%">
             <Card style={styles.card}>
               <div style={styles.cardHeader}>
                 <Typography variant="h6">Career Roadmap</Typography>
               </div>
               <CardContent style={styles.cardContent}>
-                <ReactMarkdown>{roadmap}</ReactMarkdown>
+                <CareerRoadmapTimeline roadmap={roadmap} />
               </CardContent>
             </Card>
           </Box>
