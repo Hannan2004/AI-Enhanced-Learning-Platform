@@ -23,7 +23,7 @@ import Notifications from './pages/Notifications';
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import StudentProfile from './pages/StudentProfile';
-import MockInterview from './pages/MockInterview';
+
 import PreAptitude from './pages/PreAptitude';
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
@@ -40,6 +40,11 @@ import Community from './pages/Community';
 import GroupDetail from './pages/GroupDetail';
 import CareerRoadmapPage from './pages/CareerRoadmapPage';
 import PreSkillGapLandingPage from './pages/PreSkillGapLandingPage';
+import Interview_Landing from './components/Mock_Interview/Home';
+import Interview_Questions from './components/Mock_Interview/Interview';
+import Interview_Results from './components/Mock_Interview/Results';
+//mock interview routes
+
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
 
@@ -77,7 +82,6 @@ function App() {
             <Route path="/community/:id" element={<GroupDetail />} />
             {/* <Route path="/skill-gap" element={<SkillGapForm />} /> */}
             <Route path="/report" element={<ReportUpload />} />
-            <Route path="/mock-interview" element={<MockInterview />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
             
@@ -90,6 +94,10 @@ function App() {
 
             <Route path="/skill-question" element={<SkillQuestionPage />} />
             <Route path="/career-roadmap" element={<CareerRoadmapPage />} />
+
+            <Route path="/interview-landing" element={<Interview_Landing/>} />
+            <Route path="/interview-questions" element={<Interview_Questions />} />
+            <Route path="/interview-results" element={<Interview_Results />} />
           </Routes>
         </main>
       </div>
