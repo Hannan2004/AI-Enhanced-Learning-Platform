@@ -1,5 +1,27 @@
 import React from 'react';
+import { 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  Grid, 
+  Typography, 
+  CardMedia, 
+  Button, 
+  Box,
+  IconButton,
+  Slide 
+} from '@mui/material';
+import { 
+  WorkOutline as WorkIcon, 
+  Close as CloseIcon, 
+  DesignServices as DesignIcon 
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const JobDetails = ({ job, onClose }) => {
   const navigate = useNavigate();
@@ -9,31 +31,107 @@ const JobDetails = ({ job, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
-        <h2 className="text-2xl font-bold mb-4">{job.title}</h2>
-        <p className="text-gray-700 mb-4">{job.company}</p>
-        <p className="text-gray-700 mb-4">{job.description}</p>
-        <h3 className="text-xl font-bold mb-2">Requirements</h3>
-        <ul className="list-disc list-inside mb-4">
-          {job.requirements.map((req, index) => (
-            <li key={index} className="text-gray-700 mb-2">{req}</li>
-          ))}
-        </ul>
-        <button
+    <Dialog
+      open={true}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={onClose}
+      aria-describedby="job-details-description"
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogTitle 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+          color: 'white'
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <DesignIcon />
+          <Typography variant="h6">{job.title} at {job.company}</Typography>
+        </Box>
+        <IconButton onClick={onClose} sx={{ color: 'white' }}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <CardMedia
+              component="img"
+              height="300"
+              image={job.image}
+              alt={job.title}
+              sx={{
+                borderRadius: '12px',
+                mb: 2,
+                maxHeight: '300px',
+                objectFit: 'cover'
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" gutterBottom>
+              Job Description
+            </Typography>
+            <Typography variant="body1" paragraph>
+              {job.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h6" gutterBottom>
+              Requirements
+            </Typography>
+            {job.requirements.map((req, index) => (
+              <Typography 
+                key={index} 
+                variant="body2" 
+                paragraph 
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  gap: 1
+                }}
+              >
+                <WorkIcon fontSize="small" color="primary" />
+                {req}
+              </Typography>
+            ))}
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button 
           onClick={handleStartSkillTest}
-          className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 mb-4"
+          color="primary" 
+          variant="contained"
+          sx={{
+            borderRadius: '8px',
+            textTransform: 'none',
+            background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #2196F3 10%, #21CBF3 90%)'
+            }
+          }}
         >
           Check Skill Gap
-        </button>
-        <button
-          onClick={onClose}
-          className="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+        </Button>
+        <Button 
+          onClick={onClose} 
+          color="secondary" 
+          variant="outlined"
+          sx={{
+            borderRadius: '8px',
+            textTransform: 'none'
+          }}
         >
           Close
-        </button>
-      </div>
-    </div>
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import HeroBgImage from '../assets/images/herobg.png'; // Background image for the hero section
+import BelowHeroBgImage from '../assets/images/belowherobg.jpg'; // Background image for the features section
 import { useNavigate } from "react-router-dom";
 import AptitudeImage from '../assets/images/aptitude.png'; // Example image, adjust the path as necessary
 import CareerImage from '../assets/images/career2.png'; // Example image, adjust the path as necessary
@@ -15,6 +16,8 @@ import WorkingProfessionalImage from '../assets/images/workingp.png'; // Image f
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Tilt } from 'react-tilt';
+import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
 
 const buttonStyle = {
   backgroundColor: '#4c51bf',
@@ -107,6 +110,12 @@ const linkHoverStyle = {
   transform: 'scale(1.05)',
 };
 
+const featuresSectionStyle = {
+  padding: '5rem 0',
+  background: `url(${BelowHeroBgImage}) no-repeat center center/cover`,
+  backdropFilter: 'blur(10px)',
+};
+
 const LandingPage = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
@@ -156,7 +165,10 @@ const LandingPage = () => {
   return (
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <header style={headerStyle}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Career Pathfinder AI</h1>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={appLogo} alt="Udaan Logo" style={{ width: '50px', height: '50px', marginRight: '1rem' }} />
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>उड़ान</h1>
+        </div>
         <nav style={navStyle}>
           <span
             style={linkStyle}
@@ -227,7 +239,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" style={{ padding: '5rem 0', backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)' }}>
+      <section id="features" style={featuresSectionStyle}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
           <h3 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2.5rem' }}>Key Features</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
@@ -319,21 +331,23 @@ const LandingPage = () => {
 // Reusable FeatureCard Component
 const FeatureCard = ({ title, description, image }) => {
   return (
-    <div
-      style={cardStyle}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = cardHoverStyle.transform;
-        e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'none';
-        e.currentTarget.style.boxShadow = cardStyle.boxShadow;
-      }}
-    >
-      <img src={image} alt={title} style={imageStyle} />
-      <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-      <p style={{ color: '#718096' }}>{description}</p>
-    </div>
+    <Tilt options={{ max: 25, scale: 1.05 }}>
+      <div
+        style={cardStyle}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = cardHoverStyle.transform;
+          e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'none';
+          e.currentTarget.style.boxShadow = cardStyle.boxShadow;
+        }}
+      >
+        <img src={image} alt={title} style={imageStyle} />
+        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
+        <p style={{ color: '#718096' }}>{description}</p>
+      </div>
+    </Tilt>
   );
 };
 
@@ -360,21 +374,23 @@ const SuccessStory = ({ name, story }) => {
 // Reusable InsightCard Component
 const InsightCard = ({ title, description, image }) => {
   return (
-    <div
-      style={cardStyle}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = cardHoverStyle.transform;
-        e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'none';
-        e.currentTarget.style.boxShadow = cardStyle.boxShadow;
-      }}
-    >
-      <img src={image} alt={title} style={imageStyle} />
-      <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-      <p style={{ color: '#718096' }}>{description}</p>
-    </div>
+    <Tilt options={{ max: 25, scale: 1.05 }}>
+      <div
+        style={cardStyle}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = cardHoverStyle.transform;
+          e.currentTarget.style.boxShadow = cardHoverStyle.boxShadow;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'none';
+          e.currentTarget.style.boxShadow = cardStyle.boxShadow;
+        }}
+      >
+        <img src={image} alt={title} style={imageStyle} />
+        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
+        <p style={{ color: '#718096' }}>{description}</p>
+      </div>
+    </Tilt>
   );
 };
 

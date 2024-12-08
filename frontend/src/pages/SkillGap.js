@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+import { 
+  Container, 
+  Grid, 
+  Typography 
+} from '@mui/material';
+import { motion } from 'framer-motion';
 import JobCard from '../components/JobCard';
 import JobDetails from '../components/JobDetails'
 import dataScientistImage from '../assets/images/Data.jpg'
@@ -197,8 +203,7 @@ const jobs =
       'Excellent attention to detail and communication skills',
     ],
   },
-]
-
+];
 
 const SkillGap = () => {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -212,15 +217,49 @@ const SkillGap = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Job Postings</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {jobs.map((job) => (
-          <JobCard key={job.id} job={job} onViewDetails={handleViewDetails} />
-        ))}
-      </div>
-      {selectedJob && <JobDetails job={selectedJob} onClose={handleCloseDetails} />}
-    </div>
+    <Container 
+      maxWidth="xl" 
+      sx={{ 
+        minHeight: '100vh', 
+        py: 4,
+        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
+      }}
+    >
+      <Typography 
+        variant="h3" 
+        component="h1" 
+        gutterBottom 
+        align="center" 
+        color="primary"
+        sx={{ 
+          mb: 4, 
+          fontWeight: 'bold',
+          background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}
+      >
+        Explore Job and Internship Opportunities
+      </Typography>
+      
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Grid container spacing={4}>
+          {jobs.map((job) => (
+            <Grid item xs={12} sm={6} md={4} key={job.id}>
+              <JobCard job={job} onViewDetails={handleViewDetails} />
+            </Grid>
+          ))}
+        </Grid>
+      </motion.div>
+
+      {selectedJob && (
+        <JobDetails job={selectedJob} onClose={handleCloseDetails} />
+      )}
+    </Container>
   );
 };
 

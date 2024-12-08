@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AvatarImage from '../assets/images/Avatar.png'; // Correct the image path
+//import AvatarImage from '../assets/images/Avatar.png'; // Correct the image path
 import { FaBars } from 'react-icons/fa'; // Import an icon for the toggle button
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
 import './Sidebar.css'; // Import the CSS file for styling
@@ -36,7 +36,7 @@ const Sidebar = () => {
       <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
         <FaBars className="toggle-button" onClick={toggleSidebar} />
         <div className="sidebar-content">
-          <img src={AvatarImage} alt="Avatar" className="avatar" />
+         
           {!collapsed && (
             <>
               <div className="welcome">
