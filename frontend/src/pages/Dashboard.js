@@ -189,7 +189,7 @@ const Dashboard = () => {
   };
 
   const handleCareerAnalysisClick = () => {
-    navigate('/chatbot');
+    navigate('/community');
   };
 
   const handleMockInterviewClick = () => {
@@ -264,7 +264,7 @@ const Dashboard = () => {
                       <Card style={styles.card} onClick={handleAptitudeClick}>
                         <CardContent>
                           <AssessmentIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Aptitude Assessment</Typography>
+                          <Typography variant="body2">Career Counselling via Aptitude Assessment</Typography>
                         </CardContent>
                       </Card>
                     </motion.div>
@@ -274,7 +274,7 @@ const Dashboard = () => {
                       <Card style={styles.card} onClick={handleCareerAnalysisClick}>
                         <CardContent>
                           <WorkIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Career Analysis</Typography>
+                          <Typography variant="body2">Community Forum</Typography>
                         </CardContent>
                       </Card>
                     </motion.div>

@@ -86,44 +86,9 @@ const ResultsPage = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <Sidebar userName="Aryan Sikariya" />
-      <div style={styles.content}>
-        <Typography variant="h4" gutterBottom>
-          Results
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Career Counseling</Typography>
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Typography variant="body2">
-                  Your career counseling results indicate that you are well-suited for a career in software engineering. You have a strong aptitude for problem-solving and technical skills.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Skills Missing</Typography>
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Typography variant="body2">
-                  Based on your assessments, here are the skills you need to work on to improve your career prospects:
-                </Typography>
-                <ul>
-                  <li>Advanced Data Structures</li>
-                  <li>Algorithm Optimization</li>
-                  <li>System Design</li>
-                  <li>Cloud Computing</li>
-                  <li>Machine Learning</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </Grid>
+    <div>
+             <div>
+              <Grid>
           {renderTestResults('Verbal Test', 25, 40, 35, 30, 5, [1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1, 1.2, 2.1, 1.3, 2.4, 3.1])}
           {renderTestResults('Spatial Awareness Test', 20, 30, 28, 25, 3, [1.5, 2.2, 1.4, 2.3, 3.2, 1.5, 2.2, 1.4, 2.3, 3.2, 1.5, 2.2, 1.4, 2.3, 3.2, 1.5, 2.2, 1.4, 2.3, 3.2, 1.5, 2.2, 1.4, 2.3, 3.2, 1.5, 2.2, 1.4, 2.3, 3.2])}
           {renderTestResults('Numerical Ability Test', 35, 60, 55, 50, 5, [1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3, 1.1, 2.3, 1.2, 2.6, 3.3])}

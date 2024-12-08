@@ -1,173 +1,139 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import { Chart, registerables } from 'chart.js';
-import Sidebar from '../components/Sidebar';
-import { motion } from 'framer-motion';
-import { getAuth } from 'firebase/auth';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
+import CareerOpeepsImage from '../assets/images/CareerOpeeps.png'; // Import the image
 
-// Register the necessary Chart.js components
-Chart.register(...registerables);
-
-const Results = () => {
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
-  const [userDetails, setUserDetails] = useState({});
-  const location = useLocation();
+const ReportUpload = () => {
+  const [file, setFile] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const navigate = useNavigate();
-  const { user } = location.state;
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      if (user) {
-        console.log('Fetching user details for user:', user);
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          const email = user.email;
-
-          let userCollection;
-
-          if (userData.role === '10th Grade Student') {
-            userCollection = 'students';
-          } else if (userData.role === 'Graduate/Undergraduate') {
-            userCollection = 'graduates';
-          }
-
-          if (userCollection) {
-            const q = query(collection(db, userCollection), where('email', '==', email));
-            const querySnapshot = await getDocs(q);
-
-            if (!querySnapshot.empty) {
-              querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const filteredData = {
-                  name: data.name,
-                  timestamp: data.timestamp,
-                  contact: data['contact no'],
-                  role: data['user role'],
-                  aspirations: data.aspirations,
-                  interests: data.interests,
-                  workExperience: data.workexperience,
-                  hobbies: data.hobbies,
-                  degree: data.degree,
-                };
-                setUserDetails(filteredData);
-              });
-            } else {
-              console.log('No user found in', userCollection, 'with email:', email);
-            }
-          }
-        }
-      }
-    };
-
-    fetchUserDetails();
-  }, [user]);
-
-  useEffect(() => {
-    if (chartRef.current) {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
-
-      const ctx = chartRef.current.getContext('2d');
-      chartInstance.current = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
-          datasets: [{
-            label: 'Scores',
-            data: [user.scores.numerical, user.scores.verbal, user.scores.logicalReasoning],
-            backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
-          }],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.type === 'application/pdf') {
+      setFile(selectedFile);
+    } else {
+      alert('Please upload a PDF file.');
     }
-  }, [user.scores]);
+  };
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('report', file);
 
-    console.log('Generating PDF for user:', user.displayName || user.email);
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/generateRecommendations',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      setRecommendations(response.data.career_recommendations);
+    } catch (error) {
+      console.error('Error uploading report:', error);
+    }
+  };
 
-    doc.text(`Email: ${user.displayName || user.email || 'N/A'}`, 20, 30);
+  const handleCardClick = (career) => {
+    const perspective = 'student'; // You can modify this based on user selection
+    navigate(`/career-roadmap?career=${encodeURIComponent(career)}&perspective=${encodeURIComponent(perspective)}`);
+  };
 
-    Object.entries(userDetails).forEach(([key, value], index) => {
-      if (value) {
-        doc.text(`${key}: ${value}`, 20, 40 + index * 10);
-      }
-    });
-
-    doc.autoTable({
-      startY: Object.keys(userDetails).length * 10 + 50,
-      head: [['Category', 'Score']],
-      body: [
-        ['Numerical Ability', user.scores.numerical],
-        ['Verbal Ability', user.scores.verbal],
-        ['Logical Reasoning', user.scores.logicalReasoning],
-      ],
-    });
-
-    const totalScore = user.scores.numerical + user.scores.verbal + user.scores.logicalReasoning;
-    const percentage = ((totalScore / 3) * 100).toFixed(2);
-
-    doc.text(`Total Score: ${totalScore}`, 20, doc.autoTable.previous.finalY + 10);
-    doc.text(`Percentage: ${percentage}%`, 20, doc.autoTable.previous.finalY + 20);
-
-    const chartCanvas = chartRef.current;
-    const chartImage = chartCanvas.toDataURL('image/png');
-    doc.addImage(chartImage, 'PNG', 20, doc.autoTable.previous.finalY + 30, 160, 90);
-
-    doc.save('test-results.pdf');
+  const styles = {
+    container: {
+      display: 'flex',
+    },
+    content: {
+      flexGrow: 1,
+      padding: '2rem',
+      background: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      borderRadius: '10px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      margin: '2rem',
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr 1fr',
+      gap: '1rem',
+      justifyItems: 'center',
+      alignItems: 'center',
+    },
+    card: {
+      background: 'rgba(255, 255, 255, 0.1)',
+      backdropFilter: 'blur(10px)',
+      borderRadius: '10px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      padding: '1rem',
+      width: '100%',
+      cursor: 'pointer',
+    },
+    cardHeader: {
+      backgroundColor: '#4c51bf',
+      color: '#ffffff',
+      padding: '0.5rem',
+      borderRadius: '10px 10px 0 0',
+    },
+    cardContent: {
+      padding: '1rem',
+    },
+    button: {
+      marginTop: '1rem',
+      backgroundColor: '#4c51bf',
+      color: '#ffffff',
+    },
+    image: {
+      width: '100%',
+      borderRadius: '10px',
+    },
+    matchPercentage: {
+      marginTop: '1rem',
+      fontWeight: 'bold',
+      color: '#4c51bf',
+    },
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
-      <Sidebar userName={user.displayName || user.email} />
-      <div className="flex-grow flex flex-col items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center"
-        >
-          <h1 className="text-3xl font-bold mb-6 text-indigo-800">Test Results</h1>
-          <p className="text-xl mb-4 text-gray-700">Numerical Ability: {user.scores.numerical}</p>
-          <p className="text-xl mb-4 text-gray-700">Verbal Ability: {user.scores.verbal}</p>
-          <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {user.scores.logicalReasoning}</p>
-          <canvas ref={chartRef} width="400" height="200" className="mb-4"></canvas>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={downloadPDF}
-            className="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 mb-4"
-          >
-            Download PDF
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/report', { state: { user } })}
-            className="py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
-          >
-            Know Your Career by Uploading the Result
-          </motion.button>
-        </motion.div>
+    <div style={styles.container}>
+      <Sidebar userName="Aryan Sikariya" />
+      <div style={styles.content}>
+        <Box gridColumn="1 / span 3">
+          <img src={CareerOpeepsImage} alt="Career Options" style={styles.image} />
+        </Box>
+        <Box gridColumn="1 / span 3">
+          <Card style={styles.card}>
+            <div style={styles.cardHeader}>
+              <Typography variant="h6">Upload Your Report</Typography>
+            </div>
+            <CardContent style={styles.cardContent}>
+              <form onSubmit={handleSubmit}>
+                <input type="file" accept="application/pdf" onChange={handleFileChange} />
+                <Button type="submit" variant="contained" style={styles.button}>
+                  Upload
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+        {recommendations.map((rec, index) => (
+          <Box key={index}>
+            <Card style={styles.card} onClick={() => handleCardClick(rec.career)}>
+              <div style={styles.cardHeader}>
+                <Typography variant="h6">{rec.career}</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
+                <Typography variant="body2">{rec.reason}</Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
       </div>
     </div>
   );
 };
 
-export default Results;
+export default ReportUpload;

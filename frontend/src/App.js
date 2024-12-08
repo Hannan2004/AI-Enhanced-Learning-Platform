@@ -5,7 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
 import StudentDashboard from './pages/StudentDashboard';
-import Chatbot from './pages/Chatbot';
+import Chatbot from './components/Chatbot';
 import AptitudeLandingPage from './pages/AptitudeLanding';
 import LogicalReasoning from './pages/LogicalReasoning';
 import Results from './components/Results';
@@ -35,7 +35,7 @@ import Contact from './pages/Contact';
 import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
-import MermaidRoadmap from './pages/MermaidRoadmap';
+
 import Community from './pages/Community';
 import GroupDetail from './pages/GroupDetail';
 import CareerRoadmapPage from './pages/CareerRoadmapPage';
@@ -87,7 +87,7 @@ function App() {
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
             <Route path="/professional-form" element={<ResumeUploader />} />
             <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
-            {/* <Route path="/career-roadmap" element={<MermaidRoadmap/>} /> */}
+
             <Route path="/skill-question" element={<SkillQuestionPage />} />
             <Route path="/career-roadmap" element={<CareerRoadmapPage />} />
           </Routes>
