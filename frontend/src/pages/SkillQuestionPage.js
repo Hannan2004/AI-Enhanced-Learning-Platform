@@ -55,7 +55,7 @@ const SkillQuestionPage = () => {
 
   const handleGenerateRoadmap = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/generateRoadmapProfessional', {
+      const response = await axios.post('http://localhost:3001/generateRoadmap', {
         advancement: analysis,
       });
       navigate('/career-roadmap', { state: { roadmap: response.data.roadmap } });

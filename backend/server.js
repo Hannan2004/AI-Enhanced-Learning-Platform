@@ -15,7 +15,7 @@ const { careerCounseling } = require('./careerCounseling'); // Adjust the path a
 const { getSkillGap } = require('./getSkillGap');
 const { careerAdvancement } = require('./careerAdvancement');
 const { careerSuggestion } = require('./careerSuggestions');
-const { generateRoadmap } = require('./careerRoadmapProfessional');
+const { generateRoadmap } = require('./careerRoadmap');
 const app = express();
 const port = 3001;
 
@@ -170,18 +170,7 @@ app.post('/career-advancement', async (req, res) => {
     }
   });
 
-  app.post('/generateRoadmapProfessional', async (req, res) => {
-    try {
-      const { advancement } = req.body;
-      const roadmap = await generateRoadmap(advancement);
-      res.status(200).json({ roadmap: roadmap });
-    } catch (error) {
-      console.error('Error in /generateRoadmap:', error);
-      res.status(500).send({ error: 'Failed to generate roadmap' });
-    }
-  });  
-
-  app.post('/generateRoadmapProfessional', async (req, res) => {
+  app.post('/generateRoadmap', async (req, res) => {
     try {
       const { advancement } = req.body;
       const roadmap = await generateRoadmap(advancement);

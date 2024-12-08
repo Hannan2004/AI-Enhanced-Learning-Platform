@@ -2,14 +2,12 @@ import React, { useRef, useEffect, useState } from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { Chart, registerables } from 'chart.js';
-import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
+import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
-import { getAuth } from 'firebase/auth';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase'; // Import Firestore instance
+import { db } from '../firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// Register the necessary Chart.js components
 Chart.register(...registerables);
 
 const Results = () => {
@@ -18,8 +16,7 @@ const Results = () => {
   const [userDetails, setUserDetails] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state || {};
-  const { user, scores } = state;
+  const { user, scores } = location.state || {};
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -28,13 +25,13 @@ const Results = () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          const email = user.email; // Email to use for querying
+          const email = user.email;
           let userCollection;
 
           // Determine which collection to query based on the role
-          if (userData.role === '10th Grade Student') {
+          if (userData.role === 'student') {
             userCollection = 'students';
-          } else if (userData.role === 'Graduate/Undergraduate') {
+          } else if (userData.role === 'graduate') {
             userCollection = 'graduates';
           }
 
@@ -59,12 +56,10 @@ const Results = () => {
 
   useEffect(() => {
     if (chartRef.current) {
-      // Destroy the previous chart instance if it exists
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
   
-      // Fetch user details and update the chart
       const fetchUserData = async () => {
         try {
           if (user) {
@@ -72,21 +67,18 @@ const Results = () => {
   
             if (userDoc.exists()) {
               const userData = userDoc.data();
-  
               console.log('Fetched user data:', userData);
   
-              // Use the fetched username and role in your chart labels or options if needed
-              const username = userData.username || 'N/A';
+              const username = userData.email.split('@')[0] || 'N/A';
               const role = userData.role || 'N/A';
   
-              // Create a new chart instance
               const ctx = chartRef.current.getContext('2d');
               chartInstance.current = new Chart(ctx, {
                 type: 'bar',
                 data: {
                   labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
                   datasets: [{
-                    label: `${username} - ${role}`, // Include username and role in the chart label
+                    label: `${username} - ${role}`,
                     data: [scores.numerical, scores.verbal, scores.logicalReasoning],
                     backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
                   }],
@@ -116,7 +108,7 @@ const Results = () => {
   const downloadPDF = () => {
     const doc = new jsPDF();
   
-    console.log('Generating PDF for user:', user.displayName || user.email); // Debugging log
+    console.log('Generating PDF for user:', user.displayName || user.email);
 
     doc.text(`Name: ${user.displayName || user.email || 'N/A'}`, 20, 30);
 
@@ -128,7 +120,8 @@ const Results = () => {
       doc.text(`Hobbies: ${userDetails.hobbies || 'N/A'}`, 20, 80);
       doc.text(`Skills: ${userDetails.skills || 'N/A'}`, 20, 90);
       doc.text(`Achievements: ${userDetails.achievements || 'N/A'}`, 20, 100);
-      if (userDetails.role === 'undergraduate') {
+
+      if (userDetails.role === 'graduate') {
         doc.text(`CGPA: ${userDetails.cgpa || 'N/A'}`, 20, 110);
         doc.text(`College: ${userDetails.college || 'N/A'}`, 20, 120);
         doc.text(`Contact Number: ${userDetails.contactNumber || 'N/A'}`, 20, 130);
@@ -157,32 +150,29 @@ const Results = () => {
     }
 
     doc.autoTable({
-      startY: userDetails && userDetails.role === 'undergraduate' ? 230 : 240,
+      startY: userDetails && userDetails.role === 'graduate' ? 230 : 240,
       head: [['Category', 'Score']],
       body: [
         ['Numerical Ability', scores.numerical],
         ['Verbal Ability', scores.verbal],
         ['Logical Reasoning', scores.logicalReasoning],
       ],
-      theme: 'grid', // Change to a grid layout for better visuals
-      headStyles: { fillColor: [44, 62, 80], textColor: [255, 255, 255] }, // Dark header with white text
+      theme: 'grid',
+      headStyles: { fillColor: [44, 62, 80], textColor: [255, 255, 255] },
       styles: { halign: 'center', fontSize: 12 },
-      bodyStyles: { textColor: [0, 0, 0] }, // Black text for the body
+      bodyStyles: { textColor: [0, 0, 0] },
     });
   
-    // Add chart to the PDF
     const chartCanvas = chartRef.current;
     if (chartCanvas) {
       const chartImage = chartCanvas.toDataURL('image/png');
       const finalY = doc.autoTable.previous.finalY + 10;
   
-      // Adding the chart with a border
       doc.addImage(chartImage, 'PNG', 20, finalY, 160, 90);
       doc.setDrawColor(150, 150, 150);
       doc.rect(20, finalY, 160, 90);
     }
   
-    // Add footer with spacing
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(10);
     doc.setFont('helvetica', 'italic');
@@ -193,13 +183,12 @@ const Results = () => {
       { align: 'center' }
     );
   
-    // Save the PDF
     doc.save('Career-Guidance-Test-Results.pdf');
   };
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-blue-100 to-blue-300">
-      <Sidebar userName={user.displayName || user.email} />
+      <Sidebar userName={user?.displayName || user?.email} />
       <div className="flex-grow flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

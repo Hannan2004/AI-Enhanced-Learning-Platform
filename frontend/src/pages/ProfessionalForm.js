@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,19 @@ import FileUpload from './FileUpload';
 import ResumeForm from './ResumeForm';
 
 const ResumeUploader = () => {
+  const navigate = useNavigate();
+  
+  // Add authentication check
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        navigate('/login');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,7 +35,6 @@ const ResumeUploader = () => {
     coursesCertifications: '',
   });
   const [resumeFile, setResumeFile] = useState(null);
-  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -54,19 +66,39 @@ const ResumeUploader = () => {
 
   const handleSaveAndNext = async () => {
     try {
-      const userId = auth.currentUser?.uid || 'anonymous';
+      // Check if user is authenticated
+      if (!auth.currentUser) {
+        throw new Error('User not authenticated');
+      }
 
-      // Save form data to Firestore, including the user UID
+      const userId = auth.currentUser.uid;
+
+      // Basic form validation
+      const requiredFields = ['firstName', 'lastName', 'phone', 'companyName'];
+      const missingFields = requiredFields.filter(field => !formData[field]);
+      
+      if (missingFields.length > 0) {
+        alert(`Please fill in the following fields: ${missingFields.join(', ')}`);
+        return;
+      }
+
+      // Save form data to Firestore
       await setDoc(doc(db, 'professionalForms', userId), {
         ...formData,
         userId,
+        timestamp: new Date().toISOString(),
+        userType: 'professional'  // Add user type for easier querying
       });
 
-      // Navigate to SkillQuestionPage with the extracted resume information
-      navigate('/skill-question', { state: { job: formData } });
+      navigate('/skill-question', { 
+        state: { 
+          job: formData,
+          userType: 'professional' 
+        } 
+      });
     } catch (error) {
       console.error('Error saving details:', error);
-      alert('Failed to save details. Please try again.');
+      alert('Failed to save details: ' + error.message);
     }
   };
 

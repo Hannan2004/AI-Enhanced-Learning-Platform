@@ -1,122 +1,88 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase'; // Import Firebase auth and Firestore instances
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-
-    // Ensure all fields are filled
-    if (!email || !username || !password || !role) {
-      setError('Please fill in all fields.');
-      return;
-    }
-
     try {
-      // Create user with Firebase Authentication
+      // Create auth user
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Save additional user details to Firestore
+      // Create user document in Firestore
       await setDoc(doc(db, 'users', user.uid), {
-        email,
-        username,
-        role,
+        email: user.email,
+        role: role,
+        createdAt: new Date().toISOString(),
       });
 
-      // Clear input fields and show success message
-      setSuccess('Signup successful! Redirecting...');
-      setError('');
-      setEmail('');
-      setUsername('');
-      setPassword('');
-      setRole('');
-
-      // Redirect based on role
-      if (role === '10th Grade Student') {
-        navigate('/student-form', { state: { userId: user.uid } });
-      } else if (role === 'Graduate/Undergraduate') {
-        navigate('/graduate-form', { state: { userId: user.uid } });
-      } else if (role === 'Professional') {
-        navigate('/dashboard', { state: { userId: user.uid } });
+      // Route based on role
+      switch(role) {
+        case 'professional':
+          navigate('/professional-form');
+          break;
+        case 'graduate':
+          navigate('/graduate-form');
+          break;
+        case 'student':
+          navigate('/student-form');
+          break;
+        default:
+          throw new Error('Invalid role selected');
       }
-    } catch (err) {
-      setError(err.message || 'Signup failed. Please try again.');
-      setSuccess('');
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('Signup failed: ' + error.message);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6 text-center">Signup</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">{success}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 mb-2">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            >
-              <option value="" disabled>
-                Select your role
-              </option>
-              <option value="10th Grade Student">10th Grade Student</option>
-              <option value="Graduate/Undergraduate">Graduate/Undergraduate</option>
-              <option value="Professional">Professional</option>
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
-          >
-            Signup
-          </button>
-        </form>
-      </div>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <form onSubmit={handleSignup} className="bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+        
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-4 w-full p-2 border rounded"
+        />
+        
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="mb-4 w-full p-2 border rounded"
+        />
+        
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="mb-4 w-full p-2 border rounded"
+        >
+          <option value="">Select Role</option>
+          <option value="professional">Professional</option>
+          <option value="graduate">Graduate</option>
+          <option value="student">Student</option>
+        </select>
+        
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Sign Up
+        </button>
+      </form>
     </div>
   );
 };
