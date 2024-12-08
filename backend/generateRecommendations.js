@@ -27,14 +27,19 @@ Based on this report, your role is to analyze the data and provide personalized 
     {
       "career": "<Career Option>",
       "reason": "<Reason why the user should consider this career>"
+      "role": "<Role of the user>"
+      "gender" : "girl"
     },
     {
       "career": "<Career Option>",
       "reason": "<Reason why the user should consider this career>"
+      "role": "<Role of the user>"
+      "gender": "girl"
     }
   ]
 }
 Ensure that the recommendations are logical, data-driven, and tailored to the user’s context provided in the report.
+the role will be graduate/undergraduate or 10th grade student take that reference from the pdf and just add that role to json
     `,
 });
 

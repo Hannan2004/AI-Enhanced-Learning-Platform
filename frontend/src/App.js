@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Login';
@@ -11,7 +9,6 @@ import LogicalReasoning from './pages/LogicalReasoning';
 import Results from './components/Results';
 import RoadMap from './pages/RoadMap';
 import CareerPredictionForm from './pages/Forms';
-
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import ExploreCareerOptions from './pages/ExploreCareerOptions';
@@ -19,23 +16,17 @@ import ReportUpload from './pages/ReportUpload';
 import ProfilePage from './pages/ProfilePage';
 import ResultsPage from './pages/ResultsPage';
 import Notifications from './pages/Notifications';
-
 import VerbalAbility from './pages/VerbalAbility';
 import NumericalAbility from './pages/NumericalAbility';
 import StudentProfile from './pages/StudentProfile';
-
 import PreAptitude from './pages/PreAptitude';
 import StudentForm from './pages/StudentForm';
 import GraduateForm from './pages/GraduateForm';
 import ProfessionalForm from './pages/ProfessionalForm';
 import Contact from './pages/Contact';
-
-
-
 import ResumeUploader from './pages/ProfessionalForm';
 import SkillGap from './pages/SkillGap';
 import SkillQuestionPage from './pages/SkillQuestionPage';
-
 import Community from './pages/Community';
 import GroupDetail from './pages/GroupDetail';
 import CareerRoadmapPage from './pages/CareerRoadmapPage';
@@ -43,7 +34,8 @@ import PreSkillGapLandingPage from './pages/PreSkillGapLandingPage';
 import Interview_Landing from './components/Mock_Interview/Home';
 import Interview_Questions from './components/Mock_Interview/Interview';
 import Interview_Results from './components/Mock_Interview/Results';
-//mock interview routes
+import ReportStudent from './pages/ReportStudent';
+import ReportGraduate from './pages/ReportGraduate';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -57,47 +49,42 @@ function App() {
             <Route path="/recommendations" element={<ReportUpload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/chatbot" element={<Chatbot />} /> 
-            <Route path="/student/dashboard" element={<StudentDashboard />} /> 
+            <Route path="/chatbot" element={<Chatbot />} />
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
             <Route path="/numerical-ability/:userType" element={<NumericalAbility setScores={setScores} />} />
             <Route path="/verbal-ability" element={<VerbalAbility setScores={setScores} />} />
             <Route path="/logical-reasoning" element={<LogicalReasoning setScores={setScores} />} />
             <Route path="/results" element={<Results scores={scores} />} />
-            <Route path="/aptitude/:userType" element={<AptitudeLandingPage />} />          
-            <Route path="/student/dashboard" element={<StudentDashboard />} />  
-            <Route path="/roadmap" element={<RoadMap/>}/>   
-             
-            <Route path="/forms" element={<CareerPredictionForm/>}/>  
-            <Route path="/Dashboard" element={<Dashboard/>} />  
-            <Route path="/ExploreCareerOptions" element={ <ExploreCareerOptions/>} />
-            <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/ResultsPage" element={<ResultsPage/>} />
+            <Route path="/aptitude/:userType" element={<AptitudeLandingPage />} />
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
+            <Route path="/roadmap" element={<RoadMap />} />
+            <Route path="/forms" element={<CareerPredictionForm />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/ExploreCareerOptions" element={<ExploreCareerOptions />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/ResultsPage" element={<ResultsPage />} />
             <Route path="/Notifications" element={<Notifications />} />
-            {/* <Route path="/CareerOptions" element={<CareerOptions />} /> */}
-            <Route path="/SkillGap" element={<SkillGap />} /> 
-            <Route path="/pre-skill-gap" element={<PreSkillGapLandingPage />} /> 
+            <Route path="/SkillGap" element={<SkillGap />} />
+            <Route path="/pre-skill-gap" element={<PreSkillGapLandingPage />} />
             <Route path="/graduate-skill-gap" element={<SkillGap />} />
-            
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<GroupDetail />} />
-            {/* <Route path="/skill-gap" element={<SkillGapForm />} /> */}
             <Route path="/report" element={<ReportUpload />} />
             <Route path="/preaptitude" element={<PreAptitude />} />
             <Route path="/contact" element={<Contact />} />
-            
             <Route path="/skill-gap" element={<SkillGap />} />
             <Route path="/student-form" element={<StudentForm />} />
             <Route path="/graduate-form" element={<GraduateForm />} />
             <Route path="/student-profile/:userId" element={<StudentProfile />} />
             <Route path="/professional-form" element={<ResumeUploader />} />
             <Route path="/skill-gap-test" element={<SkillQuestionPage />} />
-
             <Route path="/skill-question" element={<SkillQuestionPage />} />
             <Route path="/career-roadmap" element={<CareerRoadmapPage />} />
-
-            <Route path="/interview-landing" element={<Interview_Landing/>} />
+            <Route path="/interview-landing" element={<Interview_Landing />} />
             <Route path="/interview-questions" element={<Interview_Questions />} />
             <Route path="/interview-results" element={<Interview_Results />} />
+            <Route path="/report-student" element={<ReportStudent />} />
+            <Route path="/report-graduate" element={<ReportGraduate />} />
           </Routes>
         </main>
       </div>

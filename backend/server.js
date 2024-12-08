@@ -5,7 +5,7 @@ const multer = require('multer');
 require('dotenv').config();
 
 const { generateRecommendations } = require('./generateRecommendations');
-const { startInterview } = require('./mockinterview');
+// const { startInterview } = require('./src/gemini');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
@@ -15,13 +15,11 @@ const { careerCounseling } = require('./careerCounseling'); // Adjust the path a
 const { getSkillGap } = require('./getSkillGap');
 const { careerAdvancement } = require('./careerAdvancement');
 const { careerSuggestion } = require('./careerSuggestions');
-<<<<<<< HEAD
 const { generateRoadmap } = require('./careerRoadmap');
-=======
-const { generateRoadmap } = require('./careerRoadmapProfessional');
 const generateQuestions = require('./src/gemini');
+const { generateRoadmapStudent } = require('./generateRoadmapStudent');
+const { generateRoadmapGraduate } = require('./generateRoadmapGraduate');
 
->>>>>>> 71a9bbb9c732e51f8286677f8c64b1494989ed06
 const app = express();
 const port = 3001;
 
@@ -188,6 +186,28 @@ app.post('/career-advancement', async (req, res) => {
     }
   });  
 
+  app.post('/generate-roadmap-student', async (req, res) => {
+    try {
+      const input = req.body;
+      const roadmap = await generateRoadmapStudent(input);
+      res.status(200).json({ roadmap });
+    } catch (error) {
+      console.error('Error generating roadmap:', error);
+      res.status(500).json({ error: 'Failed to generate roadmap' });
+    }
+  });
+
+  app.post('/generate-roadmap-graduate', async (req, res) => {
+    try {
+      const input = req.body;
+      const roadmap = await generateRoadmapGraduate(input);
+      res.status(200).json({ roadmap });
+    } catch (error) {
+      console.error('Error generating roadmap:', error);
+      res.status(500).json({ error: 'Failed to generate roadmap' });
+    }
+  });
+  
   //generate questions for mock interview
   app.post('/generate-questions', async (req, res) => {
     const { jobRole, techStack, experience } = req.body;
