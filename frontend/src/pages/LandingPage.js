@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import HeroBgImage from '../assets/images/herobg.png'; // Background image for the hero section
-import BelowHeroBgImage from '../assets/images/belowherobg.jpg'; // Background image for the features section
+import BelowHeroBgImage from '../assets/images/9215095.jpg'; // New background image for the features section
 import { useNavigate } from "react-router-dom";
 import AptitudeImage from '../assets/images/aptitude.png'; // Example image, adjust the path as necessary
 import CareerImage from '../assets/images/career2.png'; // Example image, adjust the path as necessary
@@ -17,7 +17,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Tilt } from 'react-tilt';
-import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
+import appLogo from '../assets/images/daan.png'; // Add the path to your app logo image
 
 const buttonStyle = {
   backgroundColor: '#4c51bf',
@@ -166,7 +166,7 @@ const LandingPage = () => {
     <div style={{ background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', color: '#2d3748', minHeight: '100vh', margin: 0, padding: 0 }}>
       <header style={headerStyle}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={appLogo} alt="Udaan Logo" style={{ width: '50px', height: '50px', marginRight: '1rem' }} />
+          <img src={appLogo} alt="Udaan Logo" style={{ width: '100px', height: 'auto', marginRight: '1rem' }} />
           <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>उड़ान</h1>
         </div>
         <nav style={navStyle}>
@@ -344,8 +344,8 @@ const FeatureCard = ({ title, description, image }) => {
         }}
       >
         <img src={image} alt={title} style={imageStyle} />
-        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-        <p style={{ color: '#718096' }}>{description}</p>
+        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem', color: '#2d3748' }}>{title}</h4>
+        <p style={{ color: '#4a5568' }}>{description}</p>
       </div>
     </Tilt>
   );
@@ -387,8 +387,8 @@ const InsightCard = ({ title, description, image }) => {
         }}
       >
         <img src={image} alt={title} style={imageStyle} />
-        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>{title}</h4>
-        <p style={{ color: '#718096' }}>{description}</p>
+        <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem', color: '#2d3748' }}>{title}</h4>
+        <p style={{ color: '#4a5568' }}>{description}</p>
       </div>
     </Tilt>
   );
