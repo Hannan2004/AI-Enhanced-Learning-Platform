@@ -16,12 +16,15 @@ const { getSkillGap } = require('./getSkillGap');
 const { careerAdvancement } = require('./careerAdvancement');
 const { careerSuggestion } = require('./careerSuggestions');
 const { generateRoadmap } = require('./careerRoadmapProfessional');
+const generateQuestions = require('./src/gemini');
+
 const app = express();
 const port = 3001;
 
 const upload = multer({ dest: 'uploads/' });
 
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 
 // Mock Interview Route 
@@ -192,9 +195,37 @@ app.post('/career-advancement', async (req, res) => {
     }
   });  
 
+  //generate questions for mock interview
+  app.post('/generate-questions', async (req, res) => {
+    const { jobRole, techStack, experience } = req.body;
+    const userDetails = { jobRole, skills: techStack, experience };
+  
+    console.log('Received data:', userDetails);
+  
+    try {
+      const questions = await generateQuestions(userDetails);
+      console.log('Generated questions:', questions);
+      res.json({ questions });
+    } catch (error) {
+      console.error('Error generating questions:', error.stack);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+const testUserDetails = {
+  jobRole: "Senior Software Engineer",
+  skills: "React, Node.js, MongoDB",
+  experience: "6 years"
+};
+
+generateQuestions(testUserDetails)
+  .then(questions => console.log('Test questions:', questions))
+  .catch(error => console.error('Test error:', error.stack));
+
 
 
 
