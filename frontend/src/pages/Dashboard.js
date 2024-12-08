@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-import { Card, CardContent, Typography, Grid, LinearProgress, Box } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import morningImage from '../assets/images/morning.png';
 import afternoonImage from '../assets/images/afternoon.png';
@@ -15,11 +15,15 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import WorkIcon from '@mui/icons-material/Work';
 import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
+import dbmockImage from '../assets/images/dbmock.png'; // Add the path to your mock interview image
+import dbaptiImage from '../assets/images/dbapti.png'; // Add the path to your aptitude image
+import dbcommImage from '../assets/images/dbcomm.png'; // Add the path to your community image
+import dbskillImage from '../assets/images/dbskill.png'; // Add the path to your skill gap image
+import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -109,6 +113,24 @@ const Dashboard = () => {
         transform: 'scale(1.05)',
         boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
       },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
+    },
+    cardContent: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      color: 'white',
+      background: 'rgba(0, 0, 0, 0.5)', // Add a dark overlay for better text visibility
+      borderRadius: '16px',
+      padding: '1rem',
     },
     progress: {
       height: '10px',
@@ -119,9 +141,6 @@ const Dashboard = () => {
       color: '#ffffff',
       padding: '0.5rem',
       borderRadius: '16px 16px 0 0',
-    },
-    cardContent: {
-      padding: '1rem',
     },
     greetingCard: {
       background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
@@ -148,9 +167,10 @@ const Dashboard = () => {
       fontSize: '3rem',
       marginBottom: '1rem',
     },
-    resultsCard: {
+    appCard: {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
       background: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '16px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
@@ -161,20 +181,112 @@ const Dashboard = () => {
         transform: 'scale(1.05)',
         boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
       },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
     },
-    resultsContent: {
-      flexGrow: 1,
+    appCardContent: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       padding: '1rem',
     },
-    resultsProgress: {
-      width: '10px',
-      height: '100%',
-      borderRadius: '5px',
+    appLogo: {
+      width: '50%',
+      height: 'auto',
+      marginBottom: '1rem',
+    },
+    appName: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: '#4F46E5',
     },
     featureIcon: {
       fontSize: '2.5rem',
       color: '#4F46E5',
       marginBottom: '1rem',
+    },
+    mockInterviewCard: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `url(${dbmockImage}) no-repeat center center`,
+      backgroundSize: 'cover',
+      borderRadius: '16px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
+      cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
+      },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
+    },
+    aptitudeCard: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `url(${dbaptiImage}) no-repeat center center`,
+      backgroundSize: 'cover',
+      borderRadius: '16px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
+      cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
+      },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
+    },
+    communityCard: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `url(${dbcommImage}) no-repeat center center`,
+      backgroundSize: 'cover',
+      borderRadius: '16px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
+      cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
+      },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
+    },
+    skillGapCard: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `url(${dbskillImage}) no-repeat center center`,
+      backgroundSize: 'cover',
+      borderRadius: '16px',
+      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+      marginBottom: '1rem',
+      cursor: 'pointer',
+      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.05)',
+        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
+      },
+      position: 'relative',
+      paddingBottom: '56.25%', // 16:9 aspect ratio
+      height: 0,
     },
   };
 
@@ -232,89 +344,51 @@ const Dashboard = () => {
             </Tilt>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                {/* <Typography variant="h6">Suitable Job Predictions</Typography> */}
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Box mt={2}>
-                  {/* <Typography variant="body2">Software Engineer</Typography> */}
-                  {/* <Typography variant="body2" color="textSecondary">70% match</Typography> */}
-                </Box>
-                <Box mt={2}>
-                  {/* <Typography variant="body2">Data Scientist</Typography>
-                  <Typography variant="body2" color="textSecondary">65% match</Typography> */}
-                </Box>
-                <Box mt={2}>
-                  {/* <Typography variant="body2">Product Manager</Typography>
-                  <Typography variant="body2" color="textSecondary">60% match</Typography> */}
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card style={styles.card}>
-              <div style={styles.cardHeader}>
-                <Typography variant="h6">Website Features</Typography>
-              </div>
-              <CardContent style={styles.cardContent}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={3}>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Card style={styles.card} onClick={handleAptitudeClick}>
-                        <CardContent>
-                          <AssessmentIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Career Counselling via Aptitude Assessment</Typography>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Card style={styles.card} onClick={handleCareerAnalysisClick}>
-                        <CardContent>
-                          <WorkIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Community Forum</Typography>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Card style={styles.card} onClick={handleMockInterviewClick}>
-                        <CardContent>
-                          <PersonIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Mock Interview</Typography>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Card style={styles.card} onClick={handleSkillGapTestClick}>
-                        <CardContent>
-                          <SchoolIcon style={styles.featureIcon} />
-                          <Typography variant="body2">Skill Gap Test</Typography>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.resultsCard} onClick={handleResultsClick}>
-                <LinearProgress variant="determinate" value={70} style={styles.resultsProgress} />
-                <div style={styles.resultsContent}>
-                  <div style={styles.cardHeader}>
-                    <Typography variant="h6">Results</Typography>
-                  </div>
-                  <CardContent style={styles.cardContent}>
-                    <EqualizerIcon style={styles.featureIcon} />
-                    <Typography variant="body2">View your test results and progress.</Typography>
-                  </CardContent>
+              <Card style={styles.appCard}>
+                <div style={styles.appCardContent}>
+                  <img src={appLogo} alt="App Logo" style={styles.appLogo} />
+                  <Typography style={styles.appName}>App Name</Typography>
+                </div>
+              </Card>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card style={styles.aptitudeCard} onClick={handleAptitudeClick}>
+                <div style={styles.cardContent}>
+                  <AssessmentIcon style={styles.featureIcon} />
+                  <Typography variant="body2">Career Counselling</Typography>
+                </div>
+              </Card>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card style={styles.communityCard} onClick={handleCareerAnalysisClick}>
+                <div style={styles.cardContent}>
+                  <WorkIcon style={styles.featureIcon} />
+                  <Typography variant="body2">Community Forum</Typography>
+                </div>
+              </Card>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card style={styles.mockInterviewCard} onClick={handleMockInterviewClick}>
+                <div style={styles.cardContent}>
+                  <PersonIcon style={styles.featureIcon} />
+                  <Typography variant="body2">Mock Interview</Typography>
+                </div>
+              </Card>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card style={styles.skillGapCard} onClick={handleSkillGapTestClick}>
+                <div style={styles.cardContent}>
+                  <SchoolIcon style={styles.featureIcon} />
+                  <Typography variant="body2">Skill Gap Test</Typography>
                 </div>
               </Card>
             </motion.div>

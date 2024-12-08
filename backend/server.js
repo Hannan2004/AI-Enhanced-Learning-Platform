@@ -5,7 +5,7 @@ const multer = require('multer');
 require('dotenv').config();
 
 const { generateRecommendations } = require('./generateRecommendations');
-// const { startInterview } = require('./src/gemini');
+// const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
