@@ -5,7 +5,7 @@ const multer = require('multer');
 require('dotenv').config();
 
 const { generateRecommendations } = require('./generateRecommendations');
-const { startInterview } = require('./mockinterview');
+//const { startInterview } = require('./mockinterview');
 const { generateNumericalQuestions } = require('./generateNumerical');
 const { generateLogicalQuestions } = require('./generateLogical');  
 const { generateVerbalQuestions } = require('./generateVerbal');
@@ -15,13 +15,13 @@ const { careerCounseling } = require('./careerCounseling'); // Adjust the path a
 const { getSkillGap } = require('./getSkillGap');
 const { careerAdvancement } = require('./careerAdvancement');
 const { careerSuggestion } = require('./careerSuggestions');
-<<<<<<< HEAD
-const { generateRoadmap } = require('./careerRoadmap');
-=======
-const { generateRoadmap } = require('./careerRoadmapProfessional');
+
+//const { generateRoadmap } = require('./careerRoadmap');
+
+//const { generateRoadmap } = require('./careerRoadmapProfessional');
 const generateQuestions = require('./src/gemini');
 
->>>>>>> 71a9bbb9c732e51f8286677f8c64b1494989ed06
+
 const app = express();
 const port = 3001;
 
