@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar'; // Adjust the path as necessary
-import { Card, CardContent, Typography, Grid, Box } from '@mui/material';
+import { Card, Grid, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend } from 'chart.js';
 import morningImage from '../assets/images/morning.png';
 import afternoonImage from '../assets/images/afternoon.png';
 import eveningImage from '../assets/images/evening.png';
 import nightImage from '../assets/images/night.png';
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
 import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
-import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import WorkIcon from '@mui/icons-material/Work';
-import PersonIcon from '@mui/icons-material/Person';
-import SchoolIcon from '@mui/icons-material/School';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
-import dbmockImage from '../assets/images/dbmock.png'; // Add the path to your mock interview image
-import dbaptiImage from '../assets/images/dbapti.png'; // Add the path to your aptitude image
-import dbcommImage from '../assets/images/dbcomm.png'; // Add the path to your community image
-import dbskillImage from '../assets/images/dbskill.png'; // Add the path to your skill gap image
+import dbmockImage from '../assets/images/mobutton.png'; // Add the path to your mock interview image
+import dbaptiImage from '../assets/images/aptibut.png'; // Add the path to your aptitude image
+import dbcommImage from '../assets/images/cummbutton.png'; // Add the path to your community image
+import skillButtonImage from '../assets/images/skillbutton.png'; // Add the path to your skill button image
 import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
+
+ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -117,31 +116,6 @@ const Dashboard = () => {
       paddingBottom: '56.25%', // 16:9 aspect ratio
       height: 0,
     },
-    cardContent: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      color: 'white',
-      background: 'rgba(0, 0, 0, 0.5)', // Add a dark overlay for better text visibility
-      borderRadius: '16px',
-      padding: '1rem',
-    },
-    progress: {
-      height: '10px',
-      borderRadius: '5px',
-    },
-    cardHeader: {
-      background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
-      color: '#ffffff',
-      padding: '0.5rem',
-      borderRadius: '16px 16px 0 0',
-    },
     greetingCard: {
       background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
       backdropFilter: 'blur(10px)',
@@ -154,18 +128,6 @@ const Dashboard = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    greetingText: {
-      color: 'white',
-      fontSize: '2.5rem',
-      fontWeight: '700',
-      textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
-      textAlign: 'center',
-      lineHeight: '1.2',
-    },
-    greetingIcon: {
-      fontSize: '3rem',
-      marginBottom: '1rem',
     },
     appCard: {
       display: 'flex',
@@ -200,16 +162,6 @@ const Dashboard = () => {
     appLogo: {
       width: '50%',
       height: 'auto',
-      marginBottom: '1rem',
-    },
-    appName: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: '#4F46E5',
-    },
-    featureIcon: {
-      fontSize: '2.5rem',
-      color: '#4F46E5',
       marginBottom: '1rem',
     },
     mockInterviewCard: {
@@ -273,7 +225,7 @@ const Dashboard = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: `url(${dbskillImage}) no-repeat center center`,
+      background: `url(${skillButtonImage}) no-repeat center center`,
       backgroundSize: 'cover',
       borderRadius: '16px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
@@ -317,6 +269,33 @@ const Dashboard = () => {
     navigate('/pre-skill-gap', { state: { user: userDetails } });
   };
 
+  const chartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Verbal Ability',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+      },
+      {
+        label: 'Logical Ability',
+        data: [28, 48, 40, 19, 86, 27, 90],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        fill: true,
+      },
+      {
+        label: 'Numerical Ability',
+        data: [18, 48, 77, 9, 100, 27, 40],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        fill: true,
+      },
+    ],
+  };
+
   return (
     <div style={styles.container}>
       <Sidebar userName={userName} />
@@ -348,52 +327,34 @@ const Dashboard = () => {
               <Card style={styles.appCard}>
                 <div style={styles.appCardContent}>
                   <img src={appLogo} alt="App Logo" style={styles.appLogo} />
-                  <Typography style={styles.appName}>App Name</Typography>
                 </div>
               </Card>
             </motion.div>
           </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.aptitudeCard} onClick={handleAptitudeClick}>
-                <div style={styles.cardContent}>
-                  <AssessmentIcon style={styles.featureIcon} />
-                  <Typography variant="body2">Career Counselling</Typography>
-                </div>
-              </Card>
+              <Card style={styles.aptitudeCard} onClick={handleAptitudeClick} />
             </motion.div>
           </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.communityCard} onClick={handleCareerAnalysisClick}>
-                <div style={styles.cardContent}>
-                  <WorkIcon style={styles.featureIcon} />
-                  <Typography variant="body2">Community Forum</Typography>
-                </div>
-              </Card>
+              <Card style={styles.communityCard} onClick={handleCareerAnalysisClick} />
             </motion.div>
           </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.mockInterviewCard} onClick={handleMockInterviewClick}>
-                <div style={styles.cardContent}>
-                  <PersonIcon style={styles.featureIcon} />
-                  <Typography variant="body2">Mock Interview</Typography>
-                </div>
-              </Card>
+              <Card style={styles.mockInterviewCard} onClick={handleMockInterviewClick} />
             </motion.div>
           </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.skillGapCard} onClick={handleSkillGapTestClick}>
-                <div style={styles.cardContent}>
-                  <SchoolIcon style={styles.featureIcon} />
-                  <Typography variant="body2">Skill Gap Test</Typography>
-                </div>
-              </Card>
+              <Card style={styles.skillGapCard} onClick={handleSkillGapTestClick} />
             </motion.div>
           </Grid>
         </Grid>
+        <div style={{ marginTop: '2rem' }}>
+          <Line data={chartData} />
+        </div>
       </div>
     </div>
   );
