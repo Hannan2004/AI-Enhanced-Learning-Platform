@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cors());
 
 // Mock Interview Route 
-app.post('/start-interview', async (req, res) => {
+/*app.post('/start-interview', async (req, res) => {
     try {
         const userInput = req.body.userInput;
         if (!userInput) {
@@ -43,25 +43,26 @@ app.post('/start-interview', async (req, res) => {
         console.error('Error in /start-interview:', error);
         res.status(500).json({ error: 'Interview failed' });
     }
-});
+});*/
 
 // Other routes and logic
 app.post('/counseling', async (req, res) => {
-    const { input, context } = req.body;
+  const { input, context } = req.body;
 
-    if (!input || !context) {
-        return res.status(400).json({ error: 'Input and context are required' });
-    }
+  if (!input || !context) {
+      return res.status(400).json({ error: 'Input and context are required' });
+  }
 
-    try {
-        console.log('Received /counseling request:', req.body);
-        const result = await careerCounseling(input, context);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /counseling:', error);
-        res.status(500).json({ error: 'Failed to perform career counseling' });
-    }
+  try {
+      console.log('Received /counseling request:', req.body);
+      const result = await careerCounseling(input, context);
+      res.json(result);
+  } catch (error) {
+      console.error('Error in /counseling:', error);
+      res.status(500).json({ error: 'Failed to perform career counseling' });
+  }
 });
+
 
 app.post('/generateNumerical', async (req, res) => {
     const { type } = req.body;

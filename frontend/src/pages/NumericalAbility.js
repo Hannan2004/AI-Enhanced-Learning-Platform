@@ -23,7 +23,7 @@ const NumericalAbility = ({ setScores }) => {
   const [userAnswers, setUserAnswers] = useState({});
   const [markedQuestions, setMarkedQuestions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes
+  const [timeLeft, setTimeLeft] = useState(300); // 30 minutes
   const navigate = useNavigate();
   const location = useLocation();
   const { userType } = useParams();

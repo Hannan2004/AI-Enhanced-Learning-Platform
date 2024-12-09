@@ -63,7 +63,7 @@ const Sidebar = () => {
               </div>
               <div
                 className="link"
-                onClick={() => handleNavigation('/SkillGap')}
+                onClick={() => handleNavigation('/pre-skill-gap')}
               >
                 <span className="link-text">Skill Gap</span>
               </div>

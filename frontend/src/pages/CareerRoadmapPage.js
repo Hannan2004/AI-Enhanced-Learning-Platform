@@ -170,7 +170,7 @@ const CareerRoadmapPage = () => {
       
       <div className="mt-8 flex space-x-4">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/dashboard')}
           className="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300"
         >
           Back

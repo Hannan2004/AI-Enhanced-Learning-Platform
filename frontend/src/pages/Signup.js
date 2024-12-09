@@ -27,7 +27,7 @@ const Signup = () => {
       // Route based on role
       switch(role) {
         case 'professional':
-          navigate('/professional-form');
+          navigate('/dashboard');
           break;
         case 'graduate':
           navigate('/graduate-form');

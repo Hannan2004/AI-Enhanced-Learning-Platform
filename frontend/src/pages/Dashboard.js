@@ -21,6 +21,7 @@ import dbaptiImage from '../assets/images/aptibut.png'; // Add the path to your 
 import dbcommImage from '../assets/images/cummbutton.png'; // Add the path to your community image
 import skillButtonImage from '../assets/images/skillbutton.png'; // Add the path to your skill button image
 import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
+import ChatBot from '../components/Chatbot';
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
@@ -257,7 +258,7 @@ const Dashboard = () => {
   };
 
   const handleMockInterviewClick = () => {
-    navigate('/mock-interview');
+    navigate('/interview-landing');
   };
 
   const handleResultsClick = () => {
@@ -356,6 +357,7 @@ const Dashboard = () => {
           <Line data={chartData} />
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };
