@@ -3,6 +3,31 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase'; // Import Firebase auth and db
+import { 
+  Container, 
+  Box, 
+  Typography, 
+  Button, 
+  Paper, 
+  Grid, 
+  TextField, 
+  Grow, 
+  InputAdornment, 
+  MenuItem 
+} from '@mui/material';
+import {
+  Person as PersonIcon,
+  Phone as PhoneIcon,
+  LocationOn as LocationIcon,
+  School as SchoolIcon,
+  Category as CategoryIcon,
+  Cake as CakeIcon,
+  Interests as InterestsIcon,
+  EmojiEvents as EmojiEventsIcon,
+  SportsSoccer as SportsSoccerIcon,
+  Favorite as FavoriteIcon,
+  Star as StarIcon
+} from '@mui/icons-material';
 
 const StudentForm = () => {
   const navigate = useNavigate();
@@ -77,194 +102,439 @@ const StudentForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold mb-6 text-center">Student Form</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">{success}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 mb-2">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Date of Birth</label>
-            <input
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
+    <Container maxWidth="md" sx={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
+    }}>
+      <Grow in={true} timeout={800}>
+        <Paper 
+          elevation={12} 
+          sx={{ 
+            p: 4, 
+            borderRadius: '16px', 
+            background: 'rgba(255, 255, 255, 0.9)', 
+            backdropFilter: 'blur(15px)',
+            position: 'relative',
+            overflow: 'hidden',
+            maxWidth: '800px',
+            width: '100%'
+          }}
+        >
+          <Typography 
+            variant="h4" 
+            component="h1" 
+            gutterBottom 
+            textAlign="center" 
+            color="primary" 
+            sx={{ 
+              mb: 3, 
+              fontWeight: 'bold', 
+              position: 'relative', 
+              zIndex: 1 
+            }}
+          >
+            Student Profile
+          </Typography>
+
+          {error && <Typography color="error" mb={2}>{error}</Typography>}
+          {success && <Typography color="success" mb={2}>{success}</Typography>}
+
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={3} mt={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Date of Birth"
+                  name="dob"
+                  type="date"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CakeIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  select
+                  label="Gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                >
+                  <MenuItem value="Male">Male</MenuItem>
+                  <MenuItem value="Female">Female</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Contact Number"
+                  name="contactNumber"
+                  value={formData.contactNumber}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PhoneIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LocationIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="School"
+                  name="school"
+                  value={formData.school}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SchoolIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Percentage"
+                  name="percentage"
+                  value={formData.percentage}
+                  onChange={handleChange}
+                  variant="outlined"
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <StarIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Favorite Subjects"
+                  name="favoriteSubjects"
+                  value={formData.favoriteSubjects}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FavoriteIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Extra Curricular"
+                  name="extraCurricular"
+                  value={formData.extraCurricular}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SportsSoccerIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Achievements"
+                  name="achievements"
+                  value={formData.achievements}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmojiEventsIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  select
+                  label="Learning Preferences"
+                  name="learningPreferences"
+                  value={formData.learningPreferences}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CategoryIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                >
+                  <MenuItem value="Auditory">Auditory</MenuItem>
+                  <MenuItem value="Visual">Visual</MenuItem>
+                  <MenuItem value="Practical">Practical</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Skills"
+                  name="skills"
+                  value={formData.skills}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CategoryIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Interests"
+                  name="interests"
+                  value={formData.interests}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <InterestsIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Aspirations"
+                  name="aspirations"
+                  value={formData.aspirations}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <InterestsIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Hobbies"
+                  name="hobbies"
+                  value={formData.hobbies}
+                  onChange={handleChange}
+                  variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <InterestsIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '12px',
+                    }
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ 
+                mt: 4, 
+                width: '100%', 
+                borderRadius: '12px', 
+                padding: '12px', 
+                fontSize: '1rem',
+                background: 'linear-gradient(45deg, #9c27b0 30%, #e040fb 90%)', // Purple gradient
+                boxShadow: '0 3px 5px 2px rgba(156, 39, 176, .3)', // Purple shadow
+                '&:hover': {
+                  background: 'linear-gradient(45deg, #9c27b0 10%, #e040fb 90%)'
+                }
+              }}
             >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Contact Number</label>
-            <input
-              type="text"
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Location</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">School</label>
-            <input
-              type="text"
-              name="school"
-              value={formData.school}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Percentage</label>
-            <input
-              type="number"
-              name="percentage"
-              value={formData.percentage}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Favorite Subjects</label>
-            <input
-              type="text"
-              name="favoriteSubjects"
-              value={formData.favoriteSubjects}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Extra Curricular</label>
-            <input
-              type="text"
-              name="extraCurricular"
-              value={formData.extraCurricular}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Achievements</label>
-            <input
-              type="text"
-              name="achievements"
-              value={formData.achievements}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Learning Preferences</label>
-            <select
-              name="learningPreferences"
-              value={formData.learningPreferences}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            >
-              <option value="Auditory">Auditory</option>
-              <option value="Visual">Visual</option>
-              <option value="Practical">Practical</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Skills</label>
-            <input
-              type="text"
-              name="skills"
-              value={formData.skills}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Interests</label>
-            <input
-              type="text"
-              name="interests"
-              value={formData.interests}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Aspirations</label>
-            <input
-              type="text"
-              name="aspirations"
-              value={formData.aspirations}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Hobbies</label>
-            <input
-              type="text"
-              name="hobbies"
-              value={formData.hobbies}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
-          <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+              Submit
+            </Button>
+          </form>
+        </Paper>
+      </Grow>
+    </Container>
   );
 };
 
