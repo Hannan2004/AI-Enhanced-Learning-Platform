@@ -4,18 +4,10 @@ import { Card, Grid, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend } from 'chart.js';
-import morningImage from '../assets/images/morning.png';
-import afternoonImage from '../assets/images/afternoon.png';
-import eveningImage from '../assets/images/evening.png';
-import nightImage from '../assets/images/night.png';
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
 import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import Brightness5Icon from '@mui/icons-material/Brightness5';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
 import dbmockImage from '../assets/images/mobutton.png'; // Add the path to your mock interview image
 import dbaptiImage from '../assets/images/aptibut.png'; // Add the path to your aptitude image
 import dbcommImage from '../assets/images/cummbutton.png'; // Add the path to your community image
@@ -38,37 +30,11 @@ const getDaysInMonth = (month, year) => {
 const Dashboard = () => {
   const navigate = useNavigate();
   const [aptitudeClicked, setAptitudeClicked] = useState(false);
-  const [greeting, setGreeting] = useState('');
-  const [greetingImage, setGreetingImage] = useState('');
-  const [greetingIcon, setGreetingIcon] = useState(null);
-  const [greetingColor, setGreetingColor] = useState('');
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState('Guest');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true); // Add state for sidebar collapsed
 
   useEffect(() => {
-    const currentHour = new Date().getHours();
-    if (currentHour < 12) {
-      setGreeting('Good Morning');
-      setGreetingImage(morningImage);
-      setGreetingIcon(<WbSunnyIcon style={styles.greetingIcon} />);
-      setGreetingColor('linear-gradient(135deg, #FFDD00 0%, #FBB034 100%)');
-    } else if (currentHour < 17) {
-      setGreeting('Good Afternoon');
-      setGreetingImage(afternoonImage);
-      setGreetingIcon(<Brightness5Icon style={styles.greetingIcon} />);
-      setGreetingColor('linear-gradient(135deg, #FF8008 0%, #FFC837 100%)');
-    } else if (currentHour < 20) {
-      setGreeting('Good Evening');
-      setGreetingImage(eveningImage);
-      setGreetingIcon(<Brightness4Icon style={styles.greetingIcon} />);
-      setGreetingColor('linear-gradient(135deg, #667EEA 0%, #764BA2 100%)');
-    } else {
-      setGreeting('Good Night');
-      setGreetingImage(nightImage);
-      setGreetingIcon(<NightsStayIcon style={styles.greetingIcon} />);
-      setGreetingColor('linear-gradient(135deg, #2C3E50 0%, #4CA1AF 100%)');
-    }
-
     // Fetch the currently logged-in user's details from Firebase Authentication
     const auth = getAuth();
     const currentUser = auth.currentUser;
@@ -93,14 +59,21 @@ const Dashboard = () => {
       background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
       minHeight: '100vh',
     },
-    content: {
+    sidebarContainer: {
+      flexShrink: 0,
+    },
+    contentContainer: {
       flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
       padding: '2.5rem',
       margin: '2rem',
       background: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '20px',
       backdropFilter: 'blur(10px)',
       boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+      transition: 'margin-left 0.3s ease-in-out', // Add transition for smooth sidebar collapse
+      marginLeft: isSidebarCollapsed ? '80px' : '250px', // Adjust margin based on sidebar state
     },
     card: {
       background: 'rgba(255, 255, 255, 0.95)',
@@ -116,19 +89,6 @@ const Dashboard = () => {
       position: 'relative',
       paddingBottom: '56.25%', // 16:9 aspect ratio
       height: 0,
-    },
-    greetingCard: {
-      background: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.18)',
-      borderRadius: '20px',
-      padding: '2.5rem',
-      position: 'relative',
-      overflow: 'hidden',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     appCard: {
       display: 'flex',
@@ -241,6 +201,18 @@ const Dashboard = () => {
       paddingBottom: '56.25%', // 16:9 aspect ratio
       height: 0,
     },
+    infoContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '1rem',
+    },
+    infoText: {
+      textAlign: 'center',
+      color: '#1F2937',
+      marginTop: '1rem',
+    },
   };
 
   const handleAptitudeClick = () => {
@@ -299,30 +271,14 @@ const Dashboard = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName={userName} />
-      <div style={styles.content}>
+      <div style={styles.sidebarContainer}>
+        <Sidebar userName={userName} isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
+      </div>
+      <div style={styles.contentContainer}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
           Dashboard
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Tilt options={{ max: 25, scale: 1.05 }}>
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card style={{ ...styles.greetingCard, background: greetingColor }}>
-                  <Box display="flex" flexDirection="column" alignItems="center">
-                    {greetingIcon}
-                    <Typography style={styles.greetingText}>
-                      {greeting}, {userName}!
-                    </Typography>
-                  </Box>
-                </Card>
-              </motion.div>
-            </Tilt>
-          </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Card style={styles.appCard}>
@@ -331,6 +287,16 @@ const Dashboard = () => {
                 </div>
               </Card>
             </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <div style={styles.infoContainer}>
+              <Typography variant="h5" style={styles.infoText}>
+                Welcome to Our App!
+              </Typography>
+              <Typography variant="body1" style={styles.infoText}>
+                Our app provides a comprehensive platform for aptitude tests, mock interviews, and career analysis.
+              </Typography>
+            </div>
           </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

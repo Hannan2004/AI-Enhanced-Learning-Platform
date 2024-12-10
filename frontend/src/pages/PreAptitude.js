@@ -102,7 +102,7 @@ const PreAptitude = () => {
               (e.currentTarget.style.transform = "scale(1.1)")
             }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            onClick={() => handleCardClick("2nd-grade-student")}
+            onClick={() => handleCardClick("10th-grade-student")}
           >
             <div style={styles.cardContent}>
               <img src={StudentImage} alt="Student" style={styles.image} />
@@ -121,7 +121,7 @@ const PreAptitude = () => {
               (e.currentTarget.style.transform = "scale(1.1)")
             }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            onClick={() => handleCardClick("working-professional")}
+            onClick={() => handleCardClick("calculas-Student")}
           >
             <div style={styles.cardContent}>
               <img
