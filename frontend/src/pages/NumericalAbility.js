@@ -15,9 +15,6 @@ import {
   Chip,
 } from '@mui/material';
 
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-
 const NumericalAbility = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
@@ -27,7 +24,7 @@ const NumericalAbility = ({ setScores }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { userType } = useParams();
-  const user = location.state?.user;
+  const { user, language, scores } = location.state;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -40,8 +37,8 @@ const NumericalAbility = ({ setScores }) => {
 
   const fetchQuestions = async () => {
     try {
-      console.log('Fetching questions for type:', userType, 'and user:', user);
-      const response = await axios.post('http://localhost:3001/generateNumerical', { type: userType, user });
+      console.log('Fetching questions for type:', userType, 'and language:', language);
+      const response = await axios.post('http://localhost:3001/generateNumerical', { type: userType, language });
       console.log('Questions fetched:', response.data.response);
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
@@ -52,7 +49,7 @@ const NumericalAbility = ({ setScores }) => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [userType, user]);
+  }, [userType, language]);
 
   const handleAnswerChange = (index, answer) => {
     setUserAnswers({ ...userAnswers, [index]: answer });
@@ -62,33 +59,16 @@ const NumericalAbility = ({ setScores }) => {
     setMarkedQuestions({ ...markedQuestions, [index]: !markedQuestions[index] });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     let score = 0;
     questions.forEach((q, i) => {
-      if (userAnswers[i] === q.correctAnswer) score++;
+      if (userAnswers[i] === q.correctAnswer) score += q.marks;
     });
-    setScores((prev) => ({ ...prev, numerical: score }));
-
-    // Save the result to Firestore
-    try {
-      const docRef = doc(db, 'numericalResults', user.uid);
-      await setDoc(docRef, {
-        user: {
-          displayName: user.displayName,
-          email: user.email,
-          uid: user.uid,
-        },
-        score: score,
-        answers: userAnswers,
-        timestamp: new Date(),
-      });
-      console.log('Result saved to Firestore');
-    } catch (error) {
-      console.error('Error saving result to Firestore:', error);
-    }
+    const updatedScores = { ...scores, numerical: score };
+    setScores(updatedScores);
 
     // Navigate to verbal ability page with user details and scores
-    navigate('/verbal-ability', { state: { user, scores: { numerical: score } } });
+    navigate('/verbal-ability', { state: { user, scores: updatedScores, language, userType } });
   };
 
   return (
@@ -110,7 +90,7 @@ const NumericalAbility = ({ setScores }) => {
       <Box flex={1} p={4}>
         <Typography variant="h5">Numerical Ability Test</Typography>
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
-        <LinearProgress variant="determinate" value={(timeLeft / 1800) * 100} />
+        <LinearProgress variant="determinate" value={(timeLeft / 300) * 100} />
         {questions.length > 0 && (
           <Card>
             <CardContent>
