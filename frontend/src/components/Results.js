@@ -14,9 +14,10 @@ const Results = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const [userDetails, setUserDetails] = useState(null);
+  const [scores, setScores] = useState({ numerical: 0, verbal: 0, logicalReasoning: 0 });
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, scores } = location.state || {};
+  const { user } = location.state || {};
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -55,23 +56,60 @@ const Results = () => {
   }, [user]);
 
   useEffect(() => {
+    const fetchResults = async () => {
+      if (user) {
+        try {
+          const numericalResults = await getDocs(query(collection(db, 'numericalResults'), where('userId', '==', user.uid)));
+          const verbalResults = await getDocs(query(collection(db, 'verbalResults'), where('userId', '==', user.uid)));
+          const logicalResults = await getDocs(query(collection(db, 'logicalResults'), where('userId', '==', user.uid)));
+
+          const calculateCorrectAnswers = (results) => {
+            let correctAnswers = 0;
+            results.forEach((doc) => {
+              const data = doc.data();
+              if (data.correct) {
+                correctAnswers += 1;
+              }
+            });
+            return correctAnswers;
+          };
+
+          const numericalScore = calculateCorrectAnswers(numericalResults);
+          const verbalScore = calculateCorrectAnswers(verbalResults);
+          const logicalScore = calculateCorrectAnswers(logicalResults);
+
+          setScores({
+            numerical: numericalScore,
+            verbal: verbalScore,
+            logicalReasoning: logicalScore,
+          });
+        } catch (error) {
+          console.error('Error fetching results:', error);
+        }
+      }
+    };
+
+    fetchResults();
+  }, [user]);
+
+  useEffect(() => {
     if (chartRef.current) {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
-  
+
       const fetchUserData = async () => {
         try {
           if (user) {
             const userDoc = await getDoc(doc(db, 'users', user.uid));
-  
+
             if (userDoc.exists()) {
               const userData = userDoc.data();
               console.log('Fetched user data:', userData);
-  
+
               const username = userData.email.split('@')[0] || 'N/A';
               const role = userData.role || 'N/A';
-  
+
               const ctx = chartRef.current.getContext('2d');
               chartInstance.current = new Chart(ctx, {
                 type: 'bar',
@@ -100,14 +138,14 @@ const Results = () => {
           console.error('Error fetching user details:', error);
         }
       };
-  
+
       fetchUserData();
     }
   }, [scores, user]);
-  
+
   const downloadPDF = () => {
     const doc = new jsPDF();
-  
+
     console.log('Generating PDF for user:', user.displayName || user.email);
 
     doc.text(`Name: ${user.displayName || user.email || 'N/A'}`, 20, 30);
@@ -162,17 +200,17 @@ const Results = () => {
       styles: { halign: 'center', fontSize: 12 },
       bodyStyles: { textColor: [0, 0, 0] },
     });
-  
+
     const chartCanvas = chartRef.current;
     if (chartCanvas) {
       const chartImage = chartCanvas.toDataURL('image/png');
       const finalY = doc.autoTable.previous.finalY + 10;
-  
+
       doc.addImage(chartImage, 'PNG', 20, finalY, 160, 90);
       doc.setDrawColor(150, 150, 150);
       doc.rect(20, finalY, 160, 90);
     }
-  
+
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(10);
     doc.setFont('helvetica', 'italic');
@@ -182,7 +220,7 @@ const Results = () => {
       pageHeight - 10,
       { align: 'center' }
     );
-  
+
     doc.save('Career-Guidance-Test-Results.pdf');
   };
 
