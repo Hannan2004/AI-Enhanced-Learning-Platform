@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom"; // Import useLocati
 import Footer from "../components/Footer.js"; // Correct the Footer component path
 import StudentImage from "../assets/images/stu.png"; // Correct the image path
 import UndergradImage from "../assets/images/underg.png"; // Correct the image path
-import ProfessionalImage from "../assets/images/workingp.png"; // Correct the image path
 
 const PreAptitude = () => {
   const navigate = useNavigate();
@@ -34,11 +33,11 @@ const PreAptitude = () => {
     },
     cardContainer: {
       display: "flex",
-      justifyContent: "space-between",
+      justifyContent: "center",
       alignItems: "center",
+      gap: "40px", // Increased gap between cards
       width: "100%",
-      maxWidth: "1200px",
-      gap: "20px",
+      maxWidth: "800px", // Adjusted width for two cards
     },
     card: {
       backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -48,15 +47,12 @@ const PreAptitude = () => {
       borderRadius: "0.5rem",
       padding: "2rem",
       textAlign: "center",
-      flex: "1 1 30%",
+      flex: "1 1 45%", // Adjusted flex basis for two cards
       transition: "transform 0.3s ease",
-      height: "550px", // Increased height for deeper rectangular shape
+      height: "550px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-    },
-    cardHover: {
-      transform: "scale(1.1)",
     },
     cardContent: {
       display: "flex",
@@ -110,7 +106,7 @@ const PreAptitude = () => {
               <p style={styles.cardDescription}>
                 Psychometric tests for 10th-passed students help identify their
                 strengths, interests, and aptitudes, guiding them in selecting
-                the right academic stream based on their abilities
+                the right academic stream based on their abilities.
               </p>
               <button style={styles.button}>Give Aptitude Test</button>
             </div>
@@ -130,39 +126,12 @@ const PreAptitude = () => {
                 style={styles.image}
               />
               <h3 style={styles.cardTitle}>
-                Highly Suggested for Undergraduate
+                Highly Suggested for Undergraduates
               </h3>
               <p style={styles.cardDescription}>
                 Career fit assessments for graduates match their skills and
                 interests with suitable job roles or internships, helping them
-                find the best career opportunities
-              </p>
-              <button style={styles.button}>Give Aptitude Test</button>
-            </div>
-          </div>
-          <div
-            style={styles.card}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.1)")
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            onClick={() =>
-              handleCardClick("double-phd-mathematician-with-field-award")
-            }
-          >
-            <div style={styles.cardContent}>
-              <img
-                src={ProfessionalImage}
-                alt="Professional"
-                style={styles.image}
-              />
-              <h3 style={styles.cardTitle}>
-                Highly Suggested for Professional
-              </h3>
-              <p style={styles.cardDescription}>
-                Career advancement assessments for professionals evaluate
-                current skills and growth potential, offering insights for role
-                transitions or career advancement
+                find the best career opportunities.
               </p>
               <button style={styles.button}>Give Aptitude Test</button>
             </div>
