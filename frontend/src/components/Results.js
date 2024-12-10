@@ -9,7 +9,6 @@ import { db } from '../firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 Chart.register(...registerables);
-
 const Results = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
