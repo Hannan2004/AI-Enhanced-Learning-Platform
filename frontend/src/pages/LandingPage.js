@@ -167,7 +167,7 @@ const LandingPage = () => {
       <header style={headerStyle}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src={appLogo} alt="Udaan Logo" style={{ width: '100px', height: 'auto', marginRight: '1rem' }} />
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>उड़ान</h1>
+         
         </div>
         <nav style={navStyle}>
           <span
