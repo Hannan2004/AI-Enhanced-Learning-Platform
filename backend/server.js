@@ -65,11 +65,12 @@ app.post('/counseling', async (req, res) => {
 
 
 app.post('/generateNumerical', async (req, res) => {
-    const { type } = req.body;
+    const { type, language } = req.body;
 
     try {
         console.log('Received /generateNumerical request:', req.body);
-        const result = await generateNumericalQuestions(type);
+        const result = await generateNumericalQuestions(type, language);
+        console.log('Numerical questions:', result);
         res.json(result);
     } catch (error) {
         console.error('Error in /generateNumerical:', error.message);
@@ -78,11 +79,12 @@ app.post('/generateNumerical', async (req, res) => {
 });
 
 app.post('/generateVerbal', async (req, res) => {
-    const { type } = req.body;
+    const { type, language } = req.body;
 
     try {
         console.log('Received /generateVerbal request:', req.body);
-        const result = await generateVerbalQuestions(type);
+        const result = await generateVerbalQuestions(type, language);
+        console.log('Verbal questions:', result);
         res.json(result);
     } catch (error) {
         console.error('Error in /generateVerbal:', error.message);
@@ -91,11 +93,12 @@ app.post('/generateVerbal', async (req, res) => {
 });
 
 app.post('/generateLogical', async (req, res) => {
-    const { type } = req.body;
+    const { type, language } = req.body;
 
     try {
         console.log('Received /generateLogical request:', req.body);
-        const result = await generateLogicalQuestions(type);
+        const result = await generateLogicalQuestions(type, language);
+        console.log('Logical questions:', result);
         res.json(result);
     } catch (error) {
         console.error('Error in /generateLogical:', error.message);

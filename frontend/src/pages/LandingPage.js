@@ -2,7 +2,6 @@ import React from 'react';
 import Footer from '../components/Footer.js';
 import LandingImage from '../assets/images/Landingmain.svg';
 import HeroBgImage from '../assets/images/herobg.png'; // Background image for the hero section
-import BelowHeroBgImage from '../assets/images/9215095.jpg'; // New background image for the features section
 import { useNavigate } from "react-router-dom";
 import AptitudeImage from '../assets/images/aptitude.png'; // Example image, adjust the path as necessary
 import CareerImage from '../assets/images/career2.png'; // Example image, adjust the path as necessary
@@ -112,8 +111,7 @@ const linkHoverStyle = {
 
 const featuresSectionStyle = {
   padding: '5rem 0',
-  background: `url(${BelowHeroBgImage}) no-repeat center center/cover`,
-  backdropFilter: 'blur(10px)',
+  background: 'linear-gradient(to right, #ebf8ff, #c3dafe)', // Matching the theme of the rest of the page
 };
 
 const LandingPage = () => {
@@ -128,12 +126,12 @@ const LandingPage = () => {
   };
 
   const successStories = [
-    { name: "John Doe", story: "Career Pathfinder AI helped me identify my strengths and choose a career path that I am passionate about. The personalized recommendations were spot on!" },
-    { name: "Jane Smith", story: "The skill gap analysis feature was a game-changer for me. It highlighted the areas I needed to improve and provided resources to help me get there." },
-    { name: "Michael Johnson", story: "The future planning feature gave me insights into industry trends and helped me plan my career progression effectively. Highly recommend!" },
-    { name: "Emily Davis", story: "The interactive chatbot was very helpful in guiding me through the career assessment process. It made everything so much easier!" },
-    { name: "David Brown", story: "I was able to identify my strengths and weaknesses with the aptitude assessment. It was very insightful and helped me make informed decisions." },
-    { name: "Sarah Wilson", story: "The personalized results feature allowed me to track my progress and see how I was improving over time. It was very motivating!" },
+    { name: "Harsh Kotwal", story: "Career Pathfinder AI helped me identify my strengths and choose a career path that I am passionate about. The personalized recommendations were spot on!" },
+    { name: "Vijay Sajin KT", story: "The skill gap analysis feature was a game-changer for me. It highlighted the areas I needed to improve and provided resources to help me get there." },
+    { name: "Hannan Chaugule", story: "The future planning feature gave me insights into industry trends and helped me plan my career progression effectively. Highly recommend!" },
+    { name: "Varad Bhat", story: "The interactive chatbot was very helpful in guiding me through the career assessment process. It made everything so much easier!" },
+    { name: "Aryan Sikariya", story: "I was able to identify my strengths and weaknesses with the aptitude assessment. It was very insightful and helped me make informed decisions." },
+    { name: "Sanskruti Nawander", story: "The personalized results feature allowed me to track my progress and see how I was improving over time. It was very motivating!" },
   ];
 
   const settings = {
@@ -259,8 +257,8 @@ const LandingPage = () => {
               image={SkillGapImage}
             />
             <FeatureCard
-              title="Future Planning"
-              description="Predict industry trends and provide progression opportunities."
+              title="Speech Based Mock Interview"
+              description="Simulate real interview scenarios with AI-driven speech analysis to enhance your communication skills"
               image={FuturePlanningImage}
             />
             <FeatureCard
@@ -269,7 +267,7 @@ const LandingPage = () => {
               image={PersonalisedResultsImage}
             />
             <FeatureCard
-              title="Interactive Chatbot"
+              title="Active Community"
               description="Conversational interface to guide and assist users."
               image={ChatbotImage}
             />
