@@ -81,7 +81,7 @@ const Sidebar = () => {
           left: 0;
           height: 100vh;
           width: 250px;
-          background: rgba(128, 0, 128, 0.7); /* Purple shade with transparency for glassmorphism */
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient background */
           backdrop-filter: blur(10px);
           color: #ffffff;
           padding: 1rem;
@@ -164,6 +164,30 @@ const Sidebar = () => {
 
           .sidebar.collapsed {
             width: 250px;
+          }
+
+          .toggle-button {
+            align-self: center;
+          }
+
+          .sidebar-content {
+            display: none;
+          }
+
+          .sidebar.collapsed .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .sidebar {
+            width: 60px;
+          }
+
+          .sidebar.collapsed {
+            width: 200px;
           }
 
           .toggle-button {

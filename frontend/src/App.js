@@ -37,6 +37,7 @@ import Interview_Results from './components/Mock_Interview/Results';
 import ReportStudent from './pages/ReportStudent';
 import ReportGraduate from './pages/ReportGraduate';
 import CareerRoadmapTimeline from './pages/CareerRoadmapTimeline';
+import TestReport from './pages/TestReport';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -87,6 +88,7 @@ function App() {
             <Route path="/report-student" element={<ReportStudent />} />
             <Route path="/report-graduate" element={<ReportGraduate />} />
             <Route path="/career-roadmap" element={<CareerRoadmapTimeline />} />
+            <Route path="/test-report" element={<TestReport />} />
           </Routes>
         </main>
       </div>

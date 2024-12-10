@@ -59,8 +59,13 @@ const Dashboard = () => {
       background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
       minHeight: '100vh',
     },
-    content: {
+    sidebarContainer: {
+      flexShrink: 0,
+    },
+    contentContainer: {
       flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
       padding: '2.5rem',
       margin: '2rem',
       background: 'rgba(255, 255, 255, 0.95)',
@@ -266,8 +271,10 @@ const Dashboard = () => {
 
   return (
     <div style={styles.container}>
-      <Sidebar userName={userName} isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
-      <div style={styles.content}>
+      <div style={styles.sidebarContainer}>
+        <Sidebar userName={userName} isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
+      </div>
+      <div style={styles.contentContainer}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
           Dashboard
         </Typography>
