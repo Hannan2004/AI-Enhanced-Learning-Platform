@@ -10,7 +10,7 @@ const headerStyle = {
   color: '#ffffff',
   padding: '1rem',
   position: 'fixed',
-  top: 0,
+  top: 1,
   width: '100%',
   zIndex: 1000,
   boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
