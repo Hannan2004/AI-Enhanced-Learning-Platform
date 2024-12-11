@@ -19,6 +19,7 @@ const { generateRoadmap } = require('./careerRoadmap');
 const generateQuestions = require('./src/gemini');
 const { generateRoadmapStudent } = require('./generateRoadmapStudent');
 const { generateRoadmapGraduate } = require('./generateRoadmapGraduate');
+const { generateSpatialReasoningQuestions } = require('./generateSpatial');
 
 const app = express();
 const port = 3001;
@@ -78,19 +79,36 @@ app.post('/generateNumerical', async (req, res) => {
     }    
 });
 
-app.post('/generateVerbal', async (req, res) => {
-    const { type, language } = req.body;
 
-    try {
-        console.log('Received /generateVerbal request:', req.body);
-        const result = await generateVerbalQuestions(type, language);
-        console.log('Verbal questions:', result);
-        res.json(result);
-    } catch (error) {
-        console.error('Error in /generateVerbal:', error.message);
-        res.status(500).send(error.message);
-    }    
+
+app.post('/generateSpatial', async (req, res) => {
+  const { type, language } = req.body;
+
+  try {
+    const result = await generateSpatialReasoningQuestions(type, language);
+    res.json(result);
+  } catch (error) {
+    console.error('Error generating spatial reasoning questions:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
+
+
+
+app.post('/generateVerbal', async (req, res) => {
+  const { type, language } = req.body;
+
+  try {
+    console.log('Received /generateVerbal request:', req.body);
+    const result = await generateVerbalQuestions(type, language);
+    console.log('Verbal questions:', result);
+    res.json(result);
+  } catch (error) {
+    console.error('Error in /generateVerbal:', error.message);
+    res.status(500).send(error.message);
+  }
+});
+
 
 app.post('/generateLogical', async (req, res) => {
     const { type, language } = req.body;
