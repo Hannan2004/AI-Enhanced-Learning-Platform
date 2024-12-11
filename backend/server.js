@@ -6,9 +6,9 @@ require('dotenv').config();
 
 const { generateRecommendations } = require('./generateRecommendations');
 // const { startInterview } = require('./mockinterview');
-const { generateNumericalQuestions } = require('./generateNumerical');
-const { generateLogicalQuestions } = require('./generateLogical');  
+const { generateLogicalQuestions } = require('./generateLogical');
 const { generateVerbalQuestions } = require('./generateVerbal');
+const { generateNumericalQuestions } = require('./generateNumerical');
 const { skillGapAnalysis } = require('./skillGap');
 const { fetchDetails } = require('./fetchDetails');
 const { careerCounseling } = require('./careerCounseling'); // Adjust the path as necessary

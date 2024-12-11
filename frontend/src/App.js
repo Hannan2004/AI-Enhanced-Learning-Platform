@@ -38,6 +38,7 @@ import ReportStudent from './pages/ReportStudent';
 import ReportGraduate from './pages/ReportGraduate';
 import CareerRoadmapTimeline from './pages/CareerRoadmapTimeline';
 import TestReport from './pages/TestReport';
+import PsychometricAssessment from './pages/TestAptitude';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -89,6 +90,7 @@ function App() {
             <Route path="/report-graduate" element={<ReportGraduate />} />
             <Route path="/career-roadmap" element={<CareerRoadmapTimeline />} />
             <Route path="/test-report" element={<TestReport />} />
+            {/*  <Route path="/test-aptitude" element={<PsychometricAssessment />} /> */}
           </Routes>
         </main>
       </div>
