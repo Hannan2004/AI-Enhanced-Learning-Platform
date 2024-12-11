@@ -19,7 +19,6 @@ const LogicalReasoning = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [markedQuestions, setMarkedQuestions] = useState({});
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(300); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,16 +57,21 @@ const LogicalReasoning = ({ setScores }) => {
     setMarkedQuestions({ ...markedQuestions, [index]: !markedQuestions[index] });
   };
 
-  const handleSubmit = () => {
-    let score = 0;
-    questions.forEach((q, i) => {
-      if (userAnswers[i] === q.correctAnswer) score += q.marks;
-    });
-    const updatedScores = { ...scores, logicalReasoning: score };
-    setScores(updatedScores);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/assessLogical', {
+        userAnswers,
+        questions,
+      });
+      const { score } = response.data;
+      const updatedScores = { ...scores, logicalReasoning: score };
+      setScores(updatedScores);
 
-    // Navigate to results page with user details and scores
-    navigate('/test-report', { state: { user, scores: updatedScores } });
+      // Navigate to results page with user details and scores
+      navigate('/test-report', { state: { user, scores: updatedScores } });
+    } catch (error) {
+      console.error('Error assessing answers:', error);
+    }
   };
 
   return (
@@ -80,32 +84,37 @@ const LogicalReasoning = ({ setScores }) => {
               <Chip
                 label={i + 1}
                 color={userAnswers[i] ? 'success' : markedQuestions[i] ? 'warning' : 'default'}
-                onClick={() => setCurrentQuestionIndex(i)}
+                onClick={() => document.getElementById(`question-${i}`).scrollIntoView({ behavior: 'smooth' })}
               />
             </Grid>
           ))}
         </Grid>
       </Box>
       <Box flex={1} p={4}>
-        <Typography variant="h5">Logical Reasoning Test</Typography>
+        <Typography variant="h5">Psychometric Test</Typography>
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
         <LinearProgress variant="determinate" value={(timeLeft / 300) * 100} />
         {questions.length > 0 && (
-          <Card>
-            <CardContent>
-              <Typography>Question {currentQuestionIndex + 1}: {questions[currentQuestionIndex].question}</Typography>
-              <RadioGroup value={userAnswers[currentQuestionIndex] || ''} onChange={(e) => handleAnswerChange(currentQuestionIndex, e.target.value)}>
-                {questions[currentQuestionIndex].options.map((opt, idx) => (
-                  <FormControlLabel key={idx} value={opt} control={<Radio />} label={opt} />
-                ))}
-              </RadioGroup>
-            </CardContent>
-            <Box display="flex" justifyContent="space-between" p={2}>
-              <Button onClick={() => setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))} disabled={currentQuestionIndex === 0}>Previous</Button>
-              <Button onClick={() => markForReview(currentQuestionIndex)} color="warning">{markedQuestions[currentQuestionIndex] ? 'Unmark' : 'Mark'}</Button>
-              <Button onClick={() => currentQuestionIndex < questions.length - 1 ? setCurrentQuestionIndex((prev) => prev + 1) : handleSubmit()}>{currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit'}</Button>
+          <Box>
+            {questions.map((question, index) => (
+              <Card key={index} id={`question-${index}`} style={{ marginBottom: '20px' }}>
+                <CardContent>
+                  <Typography>Question {index + 1}: {question.question}</Typography>
+                  <RadioGroup value={userAnswers[index] || ''} onChange={(e) => handleAnswerChange(index, e.target.value)}>
+                    {question.options.map((opt, idx) => (
+                      <FormControlLabel key={idx} value={opt} control={<Radio />} label={opt} />
+                    ))}
+                  </RadioGroup>
+                </CardContent>
+                <Box display="flex" justifyContent="space-between" p={2}>
+                  <Button onClick={() => markForReview(index)} color="warning">{markedQuestions[index] ? 'Unmark' : 'Mark'}</Button>
+                </Box>
+              </Card>
+            ))}
+            <Box display="flex" justifyContent="center" p={2}>
+              <Button variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
             </Box>
-          </Card>
+          </Box>
         )}
       </Box>
     </Box>

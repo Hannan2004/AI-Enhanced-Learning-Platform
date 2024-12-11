@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import { Button, Typography, Box } from '@mui/material';
 
-const ResultsPage = () => {
+const TestReport = () => {
   const location = useLocation();
   const { user, scores } = location.state;
 
@@ -49,4 +49,4 @@ const ResultsPage = () => {
   );
 };
 
-export default ResultsPage;
+export default TestReport;
