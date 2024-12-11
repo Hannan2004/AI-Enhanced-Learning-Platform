@@ -15,9 +15,9 @@ import {
   Chip,
 } from '@mui/material';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { db } from '../firebase'; // Ensure you have the correct path to your firebase configuration
 
-const LogicalReasoning = ({ setScores }) => {
+const SpatialAbility = () => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [markedQuestions, setMarkedQuestions] = useState({});
@@ -25,7 +25,7 @@ const LogicalReasoning = ({ setScores }) => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, scores } = location.state;
+  const { user, scores, language, userType } = location.state;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -38,19 +38,19 @@ const LogicalReasoning = ({ setScores }) => {
 
   const fetchQuestions = async () => {
     try {
-      console.log('Fetching questions for logical reasoning');
-      const response = await axios.post('http://localhost:3001/generateLogical', { type: 'logical-reasoning' });
+      console.log('Fetching questions for spatial reasoning');
+      const response = await axios.post('http://localhost:3001/generateSpatial', { type: userType, language });
       console.log('Questions fetched:', response.data.response);
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
-      console.error('Error fetching logical reasoning questions:', error);
+      console.error('Error fetching spatial reasoning questions:', error);
       console.error('Error details:', error.response ? error.response.data : error.message);
     }
   };
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [userType, language]);
 
   const handleAnswerChange = (index, answer) => {
     console.log(`Setting answer for question ${index + 1}: ${answer}`);
@@ -62,20 +62,15 @@ const LogicalReasoning = ({ setScores }) => {
   };
 
   const handleSubmit = async () => {
-    let score = 0;
-    questions.forEach((q, i) => {
-      console.log(`Question ${i + 1}: User Answer = ${userAnswers[i]}, Correct Answer = ${q.correctAnswer}`);
-      if (userAnswers[i] === q.correctAnswer) score++;
-    });
+    const score = 2; // Set the score to 2 regardless of the user's answers
     console.log('Current score:', score); // Log the current score
-    setScores((prev) => ({ ...prev, logicalReasoning: score }));
 
     // Save the result to Firestore
     try {
       if (!user || !user.uid) {
         throw new Error('User with valid UID is required');
       }
-      const docRef = doc(db, 'logicalResults', user.uid);
+      const docRef = doc(db, 'spatialResults', user.uid);
       await setDoc(docRef, {
         user: {
           displayName: user.displayName,
@@ -92,7 +87,7 @@ const LogicalReasoning = ({ setScores }) => {
     }
 
     // Navigate to the next page with user details and scores
-    navigate('/results', { state: { user, scores: { ...scores, logicalReasoning: score } } });
+    navigate('/results', { state: { user, scores: { ...scores, spatial: score } } });
   };
 
   return (
@@ -112,7 +107,7 @@ const LogicalReasoning = ({ setScores }) => {
         </Grid>
       </Box>
       <Box flex={1} p={4}>
-        <Typography variant="h5">Logical Reasoning Test</Typography>
+        <Typography variant="h5">Spatial Reasoning Test</Typography>
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
         <LinearProgress variant="determinate" value={(timeLeft / 1800) * 100} />
         {questions.length > 0 && (
@@ -137,4 +132,4 @@ const LogicalReasoning = ({ setScores }) => {
   );
 };
 
-export default LogicalReasoning;
+export default SpatialAbility;

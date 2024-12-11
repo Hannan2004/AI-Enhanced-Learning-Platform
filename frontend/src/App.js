@@ -39,6 +39,7 @@ import ReportGraduate from './pages/ReportGraduate';
 import CareerRoadmapTimeline from './pages/CareerRoadmapTimeline';
 import TestReport from './pages/TestReport';
 //import PsychometricAssessment from './pages/TestAptitude';
+import SpatialAbility from './pages/SpatialAbility';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -50,6 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/recommendations" element={<ReportUpload />} />
+            <Route path="/spatial-ability" element={<SpatialAbility />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/chatbot" element={<Chatbot />} />
