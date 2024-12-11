@@ -14,6 +14,8 @@ import {
   Grid,
   Chip,
 } from '@mui/material';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase'; // Ensure you have the correct path to your firebase configuration
 
 const NumericalAbility = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
@@ -93,8 +95,11 @@ const NumericalAbility = ({ setScores }) => {
       });
       console.log('Result saved to Firestore');
     } catch (error) {
-      console.error('Error assessing answers:', error);
+      console.error('Error saving result to Firestore:', error);
     }
+
+    // Navigate to the next page with user details and scores
+    navigate('/verbal-ability', { state: { user, scores: { ...scores, numerical: score } } });
   };
 
   return (
@@ -116,7 +121,7 @@ const NumericalAbility = ({ setScores }) => {
       <Box flex={1} p={4}>
         <Typography variant="h5">Psychometric Test</Typography>
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
-        <LinearProgress variant="determinate" value={(timeLeft / 300) * 100} />
+        <LinearProgress variant="determinate" value={(timeLeft / 1800) * 100} />
         {questions.length > 0 && (
           <Card>
             <CardContent>
@@ -132,7 +137,7 @@ const NumericalAbility = ({ setScores }) => {
               <Button onClick={() => markForReview(currentQuestionIndex)} color="warning">{markedQuestions[currentQuestionIndex] ? 'Unmark' : 'Mark'}</Button>
               <Button onClick={() => currentQuestionIndex < questions.length - 1 ? setCurrentQuestionIndex((prev) => prev + 1) : handleSubmit()}>{currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit'}</Button>
             </Box>
-          </Box>
+          </Card>
         )}
       </Box>
     </Box>

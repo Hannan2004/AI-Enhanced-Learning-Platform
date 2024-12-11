@@ -38,7 +38,7 @@ import ReportStudent from './pages/ReportStudent';
 import ReportGraduate from './pages/ReportGraduate';
 import CareerRoadmapTimeline from './pages/CareerRoadmapTimeline';
 import TestReport from './pages/TestReport';
-import PsychometricAssessment from './pages/TestAptitude';
+//import PsychometricAssessment from './pages/TestAptitude';
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });

@@ -14,6 +14,8 @@ import {
   Grid,
   Chip,
 } from '@mui/material';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const LogicalReasoning = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
@@ -23,7 +25,7 @@ const LogicalReasoning = ({ setScores }) => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, scores, language, userType } = location.state;
+  const { user, scores } = location.state;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -37,7 +39,7 @@ const LogicalReasoning = ({ setScores }) => {
   const fetchQuestions = async () => {
     try {
       console.log('Fetching questions for logical reasoning');
-      const response = await axios.post('http://localhost:3001/generateLogical', { type: userType, language });
+      const response = await axios.post('http://localhost:3001/generateLogical', { type: 'logical-reasoning' });
       console.log('Questions fetched:', response.data.response);
       setQuestions(JSON.parse(response.data.response));
     } catch (error) {
@@ -48,7 +50,7 @@ const LogicalReasoning = ({ setScores }) => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [userType, language]);
+  }, []);
 
   const handleAnswerChange = (index, answer) => {
     console.log(`Setting answer for question ${index + 1}: ${answer}`);
@@ -86,8 +88,11 @@ const LogicalReasoning = ({ setScores }) => {
       });
       console.log('Result saved to Firestore');
     } catch (error) {
-      console.error('Error assessing answers:', error);
+      console.error('Error saving result to Firestore:', error);
     }
+
+    // Navigate to results page with user details and scores
+    navigate('/results', { state: { user, scores: { ...scores, logicalReasoning: score } } });
   };
 
   return (
@@ -107,9 +112,9 @@ const LogicalReasoning = ({ setScores }) => {
         </Grid>
       </Box>
       <Box flex={1} p={4}>
-        <Typography variant="h5">Psychometric Test</Typography>
+        <Typography variant="h5">Logical Reasoning Test</Typography>
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
-        <LinearProgress variant="determinate" value={(timeLeft / 300) * 100} />
+        <LinearProgress variant="determinate" value={(timeLeft / 1800) * 100} />
         {questions.length > 0 && (
           <Card>
             <CardContent>
@@ -125,7 +130,7 @@ const LogicalReasoning = ({ setScores }) => {
               <Button onClick={() => markForReview(currentQuestionIndex)} color="warning">{markedQuestions[currentQuestionIndex] ? 'Unmark' : 'Mark'}</Button>
               <Button onClick={() => currentQuestionIndex < questions.length - 1 ? setCurrentQuestionIndex((prev) => prev + 1) : handleSubmit()}>{currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit'}</Button>
             </Box>
-          </Box>
+          </Card>
         )}
       </Box>
     </Box>
