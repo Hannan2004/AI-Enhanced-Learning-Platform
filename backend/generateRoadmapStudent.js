@@ -34,7 +34,46 @@ Guide them on career options after Class 12 based on the stream they choose. For
 Provide information about scholarships and financial aid opportunities available to them for further studies.
 Actionable Advice:
 Suggest some online resources or books for skill development and preparation for exams relevant to their chosen stream.
-Guide them on how to build a strong application profile for future college admissions (e.g., attending summer schools, taking online courses).`,
+Guide them on how to build a strong application profile for future college admissions (e.g., attending summer schools, taking online courses).
+just give the steps and don't give the reason.
+Also for scholarship give the link of the scholarship mentioned below only.
+1. Need Based Scholarship
+https://www.buddy4study.com/page/hdfc-bank-parivartans-ecss-programme
+https://www.buddy4study.com/scholarship/national-overseas-scholarship-scheme-for-sc
+https://www.buddy4study.com/page/idfc-first-bank-mba-scholarship
+https://www.buddy4study.com/scholarship/sitaram-jindal-foundation-scholarship-scheme
+2. Merit-based Scholarship Programmes
+https://www.buddy4study.com/page/aspire-scholarship-program
+https://www.buddy4study.com/page/saksham-scholarship-program-for-drivers-children
+https://www.buddy4study.com/page/virchow-scholarship-program
+https://www.buddy4study.com/page/legrand-empowering-scholarship-program
+https://www.buddy4study.com/page/kotak-kanya-scholarship
+https://www.buddy4study.com/page/hdfc-bank-parivartans-ecss-programme
+https://www.buddy4study.com/page/keep-india-smiling-foundational-scholarship-and-mentorship-programme-for-sportsperson-and-individuals
+3. Merit-cum-Means Scholarship Programmes
+https://www.buddy4study.com/scholarship/swami-vivekananda-merit-cum-means-scholarship-scheme-for-minorities-west-bengal
+https://www.buddy4study.com/scholarship/swami-vivekananda-merit-cum-means-scholarship-scheme-for-minorities-west-bengal
+https://www.buddy4study.com/scholarship/nsp-national-means-cum-merit-scholarship-scheme
+4. Sports Scholarship Programmes
+https://www.buddy4study.com/page/jyoti-prakash-scholarship-program
+https://www.buddy4study.com/page/keep-india-smiling-foundational-scholarship-and-mentorship-programme-for-sportsperson-and-individuals
+https://www.buddy4study.com/scholarship/giis-global-sports-scholarship
+https://www.buddy4study.com/scholarship/anjum-chopra-scholarship
+https://www.buddy4study.com/scholarship/ongc-sports-scholarship-scheme
+https://www.buddy4study.com/scholarship/aai-sports-scholarship-scheme-in-india
+5. Scholarship Programmes for women/female
+https://www.buddy4study.com/page/rolls-royce-unnati-scholarship-for-women-engineering-students
+https://www.buddy4study.com/scholarship/research-grants-for-women-scientists-csir-aspire
+https://www.buddy4study.com/scholarship/serb-women-excellence-research-grant
+https://www.buddy4study.com/scholarship/state-merit-scholarship-for-ug-girls-students-Haryana
+https://www.buddy4study.com/scholarship/sof-girl-child-scholarship-scheme-g-c-s-s
+https://www.buddy4study.com/scholarship/sudakshya-for-girls-child-scholarship-for-st-sc-obc-sebc-general-ebc-communities-odisha
+https://www.buddy4study.com/scholarship/cbse-merit-scholarship-scheme-for-single-girl-child
+https://www.buddy4study.com/page/aicte-pragati-scholarship-for-girls
+https://www.buddy4study.com/page/indira-gandhi-utkrisht-chatravriti-yojana-himachal-Pradesh
+https://www.buddy4study.com/page/indira-gandhi-utkrisht-chatravriti-yojana-himachal-pradesh
+https://www.buddy4study.com/scholarship/generation-google-scholarship-for-women-in-computer-science
+`,
 });
 
 const generationConfig = {

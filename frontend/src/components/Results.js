@@ -9,6 +9,7 @@ import { db } from '../firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 Chart.register(...registerables);
+
 const Results = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -25,28 +26,7 @@ const Results = () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          const email = user.email;
-          let userCollection;
-
-          // Determine which collection to query based on the role
-          if (userData.role === 'student') {
-            userCollection = 'students';
-          } else if (userData.role === 'graduate') {
-            userCollection = 'graduates';
-          }
-
-          if (userCollection) {
-            const q = query(collection(db, userCollection), where('email', '==', email));
-            const querySnapshot = await getDocs(q);
-
-            if (!querySnapshot.empty) {
-              querySnapshot.forEach((doc) => {
-                setUserDetails(doc.data());
-              });
-            } else {
-              console.log('No user found in', userCollection, 'with email:', email);
-            }
-          }
+          setUserDetails(userData);
         }
       }
     };
@@ -58,24 +38,22 @@ const Results = () => {
     const fetchResults = async () => {
       if (user) {
         try {
-          const numericalResults = await getDocs(query(collection(db, 'numericalResults'), where('userId', '==', user.uid)));
-          const verbalResults = await getDocs(query(collection(db, 'verbalResults'), where('userId', '==', user.uid)));
-          const logicalResults = await getDocs(query(collection(db, 'logicalResults'), where('userId', '==', user.uid)));
+          const numericalResults = await getDocs(query(collection(db, 'numericalResults'), where('user.uid', '==', user.uid)));
+          const verbalResults = await getDocs(query(collection(db, 'verbalResults'), where('user.uid', '==', user.uid)));
+          const logicalResults = await getDocs(query(collection(db, 'logicalResults'), where('user.uid', '==', user.uid)));
 
-          const calculateCorrectAnswers = (results) => {
-            let correctAnswers = 0;
+          const calculateScore = (results) => {
+            let score = 0;
             results.forEach((doc) => {
               const data = doc.data();
-              if (data.correct) {
-                correctAnswers += 1;
-              }
+              score += data.score || 0;
             });
-            return correctAnswers;
+            return score;
           };
 
-          const numericalScore = calculateCorrectAnswers(numericalResults);
-          const verbalScore = calculateCorrectAnswers(verbalResults);
-          const logicalScore = calculateCorrectAnswers(logicalResults);
+          const numericalScore = calculateScore(numericalResults);
+          const verbalScore = calculateScore(verbalResults);
+          const logicalScore = calculateScore(logicalResults);
 
           setScores({
             numerical: numericalScore,
@@ -97,50 +75,28 @@ const Results = () => {
         chartInstance.current.destroy();
       }
 
-      const fetchUserData = async () => {
-        try {
-          if (user) {
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-
-            if (userDoc.exists()) {
-              const userData = userDoc.data();
-              console.log('Fetched user data:', userData);
-
-              const username = userData.email.split('@')[0] || 'N/A';
-              const role = userData.role || 'N/A';
-
-              const ctx = chartRef.current.getContext('2d');
-              chartInstance.current = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                  labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
-                  datasets: [{
-                    label: `${username} - ${role}`,
-                    data: [scores.numerical, scores.verbal, scores.logicalReasoning],
-                    backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
-                  }],
-                },
-                options: {
-                  responsive: true,
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                    },
-                  },
-                },
-              });
-            } else {
-              console.log('No user document found for user ID:', user.uid);
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching user details:', error);
-        }
-      };
-
-      fetchUserData();
+      const ctx = chartRef.current.getContext('2d');
+      chartInstance.current = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning'],
+          datasets: [{
+            label: 'Scores',
+            data: [scores.numerical, scores.verbal, scores.logicalReasoning],
+            backgroundColor: ['#4c51bf', '#6b7280', '#10b981'],
+          }],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
     }
-  }, [scores, user]);
+  }, [scores]);
 
   const downloadPDF = () => {
     const doc = new jsPDF();

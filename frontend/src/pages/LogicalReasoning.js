@@ -19,7 +19,8 @@ const LogicalReasoning = ({ setScores }) => {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState({});
   const [markedQuestions, setMarkedQuestions] = useState({});
-  const [timeLeft, setTimeLeft] = useState(300); // 30 minutes for the test
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for the test
   const navigate = useNavigate();
   const location = useLocation();
   const { user, scores, language, userType } = location.state;
@@ -50,6 +51,7 @@ const LogicalReasoning = ({ setScores }) => {
   }, [userType, language]);
 
   const handleAnswerChange = (index, answer) => {
+    console.log(`Setting answer for question ${index + 1}: ${answer}`);
     setUserAnswers({ ...userAnswers, [index]: answer });
   };
 
@@ -58,17 +60,31 @@ const LogicalReasoning = ({ setScores }) => {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await axios.post('http://localhost:3001/assessLogical', {
-        userAnswers,
-        questions,
-      });
-      const { score } = response.data;
-      const updatedScores = { ...scores, logicalReasoning: score };
-      setScores(updatedScores);
+    let score = 0;
+    questions.forEach((q, i) => {
+      console.log(`Question ${i + 1}: User Answer = ${userAnswers[i]}, Correct Answer = ${q.correctAnswer}`);
+      if (userAnswers[i] === q.correctAnswer) score++;
+    });
+    console.log('Current score:', score); // Log the current score
+    setScores((prev) => ({ ...prev, logicalReasoning: score }));
 
-      // Navigate to results page with user details and scores
-      navigate('/test-report', { state: { user, scores: updatedScores } });
+    // Save the result to Firestore
+    try {
+      if (!user || !user.uid) {
+        throw new Error('User with valid UID is required');
+      }
+      const docRef = doc(db, 'logicalResults', user.uid);
+      await setDoc(docRef, {
+        user: {
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid,
+        },
+        score: score,
+        answers: userAnswers,
+        timestamp: new Date(),
+      });
+      console.log('Result saved to Firestore');
     } catch (error) {
       console.error('Error assessing answers:', error);
     }
@@ -83,8 +99,8 @@ const LogicalReasoning = ({ setScores }) => {
             <Grid item xs={4} key={i}>
               <Chip
                 label={i + 1}
-                color={userAnswers[i] ? 'success' : markedQuestions[i] ? 'warning' : 'default'}
-                onClick={() => document.getElementById(`question-${i}`).scrollIntoView({ behavior: 'smooth' })}
+                color={userAnswers[i] !== undefined ? 'success' : markedQuestions[i] ? 'warning' : 'default'}
+                onClick={() => setCurrentQuestionIndex(i)}
               />
             </Grid>
           ))}
@@ -95,24 +111,19 @@ const LogicalReasoning = ({ setScores }) => {
         <Typography>Time Remaining: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</Typography>
         <LinearProgress variant="determinate" value={(timeLeft / 300) * 100} />
         {questions.length > 0 && (
-          <Box>
-            {questions.map((question, index) => (
-              <Card key={index} id={`question-${index}`} style={{ marginBottom: '20px' }}>
-                <CardContent>
-                  <Typography>Question {index + 1}: {question.question}</Typography>
-                  <RadioGroup value={userAnswers[index] || ''} onChange={(e) => handleAnswerChange(index, e.target.value)}>
-                    {question.options.map((opt, idx) => (
-                      <FormControlLabel key={idx} value={opt} control={<Radio />} label={opt} />
-                    ))}
-                  </RadioGroup>
-                </CardContent>
-                <Box display="flex" justifyContent="space-between" p={2}>
-                  <Button onClick={() => markForReview(index)} color="warning">{markedQuestions[index] ? 'Unmark' : 'Mark'}</Button>
-                </Box>
-              </Card>
-            ))}
-            <Box display="flex" justifyContent="center" p={2}>
-              <Button variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
+          <Card>
+            <CardContent>
+              <Typography>Question {currentQuestionIndex + 1}: {questions[currentQuestionIndex].question}</Typography>
+              <RadioGroup value={userAnswers[currentQuestionIndex] || ''} onChange={(e) => handleAnswerChange(currentQuestionIndex, e.target.value)}>
+                {questions[currentQuestionIndex].options.map((opt, idx) => (
+                  <FormControlLabel key={idx} value={String.fromCharCode(65 + idx)} control={<Radio />} label={`${String.fromCharCode(65 + idx)}) ${opt}`} />
+                ))}
+              </RadioGroup>
+            </CardContent>
+            <Box display="flex" justifyContent="space-between" p={2}>
+              <Button onClick={() => setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))} disabled={currentQuestionIndex === 0}>Previous</Button>
+              <Button onClick={() => markForReview(currentQuestionIndex)} color="warning">{markedQuestions[currentQuestionIndex] ? 'Unmark' : 'Mark'}</Button>
+              <Button onClick={() => currentQuestionIndex < questions.length - 1 ? setCurrentQuestionIndex((prev) => prev + 1) : handleSubmit()}>{currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit'}</Button>
             </Box>
           </Box>
         )}

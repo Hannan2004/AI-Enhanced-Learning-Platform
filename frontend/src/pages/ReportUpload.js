@@ -15,6 +15,7 @@ const ReportUpload = () => {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+    console.log('File selected:', selectedFile);
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile);
     } else {
@@ -24,12 +25,7 @@ const ReportUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) {
-      alert('Please select a file to upload.');
-      return;
-    }
-
-    setLoading(true); // Set loading to true when uploading starts
+    console.log('Submitting file:', file);
     const formData = new FormData();
     formData.append('report', file);
 
@@ -43,6 +39,7 @@ const ReportUpload = () => {
           },
         }
       );
+      console.log('Recommendations received:', response.data.career_recommendations);
       setRecommendations(response.data.career_recommendations);
     } catch (error) {
       console.error('Error uploading report:', error);
@@ -53,7 +50,7 @@ const ReportUpload = () => {
   };
 
   const handlePursueCareer = async (rec) => {
-    setLoading(true); // Set loading to true for roadmap generation
+    console.log('Pursuing career:', rec);
     try {
       if (rec.role === '10th grade student') {
         const response = await axios.post('http://localhost:3001/generate-roadmap-student', {
@@ -61,22 +58,47 @@ const ReportUpload = () => {
           role: rec.role,
           reason: rec.reason,
         });
+
+        console.log('Roadmap response for 10th grade student:', response.data);
+
+        // Ensure we have roadmap data
+        if (!response.data || !response.data.roadmap) {
+          throw new Error('No roadmap data received');
+        }
+
         setRoadmap(response.data.roadmap);
       } else if (rec.role === 'Graduate' || rec.role === 'Undergraduate') {
         const response = await axios.post('http://localhost:3001/generate-roadmap-graduate', {
           career: rec.career,
         });
+
+        console.log('Roadmap response for graduate:', response.data);
+        
+        // Ensure the roadmap is properly formatted
         const roadmapData = response.data.roadmap;
         let parsedRoadmap;
-        if (typeof roadmapData === 'string') {
-          const cleanJson = roadmapData.replace(/```json\n|\n```/g, '');
-          parsedRoadmap = JSON.parse(cleanJson);
-        } else {
-          parsedRoadmap = roadmapData;
+        
+        try {
+          // If it's a string (possibly with markdown), clean and parse it
+          if (typeof roadmapData === 'string') {
+            const cleanJson = roadmapData.replace(/```json\n|\n```/g, '');
+            parsedRoadmap = JSON.parse(cleanJson);
+          } else {
+            parsedRoadmap = roadmapData;
+          }
+          
+          console.log('Parsed roadmap:', parsedRoadmap);
+          
+          navigate('/report-graduate', { 
+            state: { 
+              recommendation: rec,
+              roadmap: parsedRoadmap
+            }
+          });
+        } catch (error) {
+          console.error('Error parsing roadmap data:', error);
+          alert('Error processing roadmap data. Please try again.');
         }
-        navigate('/report-graduate', {
-          state: { recommendation: rec, roadmap: parsedRoadmap },
-        });
       }
     } catch (error) {
       console.error('Error generating roadmap:', error);
