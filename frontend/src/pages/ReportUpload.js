@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Button, Box, CircularProgress } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import Sidebar from '../components/Sidebar';
 import CareerOpeepsImage from '../assets/images/CareerOpeeps.png';
 import { useNavigate } from 'react-router-dom';
@@ -10,12 +10,10 @@ const ReportUpload = () => {
   const [file, setFile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [roadmap, setRoadmap] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state for waiting screen
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    console.log('File selected:', selectedFile);
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile);
     } else {
@@ -25,7 +23,6 @@ const ReportUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting file:', file);
     const formData = new FormData();
     formData.append('report', file);
 
@@ -39,29 +36,22 @@ const ReportUpload = () => {
           },
         }
       );
-      console.log('Recommendations received:', response.data.career_recommendations);
       setRecommendations(response.data.career_recommendations);
     } catch (error) {
       console.error('Error uploading report:', error);
       alert('Error generating recommendations. Please try again.');
-    } finally {
-      setLoading(false); // Set loading to false after response
     }
   };
 
   const handlePursueCareer = async (rec) => {
-    console.log('Pursuing career:', rec);
     try {
       if (rec.role === '10th grade student') {
         const response = await axios.post('http://localhost:3001/generate-roadmap-student', {
           career: rec.career,
           role: rec.role,
-          reason: rec.reason,
+          reason: rec.reason
         });
 
-        console.log('Roadmap response for 10th grade student:', response.data);
-
-        // Ensure we have roadmap data
         if (!response.data || !response.data.roadmap) {
           throw new Error('No roadmap data received');
         }
@@ -69,26 +59,20 @@ const ReportUpload = () => {
         setRoadmap(response.data.roadmap);
       } else if (rec.role === 'Graduate' || rec.role === 'Undergraduate') {
         const response = await axios.post('http://localhost:3001/generate-roadmap-graduate', {
-          career: rec.career,
+          career: rec.career
         });
 
-        console.log('Roadmap response for graduate:', response.data);
-        
-        // Ensure the roadmap is properly formatted
         const roadmapData = response.data.roadmap;
         let parsedRoadmap;
-        
+
         try {
-          // If it's a string (possibly with markdown), clean and parse it
           if (typeof roadmapData === 'string') {
-            const cleanJson = roadmapData.replace(/```json\n|\n```/g, '');
+            const cleanJson = roadmapData.replace(/json\n|\n/g, '');
             parsedRoadmap = JSON.parse(cleanJson);
           } else {
             parsedRoadmap = roadmapData;
           }
-          
-          console.log('Parsed roadmap:', parsedRoadmap);
-          
+
           navigate('/report-graduate', { 
             state: { 
               recommendation: rec,
@@ -103,74 +87,82 @@ const ReportUpload = () => {
     } catch (error) {
       console.error('Error generating roadmap:', error);
       alert('Error generating roadmap. Please try again.');
-    } finally {
-      setLoading(false); // Set loading to false after roadmap is processed
     }
   };
+
+  // Find the highest rated career path
+  const highestRatedCareer = recommendations.reduce((max, rec) => {
+    return rec.Rating > max.Rating ? rec : max;
+  }, { Rating: -1 });
 
   return (
     <div style={styles.container}>
       <Sidebar userName="User" />
       <div style={styles.content}>
-        {loading ? (
-          <div style={styles.loadingContainer}>
-            <CircularProgress size={60} style={styles.spinner} />
-            <Typography variant="h6" style={styles.loadingText}>
-               Please wait...
-            </Typography>
-          </div>
-        ) : (
-          <>
-            <Box gridColumn="1 / span 3">
-              <img src={CareerOpeepsImage} alt="Career Options" style={styles.image} />
-            </Box>
-            <Box gridColumn="1 / span 3">
-              <Card style={styles.card}>
-                <div style={styles.cardHeader}>
-                  <Typography variant="h6">Upload Your Report</Typography>
-                </div>
-                <CardContent style={styles.cardContent}>
-                  <form onSubmit={handleSubmit}>
-                    <input type="file" accept="application/pdf" onChange={handleFileChange} />
-                    <Button type="submit" variant="contained" style={styles.button}>
-                      Upload
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </Box>
-            {recommendations.map((rec, index) => (
-              <Box key={index}>
-                <Card style={styles.card}>
-                  <div style={styles.cardHeader}>
-                    <Typography variant="h6">{rec.career}</Typography>
-                  </div>
-                  <CardContent style={styles.cardContent}>
-                    <Typography variant="body2">{rec.reason}</Typography>
-                    <Button
-                      variant="contained"
-                      style={styles.button}
-                      onClick={() => handlePursueCareer(rec)}
-                    >
-                      I want to pursue this career
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Box>
-            ))}
-            {roadmap && (
-              <Box gridColumn="1 / span 3" width="100%">
-                <Card style={styles.card}>
-                  <div style={styles.cardHeader}>
-                    <Typography variant="h6">Career Roadmap</Typography>
-                  </div>
-                  <CardContent style={styles.cardContent}>
-                    <CareerRoadmapTimeline roadmap={roadmap} />
-                  </CardContent>
-                </Card>
-              </Box>
-            )}
-          </>
+        <Box gridColumn="1 / span 3">
+          <img src={CareerOpeepsImage} alt="Career Options" style={styles.image} />
+        </Box>
+        <Box gridColumn="1 / span 3">
+          <Card style={styles.card}>
+            <div style={styles.cardHeader}>
+              <Typography variant="h6" style={styles.careerName}>
+                Upload Your Report
+              </Typography>
+            </div>
+            <CardContent style={styles.cardContent}>
+              <form onSubmit={handleSubmit}>
+                <input type="file" accept="application/pdf" onChange={handleFileChange} />
+                <Button type="submit" variant="contained" style={styles.button}>
+                  Upload
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+        {recommendations.map((rec, index) => (
+          <Box key={index}>
+            <Card style={styles.card}>
+              <div style={styles.cardHeader}>
+                <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+                  <Typography variant="h6" style={styles.careerName}>
+                    {rec.career}
+                  </Typography>
+                  <Typography variant="body2" style={styles.rating}>
+                    Rating: {rec.Rating}
+                  </Typography>
+                </Box>
+              </div>
+              <CardContent style={styles.cardContent}>
+                <Typography variant="body2">{rec.reason}</Typography>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                  <Button
+                    variant="contained"
+                    style={styles.button}
+                    onClick={() => handlePursueCareer(rec)}
+                  >
+                    I want to pursue this career
+                  </Button>
+                  {rec.career === highestRatedCareer.career && (
+                    <Typography variant="body2" style={styles.mostSuitable}>
+                      Most Suitable Path
+                    </Typography>
+                  )}
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
+        {roadmap && (
+          <Box gridColumn="1 / span 3" width="100%">
+            <Card style={styles.card}>
+              <div style={styles.cardHeader}>
+                <Typography variant="h6">Career Roadmap</Typography>
+              </div>
+              <CardContent style={styles.cardContent}>
+                <CareerRoadmapTimeline roadmap={roadmap} />
+              </CardContent>
+            </Card>
+          </Box>
         )}
       </div>
     </div>
@@ -184,30 +176,20 @@ const styles = {
   content: {
     flexGrow: 1,
     padding: '2rem',
+    background: 'rgba(255, 255, 255, 0.1)',
+    backdropFilter: 'blur(10px)',
+    borderRadius: '10px',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    margin: '2rem',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
     gap: '1rem',
     justifyItems: 'center',
     alignItems: 'center',
   },
-  loadingContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    width: '100%',
-  },
-  spinner: {
-    color: '#4c51bf',
-    marginBottom: '1rem',
-  },
-  loadingText: {
-    color: '#4c51bf',
-    textAlign: 'center',
-  },
   card: {
-    background: '#ffffff',
+    background: 'rgba(255, 255, 255, 0.1)',
+    backdropFilter: 'blur(10px)',
     borderRadius: '10px',
     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
     padding: '1rem',
@@ -218,6 +200,14 @@ const styles = {
     color: '#ffffff',
     padding: '0.5rem',
     borderRadius: '10px 10px 0 0',
+  },
+  careerName: {
+    margin: 0,
+  },
+  rating: {
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    color: 'white',
   },
   cardContent: {
     padding: '1rem',
@@ -230,6 +220,12 @@ const styles = {
   image: {
     width: '100%',
     borderRadius: '10px',
+  },
+  mostSuitable: {
+    color: 'green',
+    fontWeight: 'bold',
+    fontSize: '0.9rem',
+    marginLeft: '1rem',
   },
 };
 

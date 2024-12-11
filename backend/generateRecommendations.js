@@ -21,7 +21,7 @@ const model = genai.getGenerativeModel({
 4. Abilities: Strengths and proficiencies beyond skills.
 5. Hobbies and Passions: Activities the user enjoys and is passionate about.
 
-Based on this report, your role is to analyze the data and provide personalized career recommendations. For each recommended career, include a reason explaining how it aligns with the user's unique attributes. The output should be in the following JSON format:
+Based on this report, your role is to analyze the data and provide personalized career recommendations. For each recommended career, generate/assign them a suitability numerical rating according to user on an account of 0-10 and reason explaining how it aligns with the user's unique attributes.The output should be in the following JSON format:
 {
   "career_recommendations": [
     {
@@ -29,17 +29,20 @@ Based on this report, your role is to analyze the data and provide personalized 
       "reason": "<Reason why the user should consider this career>"
       "role": "<Role of the user>"
       "gender" : "girl"
+      "Rating": "<Rating>"
     },
     {
       "career": "<Career Option>",
       "reason": "<Reason why the user should consider this career>"
       "role": "<Role of the user>"
       "gender": "girl"
+      "Rating": "<Rating>"
     }
   ]
 }
-Ensure that the recommendations are logical, data-driven, and tailored to the user’s context provided in the report.
+Ensure that the recommendations are logical and ratings are suitable, data-driven, and tailored to the user’s context provided in the report.Make sure to add rating for the career 
 the role will be graduate/undergraduate or 10th grade student take that reference from the pdf and just add that role to json
+also among the recommendations also recommend the most suitable career path for user on basis of highest rating.generate only 3 career recommendations.
     `,
 });
 

@@ -8,14 +8,14 @@ import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current 
 import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
-import dbmockImage from '../assets/images/mobutton.png'; // Add the path to your mock interview image
-import dbaptiImage from '../assets/images/aptibut.png'; // Add the path to your aptitude image
-import dbcommImage from '../assets/images/cummbutton.png'; // Add the path to your community image
-import skillButtonImage from '../assets/images/skillbutton.png'; // Add the path to your skill button image
-import appLogo from '../assets/images/applogo.png'; // Add the path to your app logo image
+import dbmockImage from '../assets/images/mobutton.png';
+import dbaptiImage from '../assets/images/aptibut.png';
+import dbcommImage from '../assets/images/cummbutton.png';
+import skillButtonImage from '../assets/images/skillbutton.png';
+import appLogo from '../assets/images/applogo.png';
 import ChatBot from '../components/Chatbot';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
+
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -61,6 +61,8 @@ const Dashboard = () => {
     },
     sidebarContainer: {
       flexShrink: 0,
+      width: isSidebarCollapsed ? '80px' : '250px',
+      transition: 'width 0.3s ease-in-out',
     },
     contentContainer: {
       flexGrow: 1,
@@ -68,12 +70,15 @@ const Dashboard = () => {
       flexDirection: 'column',
       padding: '2.5rem',
       margin: '2rem',
+      marginLeft: isSidebarCollapsed ? '2rem' : '0', // Add left margin when collapsed
       background: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '20px',
       backdropFilter: 'blur(10px)',
       boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
-      transition: 'margin-left 0.3s ease-in-out', // Add transition for smooth sidebar collapse
-      marginLeft: isSidebarCollapsed ? '80px' : '250px', // Adjust margin based on sidebar state
+      transition: 'all 0.3s ease-in-out',
+      width: isSidebarCollapsed 
+        ? 'calc(100% - 80px - 4rem)' 
+        : 'calc(100% - 250px - 4rem)', // Adjust width based on sidebar state
     },
     card: {
       background: 'rgba(255, 255, 255, 0.95)',
@@ -242,38 +247,17 @@ const Dashboard = () => {
     navigate('/pre-skill-gap', { state: { user: userDetails } });
   };
 
-  const chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Verbal Ability',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        fill: true,
-      },
-      {
-        label: 'Logical Ability',
-        data: [28, 48, 40, 19, 86, 27, 90],
-        borderColor: 'rgba(153, 102, 255, 1)',
-        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-        fill: true,
-      },
-      {
-        label: 'Numerical Ability',
-        data: [18, 48, 77, 9, 100, 27, 40],
-        borderColor: 'rgba(255, 159, 64, 1)',
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-        fill: true,
-      },
-    ],
-  };
+  
 
   return (
     <div style={styles.container}>
-      <div style={styles.sidebarContainer}>
-        <Sidebar userName={userName} isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
-      </div>
+    <div style={styles.sidebarContainer}>
+      <Sidebar 
+        userName={userName} 
+        isCollapsed={isSidebarCollapsed} 
+        setIsCollapsed={setIsSidebarCollapsed} 
+      />
+    </div>
       <div style={styles.contentContainer}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
           Dashboard
@@ -290,9 +274,9 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <div style={styles.infoContainer}>
-              <Typography variant="h5" style={styles.infoText}>
-                Welcome to Our App!
-              </Typography>
+            <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
+          Dashboard
+        </Typography>
               <Typography variant="body1" style={styles.infoText}>
                 Our app provides a comprehensive platform for aptitude tests, mock interviews, and career analysis.
               </Typography>
@@ -319,9 +303,7 @@ const Dashboard = () => {
             </motion.div>
           </Grid>
         </Grid>
-        <div style={{ marginTop: '2rem' }}>
-          <Line data={chartData} />
-        </div>
+        
       </div>
       <ChatBot />
     </div>

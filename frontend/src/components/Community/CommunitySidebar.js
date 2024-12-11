@@ -38,8 +38,8 @@ const CommunitySidebar = ({ onCreateClick }) => {
           className="w-full flex items-center px-3 py-2 rounded-lg transition-all duration-200 
             text-gray-300 hover:bg-gray-800 hover:text-white"
         >
-          <span className="text-xl mr-3">➕</span>
-          <span className="font-medium">Create Community</span>
+{/* <span className="text-xl mr-3">➕</span>
+          <span className="font-medium">Create Community</span>*/}            
         </button>
       </nav>
 
