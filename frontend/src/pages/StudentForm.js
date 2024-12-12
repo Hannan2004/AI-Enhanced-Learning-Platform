@@ -93,7 +93,7 @@ const StudentForm = () => {
 
       setSuccess('Form submitted successfully!');
       setError('');
-      navigate('/dashboard');
+      navigate('/welcome');
     } catch (error) {
       console.error('Error saving data:', error);
       setError('Failed to submit form. Please try again.');

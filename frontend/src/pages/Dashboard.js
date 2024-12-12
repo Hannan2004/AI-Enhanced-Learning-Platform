@@ -9,13 +9,12 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firest
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
 import dbmockImage from '../assets/images/mobutton.png';
-import dbaptiImage from '../assets/images/aptibut.png';
 import dbcommImage from '../assets/images/cummbutton.png';
-import skillButtonImage from '../assets/images/skillbutton.png';
+import skillButtonImage from '../assets/images/scolarshipbg2.jpg';
 import appLogo from '../assets/images/applogo.png';
 import ChatBot from '../components/Chatbot';
 
-
+ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
 
 const getDaysInMonth = (month, year) => {
   const date = new Date(year, month, 1);
@@ -95,24 +94,6 @@ const Dashboard = () => {
       paddingBottom: '56.25%', // 16:9 aspect ratio
       height: 0,
     },
-    appCard: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'rgba(255, 255, 255, 0.95)',
-      borderRadius: '16px',
-      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      marginBottom: '1rem',
-      cursor: 'pointer',
-      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-      '&:hover': {
-        transform: 'scale(1.05)',
-        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
-      },
-      position: 'relative',
-      paddingBottom: '56.25%', // 16:9 aspect ratio
-      height: 0,
-    },
     appCardContent: {
       position: 'absolute',
       top: 0,
@@ -135,25 +116,6 @@ const Dashboard = () => {
       alignItems: 'center',
       justifyContent: 'center',
       background: `url(${dbmockImage}) no-repeat center center`,
-      backgroundSize: 'cover',
-      borderRadius: '16px',
-      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-      marginBottom: '1rem',
-      cursor: 'pointer',
-      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-      '&:hover': {
-        transform: 'scale(1.05)',
-        boxShadow: '0 12px 48px rgba(59, 130, 246, 0.15)',
-      },
-      position: 'relative',
-      paddingBottom: '56.25%', // 16:9 aspect ratio
-      height: 0,
-    },
-    aptitudeCard: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: `url(${dbaptiImage}) no-repeat center center`,
       backgroundSize: 'cover',
       borderRadius: '16px',
       boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
@@ -220,16 +182,6 @@ const Dashboard = () => {
     },
   };
 
-  const handleAptitudeClick = () => {
-    if (!aptitudeClicked) {
-      setAptitudeClicked(true);
-      // Pass only necessary user details to avoid cloning issues
-      const userDetails = user ? { displayName: user.displayName, email: user.email, uid: user.uid } : null;
-      // Redirect to /preaptitude with user details
-      navigate('/preaptitude', { state: { user: userDetails } });
-    }
-  };
-
   const handleCareerAnalysisClick = () => {
     navigate('/community');
   };
@@ -244,49 +196,23 @@ const Dashboard = () => {
 
   const handleSkillGapTestClick = () => {
     const userDetails = user ? { displayName: user.displayName, email: user.email, uid: user.uid } : null;
-    navigate('/pre-skill-gap', { state: { user: userDetails } });
+    navigate('/scholarship', { state: { user: userDetails } });
   };
-
-  
 
   return (
     <div style={styles.container}>
-    <div style={styles.sidebarContainer}>
-      <Sidebar 
-        userName={userName} 
-        isCollapsed={isSidebarCollapsed} 
-        setIsCollapsed={setIsSidebarCollapsed} 
-      />
-    </div>
+      <div style={styles.sidebarContainer}>
+        <Sidebar 
+          userName={userName} 
+          isCollapsed={isSidebarCollapsed} 
+          setIsCollapsed={setIsSidebarCollapsed} 
+        />
+      </div>
       <div style={styles.contentContainer}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
           Dashboard
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.appCard}>
-                <div style={styles.appCardContent}>
-                  <img src={appLogo} alt="App Logo" style={styles.appLogo} />
-                </div>
-              </Card>
-            </motion.div>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <div style={styles.infoContainer}>
-            <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: '#1F2937' }}>
-          Dashboard
-        </Typography>
-              <Typography variant="body1" style={styles.infoText}>
-                Our app provides a comprehensive platform for aptitude tests, mock interviews, and career analysis.
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Card style={styles.aptitudeCard} onClick={handleAptitudeClick} />
-            </motion.div>
-          </Grid>
           <Grid item xs={12} md={6}>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Card style={styles.communityCard} onClick={handleCareerAnalysisClick} />
@@ -303,7 +229,6 @@ const Dashboard = () => {
             </motion.div>
           </Grid>
         </Grid>
-        
       </div>
       <ChatBot />
     </div>

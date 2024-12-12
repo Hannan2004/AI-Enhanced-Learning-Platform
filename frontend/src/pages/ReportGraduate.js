@@ -22,7 +22,9 @@ const ReportGraduate = () => {
 
   const parsedRoadmap = parseRoadmap(roadmap);
 
-  if (!parsedRoadmap) {
+  console.log('Parsed Roadmap:', parsedRoadmap);
+
+  if (!parsedRoadmap || !parsedRoadmap.careerRoadmap || !parsedRoadmap.careerRoadmap.phases) {
     return (
       <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">

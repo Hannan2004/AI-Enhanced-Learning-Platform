@@ -51,8 +51,6 @@ const headerStyle = {
   alignItems: 'center',
 };
 
-// Other styles omitted for brevity...
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

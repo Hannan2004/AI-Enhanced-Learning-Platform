@@ -3,14 +3,13 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import Sidebar from '../components/Sidebar';
 import CareerOpeepsImage from '../assets/images/CareerOpeeps.png';
-import { useNavigate } from 'react-router-dom';
-import CareerRoadmapTimeline from './CareerRoadmapTimeline';
+import { CheckCircle } from 'lucide-react';
 
 const ReportUpload = () => {
   const [file, setFile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [roadmap, setRoadmap] = useState('');
-  const navigate = useNavigate();
+  const [selectedRecommendation, setSelectedRecommendation] = useState(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -43,6 +42,13 @@ const ReportUpload = () => {
     }
   };
 
+  const cleanJsonString = (jsonString) => {
+    return jsonString
+      .replace(/```json\n/g, '')
+      .replace(/```/g, '')
+      .replace(/\n/g, '');
+  };
+
   const handlePursueCareer = async (rec) => {
     try {
       if (rec.role === '10th grade student') {
@@ -56,7 +62,24 @@ const ReportUpload = () => {
           throw new Error('No roadmap data received');
         }
 
-        setRoadmap(response.data.roadmap);
+        const roadmapData = response.data.roadmap;
+        let parsedRoadmap;
+
+        try {
+          if (typeof roadmapData === 'string') {
+            const cleanJson = cleanJsonString(roadmapData);
+            parsedRoadmap = JSON.parse(cleanJson);
+          } else {
+            parsedRoadmap = roadmapData;
+          }
+
+          console.log('Parsed Roadmap:', parsedRoadmap);
+          setRoadmap(parsedRoadmap);
+          setSelectedRecommendation(rec);
+        } catch (error) {
+          console.error('Error parsing roadmap data:', error);
+          alert('Error processing roadmap data. Please try again.');
+        }
       } else if (rec.role === 'Graduate' || rec.role === 'Undergraduate') {
         const response = await axios.post('http://localhost:3001/generate-roadmap-graduate', {
           career: rec.career
@@ -67,18 +90,15 @@ const ReportUpload = () => {
 
         try {
           if (typeof roadmapData === 'string') {
-            const cleanJson = roadmapData.replace(/json\n|\n/g, '');
+            const cleanJson = cleanJsonString(roadmapData);
             parsedRoadmap = JSON.parse(cleanJson);
           } else {
             parsedRoadmap = roadmapData;
           }
 
-          navigate('/report-graduate', { 
-            state: { 
-              recommendation: rec,
-              roadmap: parsedRoadmap
-            }
-          });
+          console.log('Parsed Roadmap:', parsedRoadmap);
+          setRoadmap(parsedRoadmap);
+          setSelectedRecommendation(rec);
         } catch (error) {
           console.error('Error parsing roadmap data:', error);
           alert('Error processing roadmap data. Please try again.');
@@ -152,14 +172,38 @@ const ReportUpload = () => {
             </Card>
           </Box>
         ))}
-        {roadmap && (
+        {roadmap && selectedRecommendation && (
           <Box gridColumn="1 / span 3" width="100%">
             <Card style={styles.card}>
               <div style={styles.cardHeader}>
-                <Typography variant="h6">Career Roadmap</Typography>
+                <Typography variant="h6">Career Roadmap for {selectedRecommendation.career}</Typography>
               </div>
               <CardContent style={styles.cardContent}>
-                <CareerRoadmapTimeline roadmap={roadmap} />
+                {roadmap.careerRoadmap && roadmap.careerRoadmap.phases ? (
+                  roadmap.careerRoadmap.phases.map((phase, index) => (
+                    <div key={index} className="flex flex-col md:flex-row mb-8 border-b pb-8 last:border-b-0">
+                      <div className="md:w-1/3 pr-4 mb-4 md:mb-0">
+                        <div className="flex items-center">
+                          <CheckCircle className="mr-3 text-blue-500" size={24} />
+                          <h2 className="text-2xl font-semibold text-gray-800">
+                            Stage {index + 1}: {phase.phaseName}
+                          </h2>
+                        </div>
+                      </div>
+                      <div className="md:w-2/3 pl-4 md:pl-8 border-l-2 border-blue-100">
+                        {phase.steps.map((step, stepIndex) => (
+                          <div key={stepIndex} className="mb-4 last:mb-0 relative pl-4 before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full">
+                            <p className="text-gray-700 text-base leading-relaxed">{step}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <Typography variant="body2" color="error">
+                    Error loading roadmap data.
+                  </Typography>
+                )}
               </CardContent>
             </Card>
           </Box>

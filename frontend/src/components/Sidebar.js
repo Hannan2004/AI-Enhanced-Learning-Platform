@@ -2,20 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa'; // Import an icon for the toggle button
 import { getAuth } from 'firebase/auth'; // Import Firebase Auth to get current user
+import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore to get user data
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [userName, setUserName] = useState('');
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
-  // Fetch the currently logged-in user's name from Firebase Authentication
+  // Fetch the currently logged-in user's name and role from Firebase Authentication and Firestore
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const fetchUserData = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
 
-    if (user) {
-      setUserName(user.displayName || user.email); // If the user has a display name, use it, otherwise use their email
-    }
+      if (user) {
+        setUserName(user.displayName || user.email); // If the user has a display name, use it, otherwise use their email
+
+        const db = getFirestore();
+        const userDoc = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userDoc);
+
+        if (userSnap.exists()) {
+          setUserRole(userSnap.data().role);
+        }
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const handleNavigation = (path) => {
@@ -40,36 +54,56 @@ const Sidebar = () => {
                 Welcome, {userName ? userName.substring(0, 6) : 'Guest'}!
               </div>
               {/* Navigation Links */}
-              <div
-                className="link"
-                onClick={() => handleNavigation('/profile')}
-              >
-                <span className="link-text">View Profile</span>
-              </div>
-              <div
-                className="link"
-                onClick={() => handleNavigation('/dashboard')}
-              >
-                <span className="link-text">Dashboard</span>
-              </div>
-              <div
-                className="link"
-                onClick={() => handleNavigation('/notifications')}
-              >
-                <span className="link-text">Notifications</span>
-              </div>
-              <div
-                className="link"
-                onClick={() => handleNavigation('/pre-skill-gap')}
-              >
-                <span className="link-text">Skill Gap</span>
-              </div>
-              <div
-                className="link"
-                onClick={() => handleNavigation('/ExploreCareerOptions')}
-              >
-                <span className="link-text">Explore</span>
-              </div>
+              {userRole === 'professional' ? (
+                <>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/professional-form')}
+                  >
+                    <span className="link-text">Skill Gap</span>
+                  </div>
+                  
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/dashboard')}
+                  >
+                    <span className="link-text">Premium Features</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/profile')}
+                  >
+                    <span className="link-text">View Profile</span>
+                  </div>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/report')}
+                  >
+                    <span className="link-text">Career Counselling</span>
+                  </div>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/results')}
+                  >
+                    <span className="link-text">Results</span>
+                  </div>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/dashboard')}
+                  >
+                    <span className="link-text">Premium Features</span>
+                  </div>
+                  <div
+                    className="link"
+                    onClick={() => handleNavigation('/ExploreCareerOptions')}
+                  >
+                    <span className="link-text">Explore</span>
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
@@ -155,6 +189,11 @@ const Sidebar = () => {
 
         .sidebar.collapsed .link-text {
           opacity: 0;
+        }
+
+        .link.locked {
+          background-color: rgba(255, 255, 255, 0.1);
+          cursor: not-allowed;
         }
 
         @media (max-width: 768px) {

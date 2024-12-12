@@ -11,7 +11,7 @@ const ReportStudent = () => {
     try {
       if (typeof data === 'string') {
         // Remove any markdown formatting if present
-        const cleanText = data.replace(/```text\n|\n```/g, '');
+        const cleanText = data.replace(/text\n|\n/g, '');
         return cleanText;
       }
       return data;

@@ -7,6 +7,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
   systemInstruction: `
+  
     Given the following user profile: {resume_info} in json format, generate 5 personalized questions to assess the user's proficiency in their current role and suggest career advancement. Include questions that evaluate technical, problem-solving, and communication skills. Return the questions as a JSON object.
     \`\`\` JSON question 
     [

@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
-import brainImage from '../assets/images/brain.png'; // Ensure the path is correct
 
 Chart.register(...registerables);
 
@@ -27,7 +26,28 @@ const Results = () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          setUserDetails(userData);
+          const email = user.email;
+          let userCollection;
+
+          // Determine which collection to query based on the role
+          if (userData.role === 'student') {
+            userCollection = 'students';
+          } else if (userData.role === 'graduate') {
+            userCollection = 'graduates';
+          }
+
+          if (userCollection) {
+            const q = query(collection(db, userCollection), where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                setUserDetails(doc.data());
+              });
+            } else {
+              console.log('No user found in', userCollection, 'with email:', email);
+            }
+          }
         }
       }
     };
@@ -39,28 +59,30 @@ const Results = () => {
     const fetchResults = async () => {
       if (user) {
         try {
-          const numericalResults = await getDocs(query(collection(db, 'numericalResults'), where('user.uid', '==', user.uid)));
-          const verbalResults = await getDocs(query(collection(db, 'verbalResults'), where('user.uid', '==', user.uid)));
-          const logicalResults = await getDocs(query(collection(db, 'logicalResults'), where('user.uid', '==', user.uid)));
+          const numericalResults = await getDocs(query(collection(db, 'numericalResults'), where('userId', '==', user.uid)));
+          const verbalResults = await getDocs(query(collection(db, 'verbalResults'), where('userId', '==', user.uid)));
+          const logicalResults = await getDocs(query(collection(db, 'logicalResults'), where('userId', '==', user.uid)));
 
-          const calculateScore = (results) => {
-            let score = 0;
+          const calculateCorrectAnswers = (results) => {
+            let correctAnswers = 0;
             results.forEach((doc) => {
               const data = doc.data();
-              score += data.score || 0;
+              if (data.correct) {
+                correctAnswers += 1;
+              }
             });
-            return score;
+            return correctAnswers;
           };
 
-          const numericalScore = calculateScore(numericalResults);
-          const verbalScore = calculateScore(verbalResults);
-          const logicalScore = calculateScore(logicalResults);
+          const numericalScore = calculateCorrectAnswers(numericalResults);
+          const verbalScore = calculateCorrectAnswers(verbalResults);
+          const logicalScore = calculateCorrectAnswers(logicalResults);
 
           setScores({
             numerical: numericalScore,
             verbal: verbalScore,
             logicalReasoning: logicalScore,
-            creativeReasoning: 2, // Set creative reasoning to 2
+            creativeReasoning: 2, // Fixed score for creative reasoning
           });
         } catch (error) {
           console.error('Error fetching results:', error);
@@ -77,33 +99,53 @@ const Results = () => {
         chartInstance.current.destroy();
       }
 
-      const ctx = chartRef.current.getContext('2d');
-      chartInstance.current = new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning', 'Creative Reasoning'],
-          datasets: [{
-            label: 'Scores',
-            data: [scores.numerical, scores.verbal, scores.logicalReasoning, scores.creativeReasoning],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
-          }],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            r: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
+      const fetchUserData = async () => {
+        try {
+          if (user) {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              console.log('Fetched user data:', userData);
+
+              const username = userData.email.split('@')[0] || 'N/A';
+              const role = userData.role || 'N/A';
+
+              const ctx = chartRef.current.getContext('2d');
+              chartInstance.current = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                  labels: ['Numerical Ability', 'Verbal Ability', 'Logical Reasoning', 'Creative Reasoning'],
+                  datasets: [{
+                    label: `${username} - ${role}`,
+                    data: [scores.numerical, scores.verbal, scores.logicalReasoning, scores.creativeReasoning],
+                    backgroundColor: 'rgba(76, 81, 191, 0.2)',
+                    borderColor: '#4c51bf',
+                    pointBackgroundColor: '#4c51bf',
+                  }],
+                },
+                options: {
+                  responsive: true,
+                  scales: {
+                    r: {
+                      beginAtZero: true,
+                      max: 5,
+                    },
+                  },
+                },
+              });
+            } else {
+              console.log('No user document found for user ID:', user.uid);
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      };
+
+      fetchUserData();
     }
-  }, [scores]);
+  }, [scores, user]);
 
   const downloadPDF = () => {
     const doc = new jsPDF();
@@ -174,13 +216,17 @@ const Results = () => {
       doc.rect(20, finalY, 160, 90);
     }
 
-    // Add the brain image to the PDF
-    const brainImg = new Image();
-    brainImg.src = brainImage;
-    brainImg.onload = () => {
-      doc.addImage(brainImg, 'PNG', 80, 20, 50, 50); // Adjust the position and size as needed
-      doc.save('Career-Guidance-Test-Results.pdf');
-    };
+    const pageHeight = doc.internal.pageSize.height;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.text(
+      'Generated by AI-Driven Career Guidance Tool. © 2024 Udaan Technologies. All rights reserved.',
+      pageHeight / 2,
+      pageHeight - 10,
+      { align: 'center' }
+    );
+
+    doc.save('Career-Guidance-Test-Results.pdf');
   };
 
   return (
@@ -194,7 +240,6 @@ const Results = () => {
           className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-8 text-center"
         >
           <h1 className="text-3xl font-bold mb-6 text-indigo-800">Test Results</h1>
-          <img src={brainImage} alt="Brain" className="mb-4 mx-auto" style={{ width: '600px', height: 'auto' }} />
           <p className="text-xl mb-4 text-gray-700">Numerical Ability: {scores.numerical}</p>
           <p className="text-xl mb-4 text-gray-700">Verbal Ability: {scores.verbal}</p>
           <p className="text-xl mb-4 text-gray-700">Logical Reasoning: {scores.logicalReasoning}</p>

@@ -20,6 +20,7 @@ const generateQuestions = require('./src/gemini');
 const { generateRoadmapStudent } = require('./generateRoadmapStudent');
 const { generateRoadmapGraduate } = require('./generateRoadmapGraduate');
 const { generateSpatialReasoningQuestions } = require('./generateSpatial');
+const { getScholarshipRecommendations } = require('./scholarshipRecommendation');
 
 const app = express();
 const port = 3001;
@@ -64,6 +65,16 @@ app.post('/counseling', async (req, res) => {
   }
 });
 
+app.post('/recommend-scholarships', async (req, res) => {
+  try {
+    const userInput = req.body;
+    const recommendations = await getScholarshipRecommendations(userInput);
+    res.json({ recommendations });
+  } catch (error) {
+    console.error('Error getting scholarship recommendations:', error);
+    res.status(500).json({ error: 'Failed to get scholarship recommendations' });
+  }
+});
 
 app.post('/generateNumerical', async (req, res) => {
     const { type, language } = req.body;
@@ -218,7 +229,7 @@ app.post('/career-advancement', async (req, res) => {
       res.status(500).json({ error: 'Failed to generate roadmap' });
     }
   });
-
+  
   app.post('/generate-roadmap-graduate', async (req, res) => {
     try {
       const input = req.body;

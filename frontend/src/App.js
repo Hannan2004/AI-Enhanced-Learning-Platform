@@ -40,6 +40,11 @@ import CareerRoadmapTimeline from './pages/CareerRoadmapTimeline';
 import TestReport from './pages/TestReport';
 //import PsychometricAssessment from './pages/TestAptitude';
 import SpatialAbility from './pages/SpatialAbility';
+import Feedback from './pages/Feedback';
+import Welcome from './pages/WelcomeStd';
+import ScholarshipForm from './pages/ScholarshipForm';
+import ProfessionalWelcome from './pages/WelcomePro';
+
 
 function App() {
   const [scores, setScores] = useState({ numerical: 0, verbal: 0, logical: 0 });
@@ -92,7 +97,11 @@ function App() {
             <Route path="/report-graduate" element={<ReportGraduate />} />
             <Route path="/career-roadmap" element={<CareerRoadmapTimeline />} />
             <Route path="/test-report" element={<TestReport />} />
-            {/*  <Route path="/test-aptitude" element={<PsychometricAssessment />} /> */}
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/welcome" element={< Welcome/>} />
+            <Route path="/scholarship" element={<ScholarshipForm />} />
+            {<Route path="/welcome-pro" element={<ProfessionalWelcome />}/> }
+             {/* <Route path="/test-aptitude" element={<PsychometricAssessment /}> */}
           </Routes>
         </main>
       </div>
